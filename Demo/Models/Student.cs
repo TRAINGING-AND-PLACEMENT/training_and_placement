@@ -36,7 +36,7 @@ namespace Demo.Models
         public string adhaar { get; set; }
         public string pan { get; set; }
         public string driving { get; set; }
-        public string 10school { get; set; }
+        /*public string 10school { get; set; }
         public string 10passyear { get; set; }
         public string 10schooladdress { get; set; }
         public string 10schoolpincode { get; set; }
@@ -58,7 +58,7 @@ namespace Demo.Models
         public string 12gapno { get; set; }
         public string 12gapyears { get; set; }  
         public string 12admissionquota { get; set; }
-        public string 12specialization { get; set; }
+        public string 12specialization { get; set; }*/
         public string ugdegree { get; set; }
         public string ugcollege { get; set; }
         public string ugpassyear { get; set; }
