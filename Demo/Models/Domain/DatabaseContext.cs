@@ -8,5 +8,6 @@ namespace Demo.Models.Domain
         {
             
         }
+        public DbSet<Student> Students { get; set; }
     }
 }
