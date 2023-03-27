@@ -36,7 +36,6 @@
 
   <ItemGroup>
     <None Include="Views\Home\Index.cshtml" />
-    <None Include="Views\Home\Privacy.cshtml" />
     <None Include="Views\Shared\.vs\Shared\FileContentIndex\aeebd5fe-7526-4ab8-a73c-12b790890a2f.vsidx" />
     <None Include="Views\Shared\.vs\Shared\FileContentIndex\read.lock" />
     <None Include="Views\Shared\.vs\slnx.sqlite" />
