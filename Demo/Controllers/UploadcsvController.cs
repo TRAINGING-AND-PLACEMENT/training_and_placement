@@ -30,14 +30,14 @@ namespace Demo.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Import(IFormFile file, [FromServices] IWebHostEnvironment webHostEnvironment)
         {
-            string filename = $"{webHostEnvironment.WebRootPath}\\files\\student_csv\\{file.FileName}";
+            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{file.FileName}";
             using (FileStream fileStream = System.IO.File.Create(filename))
             {
                 file.CopyTo(fileStream);
             }
 
-            List<Student> model = new List<Student>();
-            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\student_csv"}" + "\\" + file.FileName;
+            List<User> model = new List<User>();
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + file.FileName;
 
             var config = new CsvConfiguration(CultureInfo.CurrentCulture)
             {
@@ -52,14 +52,15 @@ namespace Demo.Controllers
                 csv.ReadHeader();
                 while (csv.Read())
                 {
-                    var student = csv.GetRecord<Student>();
-                    student.created_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
-                    student.updated_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
-                    model.Add(student);
+                    var user = csv.GetRecord<User>();
+                    user.status = "0";
+                    user.created_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
+                    user.updated_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
+                    model.Add(user);
                 }
                 String data = JsonConvert.SerializeObject(model);
                 StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "set_student", content).Result;
+                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "set_user", content).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     String data2 = response.Content.ReadAsStringAsync().Result;
