@@ -38,15 +38,15 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <span>Upload Companies</span>
+                        <span>Companies</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a asp-controller="UploadCompany" asp-action="Index">Upload Company Details</a></li>
-                        <li><a href="ecommerce-product-detail.html">Upload Hiring Details</a></li>
+                        <li><a asp-controller="Company" asp-action="Index">Add Company Details</a></li>
+                        <li><a href="ecommerce-product-detail.html">Add Hiring Details</a></li>
                     </ul>
                 </li>
 
-                <li>
+               @* <li>
                     <a href="file-manager.html" class=" waves-effect">
                         <span>View Student List</span>
                     </a>
@@ -56,8 +56,7 @@
                     <a href="file-manager.html" class=" waves-effect">
                         <span>Update Company Details</span>
                     </a>
-                </li>
-
+                </li>*@
                 <li>
                     <a asp-controller="Uploadcsv" asp-action="Index" class="waves-effect">
                         <span>Upload CSV</span>
