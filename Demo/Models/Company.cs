@@ -8,7 +8,7 @@ namespace Demo.Models
     {
         [Key]
         public int id { get; set; }
-
+        
         [DisplayName("Company Identification Number")]
         [Required(ErrorMessage = "You must provide a identification number!")]
         public string cif { get; set; }
@@ -31,9 +31,12 @@ namespace Demo.Models
         [Required(ErrorMessage = "You must provide a emailaddress!")]
         public string alt_email { get; set; }
 
-        public int status { get; set; } = 0;
 
         [AllowNull]
         public string remarks { get; set; }
+
+        public string created_at { get; set; }
+
+        public string updated_at { get; set;}
     }
 }
