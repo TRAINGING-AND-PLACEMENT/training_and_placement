@@ -24,7 +24,15 @@ namespace Demo.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            List<Company> model = new List<Company>();
+
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_user").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                String data = response.Content.ReadAsStringAsync().Result;
+                model = cj.listroot(model, data);
+            }
+            return View(model);
         }
         public IActionResult Create()
         {

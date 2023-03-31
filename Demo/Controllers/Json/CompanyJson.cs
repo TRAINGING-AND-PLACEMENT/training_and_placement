@@ -13,11 +13,11 @@ namespace Demo.Controllers.Json
             model = root.result;
             return model;
         }
-        public Company uniroot(Company user, String data)
+        public Company uniroot(Company model, String data)
         {
             Root root = JsonConvert.DeserializeObject<Root>(data);
-            user = root.result;
-            return user;
+            model = root.result;
+            return model;
         }
     }
     public class RootObject
