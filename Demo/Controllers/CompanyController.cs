@@ -24,15 +24,15 @@ namespace Demo.Controllers
 
         public IActionResult Index()
         {
-            List<Company> model = new List<Company>();
+            /*List<Company> model = new List<Company>();
 
             HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_user").Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
                 model = cj.listroot(model, data);
-            }
-            return View(model);
+            }*/
+            return View();
         }
         public IActionResult Create()
         {
@@ -56,6 +56,28 @@ namespace Demo.Controllers
                 }
             }
             return View(model);
+        }
+
+        public IActionResult AllCompanies()
+        {
+            return View();
+        }
+
+        public IActionResult AppliedCompanies()
+        {
+            return View();
+        }
+        public IActionResult SelectedCompanies()
+        {
+            return View();
+        }
+        public IActionResult CompanyDetails()
+        {
+            return View();
+        }
+        public IActionResult AddCompany()
+        {
+            return View();
         }
     }
 }

@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "_Layout";
+}
+
+
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0">Companies you have applied for :</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-100 col-xl-100">
+                    <div class="card">
+                        <div class="card-body">
+                            <div>
+                                <h4 class="m-3">
+                                    <span>TCS</span>
+                                    <a asp-controller="Company" asp-action="CompanyDetails">
+                                        <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">View Details</button>
+                                    </a>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
