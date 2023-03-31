@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
@@ -31,13 +32,17 @@ namespace Demo.Models
         [Required(ErrorMessage = "You must provide a emailaddress!")]
         public string alt_email { get; set; }
 
+        public string about { get; set; }
+        [ValidateNever]
+        public int status { get; set; } = 0;
 
 
         [AllowNull]
+        [ValidateNever]
         public string remarks { get; set; }
-
-        public string created_at { get; set; }
-
-        public string updated_at { get; set;}
+        [ValidateNever]
+        public string created_at { get; set; } = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
+        [ValidateNever]
+        public string updated_at { get; set;} = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
     }
 }
