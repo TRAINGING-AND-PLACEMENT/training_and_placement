@@ -1,0 +1,24 @@
+﻿
+
+<div>
+    <partial name="Header" />
+</div>
+
+<div>
+    <partial name="CoOrdinatorSidebar" />
+</div>
+
+<div class="container">
+    <main role="main" class="pb-3">
+
+        @RenderBody()
+    </main>
+</div>
+
+<div>
+    <partial name="Footer" />
+</div>
+
+
+@await RenderSectionAsync("Scripts", required: false)
+

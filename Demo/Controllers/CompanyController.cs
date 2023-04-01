@@ -24,7 +24,7 @@ namespace Demo.Controllers
 
         public IActionResult Index()
         {
-            List<Company> model = new List<Company>();
+            /*List<Company> model = new List<Company>();
 
             HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
             if (response.IsSuccessStatusCode)
@@ -32,8 +32,8 @@ namespace Demo.Controllers
                 String data = response.Content.ReadAsStringAsync().Result;
                 Debug.WriteLine(data);
                 model = cj.listroot(model, data);
-            }
-            return View(model);
+            }*/
+            return View();
         }
         public IActionResult Create()
         {
@@ -57,6 +57,28 @@ namespace Demo.Controllers
                 }
             }
             return View(model);
+        }
+
+        public IActionResult AllCompanies()
+        {
+            return View();
+        }
+
+        public IActionResult AppliedCompanies()
+        {
+            return View();
+        }
+        public IActionResult SelectedCompanies()
+        {
+            return View();
+        }
+        public IActionResult CompanyDetails()
+        {
+            return View();
+        }
+        public IActionResult AddCompany()
+        {
+            return View();
         }
     }
 }
