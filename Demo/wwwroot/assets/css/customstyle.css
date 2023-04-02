@@ -1,0 +1,322 @@
+﻿/*for student id card*/
+.id-card-holder {
+    width: 225px;
+    padding: 4px;
+    margin: 0 auto;
+    background-color: #1f1f1f;
+    border-radius: 5px;
+    position: relative;
+}
+
+.id-card-holder:after {
+    content: '';
+    width: 7px;
+    display: block;
+    background-color: #0a0a0a;
+    height: 100px;
+    position: absolute;
+    top: 105px;
+    border-radius: 0 5px 5px 0;
+}
+
+.id-card-holder:before {
+    content: '';
+    width: 7px;
+    display: block;
+    background-color: #0a0a0a;
+    height: 100px;
+    position: absolute;
+    top: 105px;
+    left: 222px;
+    border-radius: 5px 0 0 5px;
+}
+
+.id-card {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 1.5px 0px #b9b9b9;
+}
+
+    .id-card img {
+        margin: 0 auto;
+    }
+
+.header img {
+    width: 100px;
+    margin-top: 15px;
+}
+
+.photo img {
+    width: 80px;
+    margin-top: 15px;
+}
+
+h2 {
+    font-size: 15px;
+    margin: 5px 0;
+}
+
+h3 {
+    font-size: 12px;
+    margin: 2.5px 0;
+    font-weight: 300;
+}
+
+.qr-code img {
+    width: 50px;
+}
+
+p {
+    font-size: 14px;
+    margin: 2px;
+}
+
+.id-card-hook {
+    background-color: #000;
+    width: 70px;
+    margin: 0 auto;
+    height: 15px;
+    border-radius: 5px 5px 0 0;
+}
+
+    .id-card-hook:after {
+        content: '';
+        background-color: #d7d6d3;
+        width: 47px;
+        height: 6px;
+        display: block;
+        margin: 0px auto;
+        position: relative;
+        top: 6px;
+        border-radius: 4px;
+    }
+
+.id-card-tag-strip {
+    width: 45px;
+    height: 40px;
+    background-color: #0950ef;
+    margin: 0 auto;
+    border-radius: 5px;
+    position: relative;
+    top: 9px;
+    z-index: 1;
+    border: 1px solid #0041ad;
+}
+
+    .id-card-tag-strip:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 1px;
+        background-color: #c1c1c1;
+        position: relative;
+        top: 10px;
+    }
+
+.id-card-tag {
+    width: 0;
+    height: 0;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-top: 100px solid #0958db;
+    margin: -10px auto -30px auto;
+}
+
+    .id-card-tag:after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 0;
+        border-left: 50px solid transparent;
+        border-right: 50px solid transparent;
+        border-top: 100px solid #d7d6d3;
+        margin: -10px auto -30px auto;
+        position: relative;
+        top: -130px;
+        left: -50px;
+    }
+
+    /* for dashboard cards */
+
+
+.section_our_solution .row {
+    align-items: center;
+}
+
+.our_solution_category {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+    .our_solution_category .solution_cards_box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+.solution_cards_box .solution_card {
+    flex: 0 50%;
+    background: #fff;
+    box-shadow: 0 2px 4px 0 rgba(136, 144, 195, 0.2), 0 5px 15px 0 rgba(37, 44, 97, 0.15);
+    border-radius: 15px;
+    margin: 30px;
+    padding: 10px 15px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    min-height: 265px;
+    transition: 0.7s;
+}
+
+    .solution_cards_box .solution_card:hover {
+        background: #309df0;
+        color: #fff;
+        transform: scale(1.1);
+        z-index: 9;
+    }
+
+        .solution_cards_box .solution_card:hover::before {
+            background: rgb(85 108 214 / 10%);
+        }
+
+        .solution_cards_box .solution_card:hover .solu_title h3,
+        .solution_cards_box .solution_card:hover .solu_description p {
+            color: #fff;
+        }
+
+    .solution_cards_box .solution_card:before {
+        content: "";
+        position: absolute;
+        background: rgb(85 108 214 / 5%);
+        width: 170px;
+        height: 400px;
+        z-index: -1;
+        transform: rotate(42deg);
+        right: -56px;
+        top: -23px;
+        border-radius: 35px;
+    }
+
+    .solution_cards_box .solution_card:hover .solu_description button {
+        background: #fff !important;
+        color: #309df0;
+    }
+
+.solution_card .so_top_icon {
+}
+
+.solution_card .solu_title h3 {
+    color: #212121;
+    font-size: 1.3rem;
+    margin-top: 13px;
+    margin-bottom: 13px;
+}
+
+.solution_card .solu_description p {
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.solution_card .solu_description button {
+    border: 0;
+    border-radius: 15px;
+    background: linear-gradient( 140deg, #42c3ca 0%, #42c3ca 50%, #42c3cac7 75% ) !important;
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 5px 16px;
+}
+
+.our_solution_content h1 {
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+}
+
+.our_solution_content p {
+}
+
+.hover_color_bubble {
+    position: absolute;
+    background: rgb(54 81 207 / 15%);
+    width: 100rem;
+    height: 100rem;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    top: 16rem;
+    border-radius: 50%;
+    transform: rotate(-36deg);
+    left: -18rem;
+    transition: 0.7s;
+}
+
+.solution_cards_box .solution_card:hover .hover_color_bubble {
+    top: 0rem;
+}
+
+.solution_cards_box .solution_card .so_top_icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .solution_cards_box .solution_card .so_top_icon img {
+        width: 40px;
+        height: 50px;
+        object-fit: contain;
+    }
+
+/*start media query*/
+@@media screen and (min-width: 320px) {
+    .sol_card_top_3 {
+        position: relative;
+        top: 0;
+    }
+
+    .our_solution_category {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+        .our_solution_category .solution_cards_box {
+            flex: auto;
+        }
+}
+
+@@media only screen and (min-width: 768px) {
+    .our_solution_category .solution_cards_box {
+        flex: 1;
+    }
+}
+
+@@media only screen and (min-width: 1024px) {
+    .sol_card_top_3 {
+        position: relative;
+        top: -3rem;
+    }
+
+    .our_solution_category {
+        width: 50%;
+        margin: 0 auto;
+    }
+}
+
+
+/*std edit btn*/
+
+#editBtnDiv{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    
+
+}
