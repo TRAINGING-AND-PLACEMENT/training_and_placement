@@ -24,15 +24,16 @@ namespace Demo.Controllers
 
         public IActionResult Index()
         {
-            /*List<Company> model = new List<Company>();
+            List<Company> model = new List<Company>();
 
             HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
-                Debug.WriteLine(data);
+               // Debug.WriteLine(data);
                 model = cj.listroot(model, data);
-            }*/
+                Debug.WriteLine(model);
+            }
             return View();
         }
         public IActionResult Create()
