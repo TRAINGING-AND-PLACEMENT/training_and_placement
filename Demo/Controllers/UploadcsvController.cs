@@ -53,6 +53,7 @@ namespace Demo.Controllers
                 while (csv.Read())
                 {
                     var user = csv.GetRecord<User>();
+                    user.role = 1;
                     user.status = "0";
                     user.created_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
                     user.updated_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
