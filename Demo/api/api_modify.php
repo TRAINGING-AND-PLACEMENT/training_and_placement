@@ -786,32 +786,36 @@ if (isset($_GET['what'])) {
     // }
     
     elseif ($_REQUEST['what']=="getlogin") {
-        if (isset($_POST['email'])&&isset($_POST['password'])) {
-            $result=$con->query("SELECT *,`r`.`role` AS `role` ,`u`.`id` AS `id`FROM `users` `u` JOIN `roles` `r`
-                    WHERE `r`.`id`=`u`.`role`
-                        AND `u`.`email`='$_POST[email]'
-                        AND `u`.`password`='$_POST[passsword]'
-                        AND `u`.`status`=0
-                        AND `r`.`status`=0");
-            if ($result->num_rows>0){
-               $resp['success']=true;
-               $resp['user']=$result->fetch_assoc();
-               $role=$resp['user']['role'];
-               $id=$resp['user']['id'];
-               if ($role=="STUDENT") {
-                    $student=$con->query("SELECT * FROM `student` WHERE `user_id`='$id'");
-                    if ($student->num_rows>0) {
-                        $resp['student']=$student->fetch_assoc();
-                    }
-               }
-            } else {
-                $resp['success']=false;
-                $resp['message']="Wrong id or password";
-            }
-        } else {
-            $resp['success']=false;
-            $resp['message']="Email and password are required";
-        }
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $resp = $data;
+
+        // if (isset($_POST['email'])&&isset($_POST['password'])) {
+        //     $result=$con->query("SELECT *,`r`.`role` AS `role` ,`u`.`id` AS `id`FROM `users` `u` JOIN `roles` `r`
+        //             WHERE `r`.`id`=`u`.`role`
+        //                 AND `u`.`email`='$_POST[email]'
+        //                 AND `u`.`password`='$_POST[passsword]'
+        //                 AND `u`.`status`=0
+        //                 AND `r`.`status`=0");
+        //     if ($result->num_rows>0){
+        //        $resp['success']=true;
+        //        $resp['user']=$result->fetch_assoc();
+        //        $role=$resp['user']['role'];
+        //        $id=$resp['user']['id'];
+        //        if ($role=="STUDENT") {
+        //             $student=$con->query("SELECT * FROM `student` WHERE `user_id`='$id'");
+        //             if ($student->num_rows>0) {
+        //                 $resp['student']=$student->fetch_assoc();
+        //             }
+        //        }
+        //     } else {
+        //         $resp['success']=false;
+        //         $resp['message']="Wrong id or password";
+        //     }
+        // } else {
+        //     $resp['success']=false;
+        //     $resp['message']="Email and password are required";
+        // }
     }
    
 
