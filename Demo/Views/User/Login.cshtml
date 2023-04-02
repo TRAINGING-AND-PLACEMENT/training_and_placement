@@ -1,6 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+@model User
 ﻿@{
     Layout = null;
 }
@@ -28,6 +29,11 @@
     <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="~/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    @section Scripts{
+        @{
+            <partial name="_ValidationScriptsPartial" />
+        }
+    }
 
 </head>
 
@@ -47,18 +53,18 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-8 col-lg-6 col-xl-5">
                     <div class="card">
-
                         <div class="card-body p-4">
                             <div class="text-center mt-2">
                                 <h5 class="text-primary">Welcome Back !</h5>
-                                <p class="text-muted">Sign in to continue to Minible.</p>
+                                @*<p class="text-muted">Sign in to continue to Minible.</p>*@
                             </div>
                             <div class="p-2 mt-4">
-                                <form action="https://themesbrand.com/minible/layouts/index.html">
+                                <form asp-controller="User" asp-action="Login" method="post">
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="username">Username</label>
-                                        <input type="text" class="form-control" id="username" placeholder="Enter username">
+                                        <label class="form-label" for="username">Email</label>
+                                        <input asp-for="email" class="form-control" type="email" placeholder="Enter Email" name="email" id="email">
+                                        <span asp-validation-for="email" class="text-danger"></span>
                                     </div>
 
                                     <div class="mb-3">
@@ -66,12 +72,8 @@
                                             <a href="auth-recoverpw.html" class="text-muted">Forgot password?</a>
                                         </div>
                                         <label class="form-label" for="userpassword">Password</label>
-                                        <input type="password" class="form-control" id="userpassword" placeholder="Enter password">
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="auth-remember-check">
-                                        <label class="form-check-label" for="auth-remember-check">Remember me</label>
+                                        <input asp-for="password" class="form-control" type="password" placeholder="Enter password" name="password" id="password">
+                                        <span asp-validation-for="password" class="text-danger"></span>
                                     </div>
 
                                     <div class="mt-3 text-end">
@@ -80,7 +82,7 @@
 
 
 
-                                    <div class="mt-4 text-center">
+                                    @*<div class="mt-4 text-center">
                                         <div class="signin-other-title">
                                             <h5 class="font-size-14 mb-3 title">Sign in with</h5>
                                         </div>
@@ -103,11 +105,11 @@
                                                 </a>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div>@**@
 
-                                    <div class="mt-4 text-center">
+                                    @*<div class="mt-4 text-center">
                                         <p class="mb-0">Don't have an account ? <a href="auth-register.html" class="fw-medium text-primary"> Signup now </a> </p>
-                                    </div>
+                                    </div>*@
                                 </form>
                             </div>
 
@@ -115,7 +117,7 @@
                     </div>
 
                     <div class="mt-5 text-center">
-                        <p>© <script>document.write(new Date().getFullYear())</script> Minible. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                        <p>© <script>document.write(new Date().getFullYear())</script> T&P <i class="mdi mdi-heart text-danger"></i> by SCET.</p>
                     </div>
 
                 </div>
@@ -141,4 +143,5 @@
 
 <!-- Mirrored from themesbrand.com/minible/layouts/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Mar 2023 15:17:47 GMT -->
 </html>
+
 
