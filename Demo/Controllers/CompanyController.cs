@@ -26,10 +26,11 @@ namespace Demo.Controllers
         {
             /*List<Company> model = new List<Company>();
 
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_user").Result;
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
+                Debug.WriteLine(data);
                 model = cj.listroot(model, data);
             }*/
             return View();
