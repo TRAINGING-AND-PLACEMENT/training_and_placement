@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+	Layout = "_StudentLayout";
+}
+
+
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+
+			<div class="id-card-tag"></div>
+			<div class="id-card-tag-strip"></div>
+			<div class="id-card-hook"></div>
+			<div class="id-card-holder">
+				<div class="id-card">
+					<div class="header">
+						<img src="~/assets/images/logos/SCETwide.png">
+					</div>
+					<div class="photo">
+						<img src="~/assets/images/users/maleUser.png" />
+					</div>
+					<h2>Student Name Here</h2>
+					<div class="qr-code">
+						
+					</div>
+					<h3>Enrollment No. : -----</h3>
+					<hr>
+					<p><strong>DOB:</strong> DATE HERE <p>
+					<p><strong>Address:</strong> Address here <strong>pincode</strong></p>
+					<p>Ph: 9446062493 <br/> E-mail: student@gmail.com</p>
+
+				</div>
+			</div>
+        </div>
+	</div>
+	<div id="editBtnDiv">
+		<a asp-controller="Student" asp-action="">
+			<button type="button" class="btn btn-warning waves-effect waves-light w-lg">
+				<i class="uil uil-exclamation-triangle me-2"></i> Edit Profile
+			</button>
+		</a>
+	</div>
+</div>
