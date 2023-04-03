@@ -52,6 +52,7 @@ namespace Demo.Controllers
                             context.HttpContext.Session.SetInt32("userid", userid);
                             context.HttpContext.Session.SetInt32("sessionid", sessionid);
                             context.HttpContext.Session.SetInt32("studentid", studentid);
+                            return RedirectToAction("StudentProfile", "Student");
                         }
                         else if (role == 2)
                         {
