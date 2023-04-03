@@ -35,7 +35,7 @@ namespace Demo.Controllers
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
                     Debug.Write(result);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Company");
                 }
             }
             return View(model);

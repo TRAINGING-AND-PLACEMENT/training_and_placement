@@ -13,7 +13,7 @@ namespace Demo.Controllers
     public class CompanyController : Controller
     {
         HttpClient client;
-        CompanyJson cj =new CompanyJson();
+        CompanyJson cj = new CompanyJson();
         public CompanyController()
         {
             Webapi wb = new Webapi();
@@ -30,11 +30,11 @@ namespace Demo.Controllers
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
-               // Debug.WriteLine(data);
+                Debug.WriteLine(data);
                 model = cj.listroot(model, data);
                 Debug.WriteLine(model);
             }
-            return View();
+            return View(model);
         }
         public IActionResult Create()
         {
@@ -59,9 +59,41 @@ namespace Demo.Controllers
             }
             return View(model);
         }
+        public IActionResult Edit_Company(int id)
+        {
+            Company model = new Company();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails&id=" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                String data = response.Content.ReadAsStringAsync().Result;
+                Debug.WriteLine(data);
+                model = cj.uniroot(model, data);
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult Update_Company(Company model) {
 
+            String data = JsonConvert.SerializeObject(model);
+            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = client.PutAsync(client.BaseAddress + "updatecompanydetails&id=" + model.id, content).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                String result = response.Content.ReadAsStringAsync().Result;
+                return RedirectToAction("Index");
+            }
+            return View();
+        }
+
+        public IActionResult Delete_Company(int id)
+        {
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "deletecompanydetails&id=" +id).Result;
+            return RedirectToAction("Index");
+        }
         public IActionResult AllCompanies()
         {
+
             return View();
         }
 

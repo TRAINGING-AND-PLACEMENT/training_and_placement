@@ -1,8 +1,7 @@
 ﻿@model Company
 @{
-    ViewData["Title"] = "Create Company";
+    ViewData["Title"] = "Edit_Company";
 }
-
 <div class="main-content">
     <div class="page-content">
         <div class="container-fluid">
@@ -11,7 +10,7 @@
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
                         <h4 class="mb-0">Add Company Details</h4>
-                    </div>  
+                    </div>
                 </div>
             </div>
             <!-- end page title -->
@@ -19,8 +18,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-body"> 
-                            <form asp-controller="Company" asp-action="Create" method="post">
+                        <div class="card-body">
+                            <form asp-controller="Company" asp-action="Update_Company" method="post">
+                                <input type="hidden" asp-for="id" />
                                 <div class="row">
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">CIF</label>
@@ -61,7 +61,7 @@
                                 <div class="form-group mt-3">
                                     <input type="submit" value="Save" class="btn btn-primary" />
                                 </div>
-                            </form>  
+                            </form>
                         </div>
                     </div>
                 </div> <!-- end col -->
@@ -74,3 +74,4 @@
         <partial name="_ValidationScriptsPartial" />
     }
 }
+
