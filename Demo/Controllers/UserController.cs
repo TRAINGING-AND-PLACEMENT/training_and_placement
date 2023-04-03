@@ -3,6 +3,7 @@ using Demo.Controllers.Json;
 using Demo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using NuGet.Protocol.Plugins;
 using System.Diagnostics;
 using System.Text;
 
@@ -11,12 +12,15 @@ namespace Demo.Controllers
     public class UserController : Controller
     {
         HttpClient client;
-        public UserController()
+        JsonView jv = new JsonView();
+        private readonly IHttpContextAccessor context;
+        public UserController(IHttpContextAccessor httpContextAccessor)
         {
             Webapi wb = new Webapi();
             System.Uri baseAddress = wb.api();
             client = new HttpClient();
             client.BaseAddress = baseAddress;
+            context = httpContextAccessor;
         }
         public IActionResult Login()
         {
@@ -34,8 +38,19 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
-                    Debug.Write(result);
-                    return RedirectToAction("Index");
+                    Login logindetails = jv.LoginDetails(result);
+                    var success = logindetails.success;
+                    if (success)
+                    {
+                        int role = Convert.ToInt32(logindetails.user.role);
+                        int userid = Convert.ToInt32(logindetails.user.id);
+                        int sessionid = Convert.ToInt32(logindetails.student.session_id);
+                        context.HttpContext.Session.SetInt32("role", role);
+                        context.HttpContext.Session.SetInt32("userid", userid);
+                        context.HttpContext.Session.SetInt32("sessionid", sessionid);
+
+                        return RedirectToAction("Index","Comapny");
+                    }
                 }
             }
             return View(model);

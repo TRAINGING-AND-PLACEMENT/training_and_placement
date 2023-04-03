@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Demo.Controllers.Json
 {
-    public class CompanyJson
+    public class JsonView
     {
         public List<Company> listroot(List<Company> model, String data)
         {
@@ -20,6 +20,11 @@ namespace Demo.Controllers.Json
             model = root.result;
             return model;
         }
+        public Login LoginDetails(String data)
+        {
+            Login loginDetails = JsonConvert.DeserializeObject<Login>(data);
+            return loginDetails;
+        }
     }
     public class RootObject
     {
@@ -28,5 +33,11 @@ namespace Demo.Controllers.Json
     public class Root
     {
         public Company result { get; set; }
+    }
+    public class Login
+    {
+        public bool success { get; set; }
+        public User user { get; set; }
+        public Student student { get; set; }
     }
 }
