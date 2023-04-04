@@ -39,5 +39,6 @@ namespace Demo.Controllers.Json
         public bool success { get; set; }
         public User user { get; set; }
         public Student student { get; set; }
+        public Sessions sessions { get; set; }
     }
 }

@@ -43,13 +43,31 @@ namespace Demo.Controllers
                     if (success)
                     {
                         int role = Convert.ToInt32(logindetails.user.role);
-                        int userid = Convert.ToInt32(logindetails.user.id);
-                        int sessionid = Convert.ToInt32(logindetails.student.session_id);
-                        context.HttpContext.Session.SetInt32("role", role);
-                        context.HttpContext.Session.SetInt32("userid", userid);
-                        context.HttpContext.Session.SetInt32("sessionid", sessionid);
-
-                        return RedirectToAction("Index","Comapny");
+                        if(role == 1)
+                        {
+                            int userid = Convert.ToInt32(logindetails.user.id);
+                            int sessionid = Convert.ToInt32(logindetails.student.session_id);
+                            int studentid = Convert.ToInt32(logindetails.student.id);
+                            context.HttpContext.Session.SetInt32("role", role);
+                            context.HttpContext.Session.SetInt32("userid", userid);
+                            context.HttpContext.Session.SetInt32("sessionid", sessionid);
+                            context.HttpContext.Session.SetInt32("studentid", studentid);
+                            return RedirectToAction("StudentProfile", "Student");
+                        }
+                        else if (role == 2)
+                        {
+                            int userid = Convert.ToInt32(logindetails.user.id);
+                            int sessionid = Convert.ToInt32(logindetails.sessions.id);
+                            context.HttpContext.Session.SetInt32("role", role);
+                            context.HttpContext.Session.SetInt32("userid", userid);
+                            context.HttpContext.Session.SetInt32("sessionid", sessionid);
+                            return RedirectToAction("Index","Company");
+                        }
+                    }
+                    else
+                    {
+                        TempData["error"] = "Wrong id or password";
+                        return RedirectToAction("Login");
                     }
                 }
             }

@@ -12,106 +12,194 @@ namespace Demo.Controllers
 {
     public class CompanyController : Controller
     {
+        private readonly IHttpContextAccessor context;
         HttpClient client;
         JsonView cj =new JsonView();
-        public CompanyController()
+        public CompanyController(IHttpContextAccessor httpContextAccessor)
         {
             Webapi wb = new Webapi();
             System.Uri baseAddress = wb.api();
             client = new HttpClient();
             client.BaseAddress = baseAddress;
+            context = httpContextAccessor;
         }
-
         public IActionResult Index()
-        {
-            List<Company> model = new List<Company>();
-
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
-            if (response.IsSuccessStatusCode)
+        {   
+            if(@context.HttpContext.Session.GetInt32("role") == 2)
             {
-                String data = response.Content.ReadAsStringAsync().Result;
-                Debug.WriteLine(data);
-                model = cj.listroot(model, data);
-                Debug.WriteLine(model);
+                List<Company> model = new List<Company>();
+
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    model = cj.listroot(model, data);
+                    Debug.WriteLine(model);
+                }
+                return View(model);
             }
-            return View(model);
+            else
+            {
+                TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                return RedirectToAction("Login", "User");
+            }
         }
         public IActionResult Create()
         {
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                return View();
+            }
+            else
+            {
+                TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                return RedirectToAction("Login", "User");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Company model)
         {
-            if (ModelState.IsValid)
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
-                String data = JsonConvert.SerializeObject(model);
-                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "companydetails", content).Result;
-                if (response.IsSuccessStatusCode)
+                if (ModelState.IsValid)
                 {
-                    String result = response.Content.ReadAsStringAsync().Result;
-                    Debug.Write(result);
-                    return RedirectToAction("Index");
+                    String data = JsonConvert.SerializeObject(model);
+                    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "companydetails", content).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        String result = response.Content.ReadAsStringAsync().Result;
+                        Debug.Write(result);
+                        return RedirectToAction("Index");
+                    }
                 }
+                return View(model);
             }
-            return View(model);
+            else
+            {
+                TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                return RedirectToAction("Login", "User");
+            }
         }
         public IActionResult Edit_Company(int id)
         {
-            Company model = new Company();
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails&id=" + id).Result;
-            if (response.IsSuccessStatusCode)
-            {
-                String data = response.Content.ReadAsStringAsync().Result;
-                Debug.WriteLine(data);
-                model = cj.uniroot(model, data);
+            if (@context.HttpContext.Session.GetInt32("role") == 2){
+                Company model = new Company();
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails&id=" + id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    model = cj.uniroot(model, data);
+                }
+                return View(model);
             }
-            return View(model);
+            else
+            {
+                TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                return RedirectToAction("Login", "User");
+            }
+            
         }
         [HttpPost]
-        public IActionResult Update_Company(Company model) {
-
-            String data = JsonConvert.SerializeObject(model);
-            StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-
-            HttpResponseMessage response = client.PutAsync(client.BaseAddress + "updatecompanydetails&id=" + model.id, content).Result;
-            if (response.IsSuccessStatusCode)
+        public IActionResult Update_Company(Company model) 
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
-                String result = response.Content.ReadAsStringAsync().Result;
-                return RedirectToAction("Index");
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PutAsync(client.BaseAddress + "updatecompanydetails&id=" + model.id, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("Index");
+                }
+                return View();
             }
-            return View();
+            else
+            {
+                TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                return RedirectToAction("Login", "User");
+            }
         }
 
         public IActionResult Delete_Company(int id)
         {
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "deletecompanydetails&id=" +id).Result;
-            return RedirectToAction("Index");
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "deletecompanydetails&id=" +id).Result;
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                return RedirectToAction("Login", "User");
+            }
         }
         public IActionResult AllCompanies()
         {
-
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                TempData["error"] = "You have to login with student id and password to access the page.";
+                return RedirectToAction("Login", "User");
+            }
         }
 
         public IActionResult AppliedCompanies()
         {
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                TempData["error"] = "You have to login with student id and password to access the page.";
+                return RedirectToAction("Login", "User");
+            }
         }
         public IActionResult SelectedCompanies()
         {
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                TempData["error"] = "You have to login with student id and password to access the page.";
+                return RedirectToAction("Login", "User");
+            }
         }
         public IActionResult CompanyDetails()
         {
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                TempData["error"] = "You have to login with student id and password to access the page.";
+                return RedirectToAction("Login", "User");
+            }
         }
         public IActionResult AddCompany()
         {
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                TempData["error"] = "You have to login with student id and password to access the page.";
+                return RedirectToAction("Login", "User");
+            }
         }
     }
 }
