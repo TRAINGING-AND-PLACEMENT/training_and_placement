@@ -16,9 +16,6 @@
             </span>
         </a>
     </div>
-
-
-
     <div data-simplebar class="sidebar-menu-scroll">
 
         <!--- Sidemenu -->
@@ -42,18 +39,15 @@
                         <li><a asp-controller="Company" asp-action="Index">View Company Details</a></li>
                     </ul>
                 </li>
-
-                @* <li>
-                <a href="file-manager.html" class=" waves-effect">
-                <span>View Student List</span>
-                </a>
-                </li>
-
                 <li>
-                <a href="file-manager.html" class=" waves-effect">
-                <span>Update Company Details</span>
-                </a>
-                </li>*@
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <span>Hirirng Companies</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a asp-controller="Hiring" asp-action="Create">Add Hiring Details</a></li>
+                        <li><a asp-controller="Hiring" asp-action="Index">View Hiring Details</a></li>
+                    </ul>
+                </li>
                 <li>
                     <a asp-controller="Uploadcsv" asp-action="Index" class="waves-effect">
                         <span>Upload CSV</span>
