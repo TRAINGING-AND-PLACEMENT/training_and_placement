@@ -3,6 +3,7 @@ using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
 using Demo.api;
 using Demo.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 //using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Newtonsoft.Json;
@@ -14,16 +15,19 @@ namespace Demo.Controllers
 {
     public class UploadcsvController : Controller
     {
+        private readonly IHttpContextAccessor context;
         HttpClient client;
-        public UploadcsvController()
+        public UploadcsvController(IHttpContextAccessor httpContextAccessor)
         {
             Webapi wb = new Webapi();
             System.Uri baseAddress = wb.api();
             client = new HttpClient();
             client.BaseAddress = baseAddress;
+            context = httpContextAccessor;
         }
         public IActionResult Index()
         {
+            Debug.WriteLine(@context.HttpContext.Session.GetInt32("role"));
             return View();
         }
         [HttpPost]
