@@ -1,6 +1,15 @@
-﻿using Demo.api;
+﻿using Azure.Core;
+using Demo.api;
 using Demo.Controllers.Json;
+using Demo.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR.Protocol;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Diagnostics;
+using System.Text;
 
 namespace Demo.Controllers
 {
@@ -8,7 +17,8 @@ namespace Demo.Controllers
     {
         private readonly IHttpContextAccessor context;
         HttpClient client;
-        public StudentController(IHttpContextAccessor httpContextAccessor)
+		JsonView cj = new JsonView();
+		public StudentController(IHttpContextAccessor httpContextAccessor)
         {
             Webapi wb = new Webapi();
             System.Uri baseAddress = wb.api();
@@ -37,11 +47,19 @@ namespace Demo.Controllers
             }
         }
 
-        public IActionResult StudentProfile() {
+        public IActionResult StudentProfile(int id) {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
-                return View();
-            }
+				Student model = new Student();
+				HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstudentdetail&id="+ @context.HttpContext.Session.GetInt32("studentid")).Result;
+				if (response.IsSuccessStatusCode)
+                { 
+					String data = response.Content.ReadAsStringAsync().Result;
+					Debug.WriteLine(data);
+					model = cj.uniroot(model, data);
+				}
+				return View(model);
+			}
             else
             {
                 TempData["error"] = "You have to login with student id and password to access the page.";
