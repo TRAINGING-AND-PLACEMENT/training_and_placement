@@ -16,6 +16,13 @@ namespace Demo.Controllers
             client.BaseAddress = baseAddress;
             context = httpContextAccessor;
         }
+        public void DestorySession()
+        {
+            context.HttpContext.Session.Remove("role");
+            context.HttpContext.Session.Remove("userid");
+            context.HttpContext.Session.Remove("sessionid");
+            context.HttpContext.Session.Remove("studentid");
+        }
         public IActionResult Index()
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
@@ -25,6 +32,7 @@ namespace Demo.Controllers
             else
             {
                 TempData["error"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -37,6 +45,7 @@ namespace Demo.Controllers
             else
             {
                 TempData["error"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }

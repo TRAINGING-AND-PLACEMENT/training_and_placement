@@ -1,10 +1,8 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
 @inject IHttpContextAccessor context;
-@*<b>role: @context.HttpContext.Session.GetInt32("role");</b>
-<b>userid: @context.HttpContext.Session.GetInt32("userid");</b>
-<b>sessionid: @context.HttpContext.Session.GetInt32("sessionid");</b>*@
 
 <!doctype html>
 <html lang="en">
@@ -34,7 +32,6 @@
     <script src="~/assets/libs/node-waves/waves.min.js"></script>
     <script src="~/assets/libs/waypoints/lib/jquery.waypoints.min.js"></script>
     <script src="~/assets/libs/jquery.counterup/jquery.counterup.min.js"></script>
-
 </head>
 
 
@@ -100,11 +97,14 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="#"><i class="uil uil-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">View Profile</span></a>
-                    <a class="dropdown-item" href="#"><i class="uil uil-wallet font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">My Wallet</span></a>
-                    <a class="dropdown-item d-block" href="#"><i class="uil uil-cog font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Settings</span> <span class="badge bg-soft-success rounded-pill mt-1 ms-2">03</span></a>
-                    <a class="dropdown-item" href="#"><i class="uil uil-lock-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Lock screen</span></a>
-                    <a class="dropdown-item" href="#"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
+                            @if (@context.HttpContext.Session.GetInt32("role") == null)
+                            {
+                                <a class="dropdown-item" asp-controller="User" asp-action="Login"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Login</span></a>
+                            }
+                            else
+                            {
+                                <a class="dropdown-item" asp-controller="User" asp-action="Logout"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
+                            }
                 </div>
             </div>
 

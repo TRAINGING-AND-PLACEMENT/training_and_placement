@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
+using System.Data;
 
 
 namespace Demo.Controllers
@@ -22,6 +23,13 @@ namespace Demo.Controllers
             client = new HttpClient();
             client.BaseAddress = baseAddress;
             context = httpContextAccessor;
+        }
+        public void DestorySession()
+        {
+            context.HttpContext.Session.Remove("role");
+            context.HttpContext.Session.Remove("userid");
+            context.HttpContext.Session.Remove("sessionid");
+            context.HttpContext.Session.Remove("studentid");
         }
         public IActionResult Index()
         {   
@@ -42,6 +50,7 @@ namespace Demo.Controllers
             else
             {
                 TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -54,6 +63,7 @@ namespace Demo.Controllers
             else
             {
                 TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -81,6 +91,7 @@ namespace Demo.Controllers
             else
             {
                 TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -100,6 +111,7 @@ namespace Demo.Controllers
             else
             {
                 TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
             
@@ -123,6 +135,7 @@ namespace Demo.Controllers
             else
             {
                 TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -137,6 +150,7 @@ namespace Demo.Controllers
             else
             {
                 TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -149,6 +163,7 @@ namespace Demo.Controllers
             else
             {
                 TempData["error"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -162,6 +177,7 @@ namespace Demo.Controllers
             else
             {
                 TempData["error"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -174,6 +190,7 @@ namespace Demo.Controllers
             else
             {
                 TempData["error"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -186,6 +203,7 @@ namespace Demo.Controllers
             else
             {
                 TempData["error"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -198,6 +216,7 @@ namespace Demo.Controllers
             else
             {
                 TempData["error"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }

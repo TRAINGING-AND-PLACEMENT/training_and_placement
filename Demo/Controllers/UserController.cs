@@ -73,5 +73,13 @@ namespace Demo.Controllers
             }
             return View(model);
         }
+        public IActionResult Logout()
+        {
+            context.HttpContext.Session.Remove("role");
+            context.HttpContext.Session.Remove("userid");
+            context.HttpContext.Session.Remove("sessionid");
+            context.HttpContext.Session.Remove("studentid");
+            return RedirectToAction("Login");
+        }
     }
 }
