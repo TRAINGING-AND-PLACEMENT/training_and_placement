@@ -22,11 +22,32 @@ namespace Demo.Controllers
             client.BaseAddress = baseAddress;
             context = httpContextAccessor;
         }
-        public IActionResult Login()
+        public IActionResult Role()
         {
             return View();
         }
-
+        [HttpPost]
+        public IActionResult Role(int id)
+        {
+            if(id == 1)
+            {
+                return RedirectToAction("Login", id = 1);
+            }
+            else if(id == 2)
+            {
+                return RedirectToAction("Login", id = 2);
+            }
+            else
+            {
+                TempData["error"] = "press any button";
+                return View();
+            }
+        }
+        public IActionResult Login(int id)
+        {
+            Debug.WriteLine(id);
+            return View();
+        }
         [HttpPost]
         public IActionResult Login(User model) 
         {

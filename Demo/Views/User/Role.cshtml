@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewData["Title"] = "Role";
+}
+
+@model User
+﻿@{
+    Layout = null;
+}
+
+
+<!doctype html>
+<html lang="en">
+
+
+<!-- Mirrored from themesbrand.com/minible/layouts/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Mar 2023 15:17:47 GMT -->
+<head>
+
+    <meta charset="utf-8" />
+    <title>Training and Placement </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+
+    <link rel="shortcut icon" href="~/assets/images/favicon.ico">
+
+    <!-- Bootstrap Css -->
+    <link href="~/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="~/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    @section Scripts{
+        @{
+            <partial name="_ValidationScriptsPartial" />
+        }
+    }
+
+</head>
+
+<body class="authentication-bg">
+    <div class="account-pages my-5 pt-sm-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <a href="index.html" class="mb-5 d-block auth-logo">
+                            <img src="~/assets/images/scet-logo.png" alt="" height="90" class="logo scet-logo">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <div class="text-center mt-2">
+                                <h5 class="text-primary">You want to login as: </h5>
+                            </div>
+                            <div class="p-2 mt-4">
+                                <form method="post">
+                                    <div class="d-flex justify-content-center flex-wrap gap-5">
+                                        <button asp-controller="User" asp-action="Role" asp-route-id=1 class="btn btn-outline-primary waves-effect waves-light w-md">Student</button>
+                                        <button asp-controller="User" asp-action="Role" asp-route-id=2 class="btn btn-outline-primary waves-effect waves-light w-md">Co-Ordinator</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="mt-5 text-center">
+                        <p>© <script>document.write(new Date().getFullYear())</script> T&P <i class="mdi mdi-heart text-danger"></i> by SCET.</p>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="~/assets/libs/jquery/jquery.min.js"></script>
+    <script src="~/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/libs/metismenu/metisMenu.min.js"></script>
+    <script src="~/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/assets/libs/node-waves/waves.min.js"></script>
+    <script src="~/assets/libs/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="~/assets/libs/jquery.counterup/jquery.counterup.min.js"></script>
+
+    <!-- App js -->
+    <script src="~/assets/js/app.js"></script>
+
+</body>
+
+<!-- Mirrored from themesbrand.com/minible/layouts/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Mar 2023 15:17:47 GMT -->
+</html>
+
+
+
+
