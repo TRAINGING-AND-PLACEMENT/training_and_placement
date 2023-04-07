@@ -1,6 +1,7 @@
-﻿@using Microsoft.AspNetCore.Http
+﻿@inject IHttpContextAccessor context;
+
 @{
-    if (@Context.Session.GetInt32("role") == 1)
+    if (@context.HttpContext.Session.GetInt32("role") == 1)
     {
         Layout = "_studentLayout";
     }
