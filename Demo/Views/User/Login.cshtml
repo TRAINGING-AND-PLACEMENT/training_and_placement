@@ -5,6 +5,11 @@
 ﻿@{
     Layout = null;
 }
+@{
+    var role = TempData["r"];
+    TempData.Keep("r");
+}
+
 
 
 <!doctype html>
@@ -29,6 +34,9 @@
     <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="~/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     @section Scripts{
         @{
             <partial name="_ValidationScriptsPartial" />
@@ -38,6 +46,14 @@
 </head>
 
 <body class="authentication-bg">
+    <div class="container">
+        @if (TempData["error"] != null)
+        {
+            <script type="text/javascript">
+                toastr.error('@TempData["error"]')
+            </script>
+        }
+    </div>
     <div class="account-pages my-5 pt-sm-5">
         <div class="container">
             <div class="row">
@@ -57,15 +73,10 @@
                                 <h5 class="text-primary">Welcome Back !</h5>
                             </div>
                             <div class="p-2 mt-4">
-                                <form asp-controller="User" asp-action="Login" method="post">
-                                    @{
-                                        if (TempData["error"] != null)
-                                        {
-                                            <h3>Message: @TempData["error"]</h3>
-                                        }
-                                    }
+                                <form asp-controller="User" asp-action="Login" asp-route-id=@role method="post">
                                     <div class="mb-3">
                                         <label class="form-label" for="username">Email</label>
+                                        @*<input type="hidden" asp-for=@ViewBag.r />*@
                                         <input asp-for="email" class="form-control" type="email" placeholder="Enter Email" name="email" id="email">
                                         <span asp-validation-for="email" class="text-danger"></span>
                                     </div>
@@ -83,36 +94,6 @@
                                         <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Log In</button>
                                     </div>
 
-
-
-                                    @*<div class="mt-4 text-center">
-                                        <div class="signin-other-title">
-                                            <h5 class="font-size-14 mb-3 title">Sign in with</h5>
-                                        </div>
-
-
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item">
-                                                <a href="javascript:void()" class="social-list-item bg-primary text-white border-primary">
-                                                    <i class="mdi mdi-facebook"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="javascript:void()" class="social-list-item bg-info text-white border-info">
-                                                    <i class="mdi mdi-twitter"></i>
-                                                </a>
-                                            </li>
-                                            <li class="list-inline-item">
-                                                <a href="javascript:void()" class="social-list-item bg-danger text-white border-danger">
-                                                    <i class="mdi mdi-google"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>@**@
-
-                                    @*<div class="mt-4 text-center">
-                                        <p class="mb-0">Don't have an account ? <a href="auth-register.html" class="fw-medium text-primary"> Signup now </a> </p>
-                                    </div>*@
                                 </form>
                             </div>
 

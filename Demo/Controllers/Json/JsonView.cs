@@ -11,14 +11,14 @@ namespace Demo.Controllers.Json
 		public List<Student> listroot(List<Student> model, String data)
 		{
 			model = new List<Student>();
-			RootObject root = JsonConvert.DeserializeObject<RootObject>(data);
-			model = root.studentResult;
+            ListStudent root = JsonConvert.DeserializeObject<ListStudent>(data);
+			model = root.result;
 			return model;
 		}
 		public Student uniroot(Student model, String data)
 		{
-			Root root = JsonConvert.DeserializeObject<Root>(data);
-			model = root.studentResult;
+            StudentRoot root = JsonConvert.DeserializeObject<StudentRoot>(data);
+			model = root.result;
 			return model;
 		}
 		public List<Company> listroot(List<Company> model, String data)
@@ -44,12 +44,19 @@ namespace Demo.Controllers.Json
     public class RootObject
     {
         public List<Company> result { get; set; }
-		public List<Student> studentResult { get; set; }
 	}
+    public class ListStudent
+    {
+		public List<Student> result { get; set; }
+    }
+
     public class Root
     {
         public Company result { get; set; }
-        public Student studentResult { get; set; } 
+    }
+    public class StudentRoot
+    {
+        public Student result { get; set; } 
     }
     public class Login
     {

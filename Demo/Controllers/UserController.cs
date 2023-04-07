@@ -31,68 +31,105 @@ namespace Demo.Controllers
         {
             if(id == 1)
             {
-                return RedirectToAction("Login", id = 1);
+                return RedirectToAction("Login", new { id = 1 });
             }
             else if(id == 2)
             {
-                return RedirectToAction("Login", id = 2);
+                return RedirectToAction("Login", new { id = 2 });
             }
             else
             {
                 TempData["error"] = "press any button";
-                return View();
+                return RedirectToAction("Role");
             }
         }
         public IActionResult Login(int id)
         {
-            Debug.WriteLine(id);
-            return View();
+            if (id == 1)
+            {
+                TempData["r"] = id;
+                return View();
+            }
+            else if (id == 2)
+            {
+                TempData["r"] = id;
+                return View();
+            }
+            else
+            {
+                TempData["error"] = "choose any role to sign in.";
+                return RedirectToAction("Role");
+            }
         }
         [HttpPost]
-        public IActionResult Login(User model) 
-        {
-            if (ModelState.IsValid)
+        public IActionResult Login(User model,int id) 
+        {   
+            if (id == 1 || id == 2)
             {
-                String data = JsonConvert.SerializeObject(model);
-                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "getlogin", content).Result;
-                if (response.IsSuccessStatusCode)
+                if (ModelState.IsValid)
                 {
-                    String result = response.Content.ReadAsStringAsync().Result;
-                    Login logindetails = jv.LoginDetails(result);
-                    var success = logindetails.success;
-                    if (success)
+                    String data = JsonConvert.SerializeObject(model);
+                    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "getlogin", content).Result;
+                    if (response.IsSuccessStatusCode)
                     {
-                        int role = Convert.ToInt32(logindetails.user.role);
-                        if(role == 1)
+                        String result = response.Content.ReadAsStringAsync().Result;
+                        Login logindetails = jv.LoginDetails(result);
+                        var success = logindetails.success;
+                        if (success)
                         {
-                            int userid = Convert.ToInt32(logindetails.user.id);
-                            int sessionid = Convert.ToInt32(logindetails.student.session_id);
-                            int studentid = Convert.ToInt32(logindetails.student.id);
-                            context.HttpContext.Session.SetInt32("role", role);
-                            context.HttpContext.Session.SetInt32("userid", userid);
-                            context.HttpContext.Session.SetInt32("sessionid", sessionid);
-                            context.HttpContext.Session.SetInt32("studentid", studentid);
-                            return RedirectToAction("StudentProfile", "Student");
+                            int role = Convert.ToInt32(logindetails.user.role);
+                            if (id == role)
+                            {
+                                if (role == 1)
+                                {
+                                    int userid = Convert.ToInt32(logindetails.user.id);
+                                    int sessionid = Convert.ToInt32(logindetails.student.session_id);
+                                    int studentid = Convert.ToInt32(logindetails.student.id);
+                                    context.HttpContext.Session.SetInt32("role", role);
+                                    context.HttpContext.Session.SetInt32("userid", userid);
+                                    context.HttpContext.Session.SetInt32("sessionid", sessionid);
+                                    context.HttpContext.Session.SetInt32("studentid", studentid);
+                                    return RedirectToAction("StudentProfile", "Student");
+                                }
+                                else if (role == 2)
+                                {
+                                    int userid = Convert.ToInt32(logindetails.user.id);
+                                    int sessionid = Convert.ToInt32(logindetails.sessions.id);
+                                    context.HttpContext.Session.SetInt32("role", role);
+                                    context.HttpContext.Session.SetInt32("userid", userid);
+                                    context.HttpContext.Session.SetInt32("sessionid", sessionid);
+                                    return RedirectToAction("Index", "Company");
+                                }
+                            }
+                            else
+                            {
+                                if (id == 1)
+                                {
+                                    TempData["error"] = "Enter the credentials of a student!";
+                                    TempData["r"] = id;
+                                    return RedirectToAction("Login");
+                                }
+                                else if (id == 2)
+                                {
+                                    TempData["error"] = "Enter the credentials of a co-ordinator!";
+                                    TempData["r"] = id;
+                                    return RedirectToAction("Login");
+                                }
+                            }
                         }
-                        else if (role == 2)
+                        else
                         {
-                            int userid = Convert.ToInt32(logindetails.user.id);
-                            int sessionid = Convert.ToInt32(logindetails.sessions.id);
-                            context.HttpContext.Session.SetInt32("role", role);
-                            context.HttpContext.Session.SetInt32("userid", userid);
-                            context.HttpContext.Session.SetInt32("sessionid", sessionid);
-                            return RedirectToAction("Index","Company");
+                            TempData["error"] = "Wrong id or password";
+                            TempData["r"] = id;
+                            return RedirectToAction("Login");
                         }
-                    }
-                    else
-                    {
-                        TempData["error"] = "Wrong id or password";
-                        return RedirectToAction("Login");
                     }
                 }
+                return View(model);
             }
-            return View(model);
+            else { TempData["error"] = "Please select role to sign in!"; return RedirectToAction("Role"); }
+            
         }
         public IActionResult Logout()
         {

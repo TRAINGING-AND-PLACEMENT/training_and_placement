@@ -41,7 +41,7 @@ namespace Demo.Controllers
             }
             else
             {
-                TempData["error"] = "You have to login with student id and password to access the page.";
+                TempData["serror"] = "You have to login with student id and password to access the page.";
                 DestorySession();
                 return RedirectToAction("Login", "User");
             }
@@ -62,7 +62,7 @@ namespace Demo.Controllers
 			}
             else
             {
-                TempData["error"] = "You have to login with student id and password to access the page.";
+                TempData["serror"] = "You have to login with student id and password to access the page.";
                 DestorySession();
                 return RedirectToAction("Login", "User");
             }

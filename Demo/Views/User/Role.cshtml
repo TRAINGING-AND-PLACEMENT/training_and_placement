@@ -9,6 +9,7 @@
 }
 
 
+
 <!doctype html>
 <html lang="en">
 
@@ -31,6 +32,9 @@
     <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
     <!-- App Css-->
     <link href="~/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     @section Scripts{
         @{
             <partial name="_ValidationScriptsPartial" />
@@ -40,6 +44,18 @@
 </head>
 
 <body class="authentication-bg">
+    @if (TempData["error"] != null)
+    {
+        <script type="text/javascript">
+            toastr.success('@TempData["error"]')
+        </script>
+    }
+    @if (TempData["serror"] != null)
+    {
+        <script type="text/javascript">
+            toastr.success('@TempData["serror"]')
+        </script>
+    }
     <div class="account-pages my-5 pt-sm-5">
         <div class="container">
             <div class="row">
