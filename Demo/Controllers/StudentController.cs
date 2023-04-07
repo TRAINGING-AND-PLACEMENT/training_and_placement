@@ -55,7 +55,6 @@ namespace Demo.Controllers
 				if (response.IsSuccessStatusCode)
                 { 
 					String data = response.Content.ReadAsStringAsync().Result;
-					Debug.WriteLine(data);
 					model = cj.uniroot(model, data);
 				}
 				return View(model);
