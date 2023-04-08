@@ -47,16 +47,18 @@ namespace Demo.Controllers
             }
         }
 
-        public IActionResult StudentProfile(int id) {
+        public IActionResult StudentProfile(int sid, int uid) {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
 				Student model = new Student();
-				HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstudentdetail&id="+ @context.HttpContext.Session.GetInt32("studentid")).Result;
+				HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstudentalldetails&sid=" + @context.HttpContext.Session.GetInt32("studentid") +"&uid="+  @context.HttpContext.Session.GetInt32("userid")).Result;
 				if (response.IsSuccessStatusCode)
                 { 
 					String data = response.Content.ReadAsStringAsync().Result;
-					model = cj.uniroot(model, data);
-				}
+					var res = cj.Ustudent(data);
+                    var sres =  res.Split(",");
+                    Debug.Write(sres[0]);
+				 }
 				return View(model);
 			}
             else
@@ -65,6 +67,18 @@ namespace Demo.Controllers
                 DestorySession();
                 return RedirectToAction("Login", "User");
             }
+        }
+
+       
+
+        public IActionResult AlterStudent()
+        {
+            return View();
+        }
+
+        public IActionResult ViewTenthData()
+        {
+            return View();
         }
     }
 }

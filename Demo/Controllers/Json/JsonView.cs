@@ -1,4 +1,5 @@
 ﻿using Demo.Models;
+using Microsoft.DotNet.MSIdentity.Shared;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.Text.Json.Nodes;
@@ -21,7 +22,13 @@ namespace Demo.Controllers.Json
 			model = root.student;
 			return model;
 		}
-		public List<Company> listroot(List<Company> model, String data)
+        public String Ustudent(String data)
+        {
+            StudentUser res = JsonConvert.DeserializeObject<StudentUser>(data);
+            var result = res.student;
+            return result;
+        }
+ 		public List<Company> listroot(List<Company> model, String data)
         {
             model = new List<Company>();
             RootObject root = JsonConvert.DeserializeObject<RootObject>(data);
@@ -51,6 +58,10 @@ namespace Demo.Controllers.Json
     {
         public Company result { get; set; }
         public Student student { get; set; }
+    }
+    public class StudentUser
+    {
+        public string student { get; set; }
     }
     public class Login
     {
