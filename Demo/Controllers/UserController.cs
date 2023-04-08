@@ -11,16 +11,17 @@ namespace Demo.Controllers
 {
     public class UserController : Controller
     {
+        private readonly IEmailSender emailSender;
         HttpClient client;
-        JsonView jv = new JsonView();
         private readonly IHttpContextAccessor context;
-        public UserController(IHttpContextAccessor httpContextAccessor)
+        public UserController(IHttpContextAccessor httpContextAccessor, IEmailSender emailSender)
         {
             Webapi wb = new Webapi();
             System.Uri baseAddress = wb.api();
             client = new HttpClient();
             client.BaseAddress = baseAddress;
             context = httpContextAccessor;
+            this.emailSender = emailSender;
         }
         public IActionResult Role()
         {
@@ -62,8 +63,8 @@ namespace Demo.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Login(User model,int id) 
-        {   
+        public IActionResult Login(User model,int id)
+        {
             if (id == 1 || id == 2)
             {
                 if (ModelState.IsValid)
@@ -74,18 +75,18 @@ namespace Demo.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         String result = response.Content.ReadAsStringAsync().Result;
-                        Login logindetails = jv.LoginDetails(result);
-                        var success = logindetails.success;
+                        var logindetails = JsonDecode.FromJson(result);
+                        var success = logindetails.Success;
                         if (success)
                         {
-                            int role = Convert.ToInt32(logindetails.user.role);
+                            int role = Convert.ToInt32(logindetails.User[0]["role"]);
                             if (id == role)
                             {
                                 if (role == 1)
                                 {
-                                    int userid = Convert.ToInt32(logindetails.user.id);
-                                    int sessionid = Convert.ToInt32(logindetails.student.session_id);
-                                    int studentid = Convert.ToInt32(logindetails.student.id);
+                                    int userid = Convert.ToInt32(logindetails.User[0]["id"]);
+                                    int sessionid = Convert.ToInt32(logindetails.Student[0]["session_id"]);
+                                    int studentid = Convert.ToInt32(logindetails.Student[0]["id"]);
                                     context.HttpContext.Session.SetInt32("role", role);
                                     context.HttpContext.Session.SetInt32("userid", userid);
                                     context.HttpContext.Session.SetInt32("sessionid", sessionid);
@@ -94,8 +95,8 @@ namespace Demo.Controllers
                                 }
                                 else if (role == 2)
                                 {
-                                    int userid = Convert.ToInt32(logindetails.user.id);
-                                    int sessionid = Convert.ToInt32(logindetails.sessions.id);
+                                    int userid = Convert.ToInt32(logindetails.User[0]["id"]);
+                                    int sessionid = Convert.ToInt32(logindetails.Sessions[0]["id"]);
                                     context.HttpContext.Session.SetInt32("role", role);
                                     context.HttpContext.Session.SetInt32("userid", userid);
                                     context.HttpContext.Session.SetInt32("sessionid", sessionid);
@@ -138,6 +139,20 @@ namespace Demo.Controllers
             context.HttpContext.Session.Remove("sessionid");
             context.HttpContext.Session.Remove("studentid");
             return RedirectToAction("Login");
+        }
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePassword model)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                return RedirectToAction("ChangePassword");
+            }
+            return View(model);
         }
     }
 }

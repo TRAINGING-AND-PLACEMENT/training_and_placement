@@ -17,7 +17,6 @@ namespace Demo.Controllers
     {
         private readonly IHttpContextAccessor context;
         HttpClient client;
-		JsonView cj = new JsonView();
 		public StudentController(IHttpContextAccessor httpContextAccessor)
         {
             Webapi wb = new Webapi();
@@ -55,9 +54,8 @@ namespace Demo.Controllers
 				if (response.IsSuccessStatusCode)
                 { 
 					String data = response.Content.ReadAsStringAsync().Result;
-					var res = cj.Ustudent(data);
-                    var sres =  res.Split(",");
-                    Debug.Write(sres[0]);
+                    var res = JsonDecode.FromJson(data);
+                    //Debug.WriteLine(res.Student[0]["id"]);
 				 }
 				return View(model);
 			}

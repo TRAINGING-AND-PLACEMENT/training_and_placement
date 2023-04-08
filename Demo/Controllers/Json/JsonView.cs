@@ -3,71 +3,54 @@ using Microsoft.DotNet.MSIdentity.Shared;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
 using System.Text.Json.Nodes;
-
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using Newtonsoft.Json.Converters;
+using CsvHelper.Configuration.Attributes;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Controllers.Json
 {
-    public class JsonView
+    public partial class JsonDecode
     {
-		public List<Student> listroot(List<Student> model, String data)
-		{
-			model = new List<Student>();
-			RootObject root = JsonConvert.DeserializeObject<RootObject>(data);
-			model = root.student;
-			return model;
-		}
-		public Student uniroot(Student model, String data)
-		{
-            Root root = JsonConvert.DeserializeObject<Root>(data);
-			model = root.student;
-			return model;
-		}
-        public String Ustudent(String data)
-        {
-            StudentUser res = JsonConvert.DeserializeObject<StudentUser>(data);
-            var result = res.student;
-            return result;
-        }
- 		public List<Company> listroot(List<Company> model, String data)
-        {
-            model = new List<Company>();
-            RootObject root = JsonConvert.DeserializeObject<RootObject>(data);
-            model = root.result;
-            return model;
-        }
-        public Company uniroot(Company model, String data)
-        {
-            Root root = JsonConvert.DeserializeObject<Root>(data);
-            model = root.result;
-            return model;
-        }
-		
-		public Login LoginDetails(String data)
-        {
-            Login loginDetails = JsonConvert.DeserializeObject<Login>(data);
-            return loginDetails;
-        }
-    }
-    public class RootObject
-    {
-        public List<Company> result { get; set; }
-		public List<Student> student { get; set; }
-	}
+        [JsonProperty("success")]
+        [AllowNull]
+        public bool Success { get; set; }
 
-    public class Root
-    {
-        public Company result { get; set; }
-        public Student student { get; set; }
+        [JsonProperty("user")]
+        [AllowNull]
+        public Dictionary<string, string>[] User { get; set; }
+
+        [JsonProperty("sessions")]
+        [AllowNull]
+        public Dictionary<string, string>[] Sessions { get; set; }
+
+        [JsonProperty("student")]
+        [AllowNull]
+        public Dictionary<string, string>[] Student { get; set; }
+
+        [JsonProperty("companies")]
+        [AllowNull]
+        public List<Company> Companies { get; set; }
+
+        [JsonProperty("company")]
+        public Company[] Company { get; set; }
     }
-    public class StudentUser
+    public partial class JsonDecode
     {
-        public string student { get; set; }
+        public static JsonDecode FromJson(string json) => JsonConvert.DeserializeObject<JsonDecode>(json, Demo.Controllers.Json.Converter.Settings);
     }
-    public class Login
+    internal static class Converter
     {
-        public bool success { get; set; }
-        public User user { get; set; }
-        public Student student { get; set; }
-        public Sessions sessions { get; set; }
+        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
+        {
+            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
+            DateParseHandling = DateParseHandling.None,
+            Converters =
+            {
+                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+            },
+        };
     }
 }

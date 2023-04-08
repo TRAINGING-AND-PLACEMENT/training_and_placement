@@ -15,7 +15,6 @@ namespace Demo.Controllers
     {
         private readonly IHttpContextAccessor context;
         HttpClient client;
-        JsonView cj =new JsonView();
         public CompanyController(IHttpContextAccessor httpContextAccessor)
         {
             Webapi wb = new Webapi();
@@ -42,8 +41,11 @@ namespace Demo.Controllers
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
-                    model = cj.listroot(model, data);
-                    Debug.WriteLine(model);
+                    var companies = JsonDecode.FromJson(data);
+                    foreach(var company in companies.Companies)
+                    {
+                        model.Add(company);
+                    }
                 }
                 return View(model);
             }
@@ -104,7 +106,10 @@ namespace Demo.Controllers
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
-                    model = cj.uniroot(model, data);
+                    var company = JsonDecode.FromJson(data);
+                    Debug.WriteLine(company);
+                    model = company.Company[0];
+                    Debug.WriteLine(model);
                 }
                 return View(model);
             }
