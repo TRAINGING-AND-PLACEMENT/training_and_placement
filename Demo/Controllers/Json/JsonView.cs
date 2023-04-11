@@ -34,6 +34,30 @@ namespace Demo.Controllers.Json
     {
         public Company result { get; set; }
     }
+    public class HiringJson
+    {
+        public List<Hiring> listroot(List<Hiring> model, String data)
+        {
+            model = new List<Hiring>();
+            RootObject root = JsonConvert.DeserializeObject<RootObject>(data);
+            model = root.result;
+            return model;
+        }
+        public Hiring uniroot(Hiring model, String data)
+        {
+            Root root = JsonConvert.DeserializeObject<Root>(data);
+            model = root.result;
+            return model;
+        }
+        public class RootObject
+        {
+            public List<Hiring> result { get; set; }
+        }
+        public class Root
+        {
+            public Hiring result { get; set; }
+        }
+    }
     public class Login
     {
         public bool success { get; set; }
