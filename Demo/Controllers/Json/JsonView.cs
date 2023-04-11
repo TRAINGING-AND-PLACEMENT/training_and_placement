@@ -1,68 +1,56 @@
 ﻿using Demo.Models;
+using Microsoft.DotNet.MSIdentity.Shared;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
-
+using System.Text.Json.Nodes;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using Newtonsoft.Json.Converters;
+using CsvHelper.Configuration.Attributes;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Controllers.Json
 {
-    public class JsonView
+    public partial class JsonDecode
     {
-        public List<Company> listroot(List<Company> model, String data)
-        {
-            model = new List<Company>();
-            RootObject root = JsonConvert.DeserializeObject<RootObject>(data);
-            model = root.result;
-            return model;
-        }
-        public Company uniroot(Company model, String data)
-        {
-            Root root = JsonConvert.DeserializeObject<Root>(data);
-            model = root.result;
-            return model;
-        }
-        public Login LoginDetails(String data)
-        {
-            Login loginDetails = JsonConvert.DeserializeObject<Login>(data);
-            return loginDetails;
-        }
+        [JsonProperty("success")]
+        [AllowNull]
+        public bool Success { get; set; }
+
+        [JsonProperty("user")]
+        [AllowNull]
+        public Dictionary<string, string>[] User { get; set; }
+
+        [JsonProperty("sessions")]
+        [AllowNull]
+        public Dictionary<string, string>[] Sessions { get; set; }
+
+        [JsonProperty("student")]
+        [AllowNull]
+        public Dictionary<string, string>[] Student { get; set; }
+
+        [JsonProperty("companies")]
+        [AllowNull]
+        public List<Company> Companies { get; set; }
+
+        [JsonProperty("company")]
+        public Company[] Company { get; set; }
     }
-    public class RootObject
+    public partial class JsonDecode
     {
-        public List<Company> result { get; set; }
+        public static JsonDecode FromJson(string json) => JsonConvert.DeserializeObject<JsonDecode>(json, Demo.Controllers.Json.Converter.Settings);
     }
-    public class Root
+    internal static class Converter
     {
-        public Company result { get; set; }
-    }
-    public class HiringJson
-    {
-        public List<Hiring> listroot(List<Hiring> model, String data)
+        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
         {
-            model = new List<Hiring>();
-            RootObject root = JsonConvert.DeserializeObject<RootObject>(data);
-            model = root.result;
-            return model;
-        }
-        public Hiring uniroot(Hiring model, String data)
-        {
-            Root root = JsonConvert.DeserializeObject<Root>(data);
-            model = root.result;
-            return model;
-        }
-        public class RootObject
-        {
-            public List<Hiring> result { get; set; }
-        }
-        public class Root
-        {
-            public Hiring result { get; set; }
-        }
-    }
-    public class Login
-    {
-        public bool success { get; set; }
-        public User user { get; set; }
-        public Student student { get; set; }
-        public Sessions sessions { get; set; }
+            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
+            DateParseHandling = DateParseHandling.None,
+            Converters =
+            {
+                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
+            },
+        };
     }
 }
