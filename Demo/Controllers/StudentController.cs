@@ -46,17 +46,17 @@ namespace Demo.Controllers
             }
         }
 
-        public IActionResult StudentProfile(int sid, int uid) {
+        public IActionResult StudentProfile(int id) {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
 				Student model = new Student();
-				HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstudentalldetails&sid=" + @context.HttpContext.Session.GetInt32("studentid") +"&uid="+  @context.HttpContext.Session.GetInt32("userid")).Result;
+				HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstudentdetail&id=" + @context.HttpContext.Session.GetInt32("studentid")).Result;
 				if (response.IsSuccessStatusCode)
                 { 
 					String data = response.Content.ReadAsStringAsync().Result;
                     var res = JsonDecode.FromJson(data);
-                    //Debug.WriteLine(res.Student[0]["id"]);
-				 }
+                    model = res.studentInfo[0];
+                }
 				return View(model);
 			}
             else

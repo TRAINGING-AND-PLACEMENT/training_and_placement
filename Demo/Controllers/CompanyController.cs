@@ -163,7 +163,20 @@ namespace Demo.Controllers
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
-                return View();
+                List<Company> model = new List<Company>();
+
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var companies = JsonDecode.FromJson(data);
+                    foreach(var company in companies.Companies)
+                    {
+                        model.Add(company);
+                    }
+                }
+                return View(model);
             }
             else
             {
@@ -199,11 +212,22 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
-        public IActionResult CompanyDetails()
+        public IActionResult CompanyDetails(int id)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
-                return View();
+                Company model = new Company();
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails&id=" + id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var company = JsonDecode.FromJson(data);
+                    Debug.WriteLine(company);
+                    model = company.Company[0];
+                    Debug.WriteLine(model);
+                }
+                return View(model);
             }
             else
             {
