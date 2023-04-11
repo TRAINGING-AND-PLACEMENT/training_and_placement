@@ -1,11 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Student;
 @{
 	Layout = "_StudentLayout";
 }
-
-
 <div class="main-content">
 
     <div class="page-content">
@@ -17,20 +13,17 @@
 			<div class="id-card-holder">
 				<div class="id-card">
 					<div class="header">
-						<img src="~/assets/images/logos/SCETwide.png">
+						<img src="~/assets/images/logos/SCETwide.png" />
 					</div>
 					<div class="photo">
 						<img src="~/assets/images/users/maleUser.png" />
 					</div>
-					<h2>Student Name Here</h2>
-					<div class="qr-code">
-						
-					</div>
-					<h3>Enrollment No. : -----</h3>
+					<h2>UserName : @Model.surname @Model.first_name</h2>
+					<h3>Enrollment No. : @Model.enrollment</h3>
 					<hr>
-					<p><strong>DOB:</strong> DATE HERE <p>
-					<p><strong>Address:</strong> Address here <strong>pincode</strong></p>
-					<p>Ph: 9446062493 <br/> E-mail: student@gmail.com</p>
+					<p><strong>DOB:</strong> @Model.dob<p>
+					<p><strong>Address:</strong> @Model.address<strong> @Model.pincode</strong></p>
+					<p>Ph: @Model.contact<br/></p>
 
 				</div>
 			</div>

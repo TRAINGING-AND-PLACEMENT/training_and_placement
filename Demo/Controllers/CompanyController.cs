@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
+using System.Data;
 
 
 namespace Demo.Controllers
@@ -14,7 +15,6 @@ namespace Demo.Controllers
     {
         private readonly IHttpContextAccessor context;
         HttpClient client;
-        JsonView cj =new JsonView();
         public CompanyController(IHttpContextAccessor httpContextAccessor)
         {
             Webapi wb = new Webapi();
@@ -22,6 +22,13 @@ namespace Demo.Controllers
             client = new HttpClient();
             client.BaseAddress = baseAddress;
             context = httpContextAccessor;
+        }
+        public void DestorySession()
+        {
+            context.HttpContext.Session.Remove("role");
+            context.HttpContext.Session.Remove("userid");
+            context.HttpContext.Session.Remove("sessionid");
+            context.HttpContext.Session.Remove("studentid");
         }
         public IActionResult Index()
         {   
@@ -34,14 +41,18 @@ namespace Demo.Controllers
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
-                    model = cj.listroot(model, data);
-                    Debug.WriteLine(model);
+                    var companies = JsonDecode.FromJson(data);
+                    foreach(var company in companies.Companies)
+                    {
+                        model.Add(company);
+                    }
                 }
                 return View(model);
             }
             else
             {
-                TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -53,7 +64,8 @@ namespace Demo.Controllers
             }
             else
             {
-                TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -80,7 +92,8 @@ namespace Demo.Controllers
             }
             else
             {
-                TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -93,13 +106,17 @@ namespace Demo.Controllers
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
-                    model = cj.uniroot(model, data);
+                    var company = JsonDecode.FromJson(data);
+                    Debug.WriteLine(company);
+                    model = company.Company[0];
+                    Debug.WriteLine(model);
                 }
                 return View(model);
             }
             else
             {
-                TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
             
@@ -122,7 +139,8 @@ namespace Demo.Controllers
             }
             else
             {
-                TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -136,7 +154,8 @@ namespace Demo.Controllers
             }
             else
             {
-                TempData["error"] = "You have to login with co-ordinator id and password to access the page.";
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -148,7 +167,8 @@ namespace Demo.Controllers
             }
             else
             {
-                TempData["error"] = "You have to login with student id and password to access the page.";
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -161,7 +181,8 @@ namespace Demo.Controllers
             }
             else
             {
-                TempData["error"] = "You have to login with student id and password to access the page.";
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -173,7 +194,8 @@ namespace Demo.Controllers
             }
             else
             {
-                TempData["error"] = "You have to login with student id and password to access the page.";
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -185,7 +207,8 @@ namespace Demo.Controllers
             }
             else
             {
-                TempData["error"] = "You have to login with student id and password to access the page.";
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
@@ -197,7 +220,8 @@ namespace Demo.Controllers
             }
             else
             {
-                TempData["error"] = "You have to login with student id and password to access the page.";
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }

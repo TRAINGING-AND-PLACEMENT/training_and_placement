@@ -1,6 +1,15 @@
-﻿using Demo.api;
+﻿using Azure.Core;
+using Demo.api;
 using Demo.Controllers.Json;
+using Demo.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR.Protocol;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Diagnostics;
+using System.Text;
 
 namespace Demo.Controllers
 {
@@ -8,13 +17,20 @@ namespace Demo.Controllers
     {
         private readonly IHttpContextAccessor context;
         HttpClient client;
-        public StudentController(IHttpContextAccessor httpContextAccessor)
+		public StudentController(IHttpContextAccessor httpContextAccessor)
         {
             Webapi wb = new Webapi();
             System.Uri baseAddress = wb.api();
             client = new HttpClient();
             client.BaseAddress = baseAddress;
             context = httpContextAccessor;
+        }
+        public void DestorySession()
+        {
+            context.HttpContext.Session.Remove("role");
+            context.HttpContext.Session.Remove("userid");
+            context.HttpContext.Session.Remove("sessionid");
+            context.HttpContext.Session.Remove("studentid");
         }
         public IActionResult Index()
         {
@@ -24,21 +40,43 @@ namespace Demo.Controllers
             }
             else
             {
-                TempData["error"] = "You have to login with student id and password to access the page.";
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
 
-        public IActionResult StudentProfile() {
+        public IActionResult StudentProfile(int sid, int uid) {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
-                return View();
-            }
+				Student model = new Student();
+				HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstudentalldetails&sid=" + @context.HttpContext.Session.GetInt32("studentid") +"&uid="+  @context.HttpContext.Session.GetInt32("userid")).Result;
+				if (response.IsSuccessStatusCode)
+                { 
+					String data = response.Content.ReadAsStringAsync().Result;
+                    var res = JsonDecode.FromJson(data);
+                    //Debug.WriteLine(res.Student[0]["id"]);
+				 }
+				return View(model);
+			}
             else
             {
-                TempData["error"] = "You have to login with student id and password to access the page.";
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
                 return RedirectToAction("Login", "User");
             }
+        }
+
+       
+
+        public IActionResult AlterStudent()
+        {
+            return View();
+        }
+
+        public IActionResult ViewTenthData()
+        {
+            return View();
         }
     }
 }

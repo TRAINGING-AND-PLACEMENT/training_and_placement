@@ -1,13 +1,11 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+@{
+    ViewData["Title"] = "Role";
+}
+
 @model User
 ﻿@{
     Layout = null;
-}
-@{
-    var role = TempData["r"];
-    TempData.Keep("r");
 }
 
 
@@ -25,7 +23,7 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    
+
     <link rel="shortcut icon" href="~/assets/images/favicon.ico">
 
     <!-- Bootstrap Css -->
@@ -46,14 +44,18 @@
 </head>
 
 <body class="authentication-bg">
-    <div class="container">
-        @if (TempData["error"] != null)
-        {
-            <script type="text/javascript">
-                toastr.error('@TempData["error"]')
-            </script>
-        }
-    </div>
+    @if (TempData["error"] != null)
+    {
+        <script type="text/javascript">
+            toastr.success('@TempData["error"]')
+        </script>
+    }
+    @if (TempData["serror"] != null)
+    {
+        <script type="text/javascript">
+            toastr.success('@TempData["serror"]')
+        </script>
+    }
     <div class="account-pages my-5 pt-sm-5">
         <div class="container">
             <div class="row">
@@ -70,30 +72,14 @@
                     <div class="card">
                         <div class="card-body p-4">
                             <div class="text-center mt-2">
-                                <h5 class="text-primary">Welcome Back !</h5>
+                                <h5 class="text-primary">You want to login as: </h5>
                             </div>
                             <div class="p-2 mt-4">
-                                <form asp-controller="User" asp-action="Login" asp-route-id=@role method="post">
-                                    <div class="mb-3">
-                                        <label class="form-label" for="username">Email</label>
-                                        @*<input type="hidden" asp-for=@ViewBag.r />*@
-                                        <input asp-for="email" class="form-control" type="email" placeholder="Enter Email" name="email" id="email">
-                                        <span asp-validation-for="email" class="text-danger"></span>
+                                <form method="post">
+                                    <div class="d-flex justify-content-center flex-wrap gap-5">
+                                        <button asp-controller="User" asp-action="Role" asp-route-id=1 class="btn btn-outline-primary waves-effect waves-light w-md">Student</button>
+                                        <button asp-controller="User" asp-action="Role" asp-route-id=2 class="btn btn-outline-primary waves-effect waves-light w-md">Co-Ordinator</button>
                                     </div>
-
-                                    <div class="mb-3">
-                                        <div class="float-end">
-                                            <a asp-controller="User" asp-action="ChangePassword" class="text-muted">Forgot password?</a>
-                                        </div>
-                                        <label class="form-label" for="userpassword">Password</label>
-                                        <input asp-for="password" class="form-control" type="password" placeholder="Enter password" name="password" id="password">
-                                        <span asp-validation-for="password" class="text-danger"></span>
-                                    </div>
-
-                                    <div class="mt-3 text-end">
-                                        <button class="btn btn-primary w-sm waves-effect waves-light" type="submit">Log In</button>
-                                    </div>
-
                                 </form>
                             </div>
 
@@ -127,5 +113,7 @@
 
 <!-- Mirrored from themesbrand.com/minible/layouts/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 14 Mar 2023 15:17:47 GMT -->
 </html>
+
+
 
 

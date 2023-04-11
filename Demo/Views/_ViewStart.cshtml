@@ -1,3 +1,13 @@
-﻿@{
-    Layout = "_CoOrdLayout";
+﻿@inject IHttpContextAccessor context;
+
+@{
+    if (@context.HttpContext.Session.GetInt32("role") == 1)
+    {
+        Layout = "_studentLayout";
+    }
+    else
+    {
+        Layout = "_CoOrdLayout";
+    }
+
 }
