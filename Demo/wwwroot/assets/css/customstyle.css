@@ -1,6 +1,6 @@
 ﻿/*for student id card*/
 .id-card-holder {
-    width: 225px;
+    width:500px;
     padding: 4px;
     margin: 0 auto;
     background-color: #1f1f1f;
@@ -27,7 +27,7 @@
     height: 100px;
     position: absolute;
     top: 105px;
-    left: 222px;
+    left: 492px;
     border-radius: 5px 0 0 5px;
 }
 
@@ -37,6 +37,8 @@
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 0 1.5px 0px #b9b9b9;
+    height: 42vh;
+    width: 490px;
 }
 
     .id-card img {
@@ -153,7 +155,7 @@ p {
 
     .our_solution_category .solution_cards_box {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: center;
     }
 
@@ -167,7 +169,7 @@ p {
     position: relative;
     z-index: 1;
     overflow: hidden;
-    min-height: 265px;
+    min-height: 165px;
     transition: 0.7s;
 }
 
