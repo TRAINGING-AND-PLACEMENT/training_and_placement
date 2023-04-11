@@ -40,7 +40,10 @@ namespace Demo.Controllers.Json
         [JsonProperty("company")]
         public Company[] Company { get; set; }
 
-        
+        [JsonProperty("hirings")]
+        [AllowNull]
+        public List<Hiring> hirings { get; set; }
+
     }
     public partial class JsonDecode
     {
