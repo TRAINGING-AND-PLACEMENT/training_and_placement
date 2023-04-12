@@ -1,0 +1,309 @@
+﻿@model Student
+<div class="main-content">
+
+    <div class="page-content">
+        <div class="container-fluid">
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Edit your profile - Student</h4>
+                <p class="card-title-desc">Verify all information again before updating.</p>
+                   <form asp-controller="Student" asp-action="update_student" method="post" class="needs-validation custom-validation" novalidate>
+                    <input type="hidden" asp-for="id" />
+                    <input type="hidden" asp-for="session_id" />
+                    <input type="hidden" asp-for="user_id" />
+                    <input type="hidden" asp-for="department_id" />
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label" for="first_name">First name</label>
+                                            <input asp-for="first_name" class="form-control" id="first_name" placeholder="your name" type="text" name="first_name" id="first_name">
+                                <span asp-validation-for="first_name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label" for="last_name">Last name</label>
+                                <input asp-for="last_name" class="form-control" id="last_name" placeholder="your name" type="text" name="last_name" id="surname">
+                                <span asp-validation-for="last_name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label" for="last_name">Grand Fathers Name</label>
+                                <input asp-for="grand_father_name" class="form-control" placeholder="Your grand father name" type="text" name="grand_father_name" id="grand_father_name">
+                                <span asp-validation-for="grand_father_name" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                                   
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label class="form-label" for="enrollment">Enrollment number</label>
+                                            <input asp-for="enrollment" class="form-control" id="enrollment" type="text" name="enrollment" id="enrollment" readonly>
+                                <span asp-validation-for="enrollment" class="text-danger"></span>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                       
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label" for="contact">Contact number</label>
+                                <input asp-for="contact" class="form-control" placeholder="Your contact Number" type="text" name="contact" id="contact">
+                                <span asp-validation-for="contact" class="text-danger"></span>
+                            </div>
+                        </div>
+                            <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="contact">Alternate contact:</label>
+                                        <div>
+                                                <input asp-for="alt_contact" class="form-control" id="alt_contact" placeholder="Your alt_contact Number" type="text" name="alt_contact" id="alt_contact" />
+                                            
+                                        </div>
+                                            <span asp-validation-for="alt_contact" class="text-danger"></span>
+                                    </div>
+                             </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="form-label" for="parent_contact">Parent Contact Number</label>
+                                            <input asp-for="parent_contact" class="form-control" placeholder="Your contact Number" type="text" name="parent_contact" id="parent_contact">
+                                    <span asp-validation-for="parent_contact" class="text-danger"></span>
+
+                                </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-2">
+                                <label class="form-label d-block mb-3">Gender :</label>
+                                    <div class="custom-radio form-check form-check-inline">
+                                        <input type="radio" asp-for="gender" id="gender" name="gender" class="form-check-input" value="male">
+                                        <label class="form-check-label" for="gender">Male</label>
+                                        <span asp-validation-for="gender" class="text-danger"></span>
+                                    </div>
+                                    <div class="custom-radio form-check form-check-inline">
+                                        <input type="radio" asp-for="gender" id="gender" name="gender" class="form-check-input" value="female">
+                                        <label class="form-check-label" for="gender">Female</label>
+                                        <span asp-validation-for="gender" class="text-danger"></span>
+                                    </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="mb-3">
+                                <label class="form-label" for="address">Your Address</label>
+                                <input asp-for="address" class="form-control" id="address" placeholder="Your Address" type="text" name="address" id="address">
+                                <span asp-validation-for="address" class="text-danger"></span>
+
+                            </div>
+                       </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-md-7">
+                                <div class="mb-3">
+                                    <label class="form-label" for="permanent_address">Your permanent_address</label>
+                                    <input asp-for="permanent_address" class="form-control" id="permanent_address" placeholder="Your permanent_address" type="text" name="permanent_address" id="permanent_address">
+                                    <span asp-validation-for="permanent_address" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-5">
+                                <div class="mb-3">
+                                            <label class="form-label" for="blood_group">Your blood_group</label>
+                                    <input asp-for="blood_group" class="form-control" id="blood_group" placeholder="Your blood_group" type="text" name="blood_group" id="blood_group">
+                                    <span asp-validation-for="blood_group" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label" for="city">Your city</label>
+                                <input asp-for="city" class="form-control"placeholder="Your city" type="text" name="city" id="city">
+                                <span asp-validation-for="city" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label" for="state">Your state</label>
+                                <input asp-for="state" class="form-control"placeholder="Your state" type="text" name="state" id="state">
+                                <span asp-validation-for="state" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label" for="pincode">Your pincode</label>
+                                <input asp-for="pincode" class="form-control"placeholder="Your pincode" type="text" name="pincode" id="pincode">
+                                <span asp-validation-for="pincode" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="mb-3 row">
+                                <label class="form-label" for="dob">Date Of Birth</label>
+                                <input asp-for="dob" class="form-control" type="date" name="dob" id="dob">
+                                <span asp-validation-for="dob" class="text-danger"></span>
+
+                            </div>
+
+                        </div>
+                        <div class="col-md-7">
+                            <div class="mb-3">
+                                <label class="form-label">Email Address:</label>
+                                <div>
+                                    <input type="email" class="form-control" required data-parsley-type="digits"
+                                            data-parsley-minlength="10" placeholder="e.g. abc@gmail.com" />
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                    <div class="invalid-feedback">
+                                        Email is Required.
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="mb-3">
+                                    <label class="form-label" for="permanent_city">Permanent City:</label>
+                                    <input asp-for="permanent_city" class="form-control" type="text" name="permanent_city" id="permanent_city">
+                                    <span asp-validation-for="permanent_city" class="text-danger"></span>
+
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="permanent_state">Permanent State:</label>
+                                    <input asp-for="permanent_state" class="form-control" type="text" name="permanent_state" id="permanent_state">
+                                    <span asp-validation-for="permanent_state" class="text-danger"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="permanent_pincode">Permanent Pincode:</label>
+                                    <input asp-for="permanent_pincode" class="form-control" type="text" name="permanent_pincode" id="permanent_pincode">
+                                    <span asp-validation-for="permanent_pincode" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    <div class="row">
+                                   
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label" for="pan">PAN number</label>
+                                <input asp-for="pan" class="form-control" type="text" name="pan" id="pan">
+                                <span asp-validation-for="pan" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label" for="adhaar">AADHAR number</label>
+                                <input asp-for="adhaar" class="form-control" type="text" name="adhaar" id="adhaar">
+                                <span asp-validation-for="adhaar" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label class="form-label" for="driving">Driving Liscense</label>
+                                <input asp-for="driving" class="form-control" type="text" name="driving" id="driving">
+                                <span asp-validation-for="driving" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                     <div class="row">
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Language English:</label> <br />
+                                    <div class="custom-radio form-check form-check-inline">
+                                        <input type="radio" asp-for="lang_eng" id="lang_eng" name="lang_eng" class="form-check-input" value="yes">
+                                        <label class="form-check-label" for="lang_eng">Yes</label>
+                                        <span asp-validation-for="lang_eng" class="text-danger"></span>
+                                    </div>
+                                    <div class="custom-radio form-check form-check-inline">
+                                        <input type="radio" asp-for="lang_eng" id="lang_eng" name="lang_eng" class="form-check-input" value="no">
+                                        <label class="form-check-label" for="lang_eng">No</label>
+                                        <span asp-validation-for="lang_eng" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Language Hindi:</label> <br />
+                                    <div class="custom-radio form-check form-check-inline">
+                                        <input type="radio" asp-for="lang_hindi" id="lang_hindi" name="lang_hindi" class="form-check-input" value="yes">
+                                        <label class="form-check-label" for="lang_hindi">Yes</label>
+                                        <span asp-validation-for="lang_hindi" class="text-danger"></span>
+                                    </div>
+                                    <div class="custom-radio form-check form-check-inline">
+                                        <input type="radio" asp-for="lang_hindi" id="lang_hindi" name="lang_hindi" class="form-check-input" value="no">
+                                        <label class="form-check-label" for="lang_hindi">No</label>
+                                        <span asp-validation-for="lang_hindi" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Language Gujarati:</label>
+                                    <div class="custom-radio form-check form-check-inline">
+                                        <input type="radio" asp-for="lang_guj" id="lang_guj" name="lang_guj" class="form-check-input" value="yes">
+                                        <label class="form-check-label" for="lang_guj">Yes</label>
+                                        <span asp-validation-for="lang_guj" class="text-danger"></span>
+                                    </div>
+                                    <div class="custom-radio form-check form-check-inline">
+                                        <input type="radio" asp-for="lang_guj" id="lang_guj" name="lang_guj" class="form-check-input" value="no">
+                                        <label class="form-check-label" for="lang_guj">No</label>
+                                        <span asp-validation-for="lang_guj" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label">Language Marathi:</label><br />
+                                    <div class="custom-radio form-check form-check-inline">
+                                        <input type="radio" asp-for="lang_marathi" id="lang_marathi" name="lang_marathi" class="form-check-input" value="yes">
+                                        <label class="form-check-label" for="lang_marathi">Yes</label>
+                                        <span asp-validation-for="lang_marathi" class="text-danger"></span>
+                                    </div>
+                                    <div class="custom-radio form-check form-check-inline">
+                                        <input type="radio" asp-for="lang_marathi" id="lang_marathi" name="lang_marathi" class="form-check-input" value="no">
+                                        <label class="form-check-label" for="lang_marathi">No</label>
+                                        <span asp-validation-for="lang_marathi" class="text-danger"></span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="form-label" for="lang_other">Language Other:</label><br />
+                                    <input asp-for="lang_other" class="form-control" type="text" name="lang_other" id="lang_other">
+                                    <span asp-validation-for="lang_other" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    <button class="btn btn-primary" type="submit">Submit form</button>
+                </form>
+            </div>
+        </div>
+        <!-- end card -->
+    </div> <!-- end col -->
+    </div>
+
+    </div>
+    </div>
+    </div>
