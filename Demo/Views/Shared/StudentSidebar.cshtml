@@ -109,13 +109,13 @@
                             </a>
                             <ul class="sub-menu" aria-expanded="true">
                                 <li><a asp-controller="Student" asp-action="ViewTenthData">Class 10<sup>th</sup> details</a></li>
-                                <li><a href="javascript: void(0);">Class 12<sup>th</sup> details</a></li>
-                                <li><a href="javascript: void(0);">Under graduation</a></li>
-                                <li><a href="javascript: void(0);">Post graduation</a></li>
+                                <li><a asp-controller="Student" asp-action="View12thData">Class 12<sup>th</sup> details</a></li>
+                                <li><a asp-controller="Student" asp-action="ViewUGData">Under graduation</a></li>
+                                <li><a asp-controller="Student" asp-action="ViewPGData">Post graduation</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="javascript: void(0);">
+                            <a asp-controller="User" asp-action="Logout">
                                 <i class="fas fa-sign-out-alt"></i>
                                 <span>Log out</span>
                             </a>

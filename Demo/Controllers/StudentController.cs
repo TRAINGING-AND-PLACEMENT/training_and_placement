@@ -115,5 +115,17 @@ namespace Demo.Controllers
         {
             return View();
         }
+        public IActionResult View12thData()
+        {
+            return View(); 
+        }
+        public IActionResult ViewUGData()
+        {
+            return View();
+        }
+        public IActionResult ViewPGData()
+        {
+            return View();
+        }
     }
 }
