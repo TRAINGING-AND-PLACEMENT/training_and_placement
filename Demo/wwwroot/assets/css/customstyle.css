@@ -1,6 +1,6 @@
 ﻿/*for student id card*/
 .id-card-holder {
-    width:500px;
+    width:600px;
     padding: 4px;
     margin: 0 auto;
     background-color: #1f1f1f;
@@ -27,7 +27,7 @@
     height: 100px;
     position: absolute;
     top: 105px;
-    left: 492px;
+    left: 592px;
     border-radius: 5px 0 0 5px;
 }
 
@@ -37,8 +37,8 @@
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 0 1.5px 0px #b9b9b9;
-    height: 42vh;
-    width: 490px;
+    height: 50vh;
+    width: 592px;
 }
 
     .id-card img {
@@ -73,6 +73,7 @@ h3 {
 p {
     font-size: 14px;
     margin: 2px;
+    text-align:left;
 }
 
 .id-card-hook {

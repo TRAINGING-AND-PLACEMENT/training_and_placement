@@ -2,7 +2,7 @@
 @{
 	Layout = "_StudentLayout";
 }
-<div class="main-content">
+<div class="main-content" style="margin-left:10%;width:100%;">
 
     <div class="page-content">
         <div class="container-fluid">
@@ -20,20 +20,17 @@
 						<div class="photo">
 							<img src="~/assets/images/users/maleUser.png" />
 						</div>
-						<h2>Name : @Model.surname @Model.first_name @Model.last_name</h2>
-						<h3>Enrollment No. : @Model.enrollment</h3>
+						<p><strong>Name :</strong> @Model.surname @Model.first_name @Model.last_name</p>
+						<p><strong>Enrollment No.</strong> : @Model.enrollment</p>
 						<p><strong>DOB:</strong> @Model.dob<p>
 						<p><strong>Ph:</strong> @Model.contact, @Model.alt_contact<br/></p>
 						<p><strong>Gender:</strong> @Model.gender<br/></p>
-
-
-
 						<hr>
 					</div>
 
 					<div>
 				</div style="display:flex;flex-direction:column">
-					<div style="margin-right:40px">
+					<div style="margin-top:2%">
 						<p><strong>Permanent Address:</strong> @Model.permanent_address, @Model.permanent_city-@Model.permanent_pincode, @Model.permanent_state</></p>
 						<p><strong>Grandfather:</strong> @Model.grand_father_name<br/></p>
 						<p><strong>Parent's Ph:</strong> @Model.parent_contact<br/></p>
