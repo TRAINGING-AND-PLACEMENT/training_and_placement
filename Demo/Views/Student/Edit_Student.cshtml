@@ -1,5 +1,5 @@
 ﻿@model Student
-<div class="main-content">
+<div class="main-content" style="width:100%;margin-left:10%;">
 
     <div class="page-content">
         <div class="container-fluid">
@@ -17,6 +17,13 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
+                                <label class="form-label" for="surname">Surname</label>
+                                            <input asp-for="surname" class="form-control" placeholder="Your surname" type="text" name="surname" id="surname">
+                                <span asp-validation-for="surname" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
                                 <label class="form-label" for="first_name">First name</label>
                                             <input asp-for="first_name" class="form-control" id="first_name" placeholder="your name" type="text" name="first_name" id="first_name">
                                 <span asp-validation-for="first_name" class="text-danger"></span>
@@ -29,21 +36,22 @@
                                 <span asp-validation-for="last_name" class="text-danger"></span>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label class="form-label" for="last_name">Grand Fathers Name</label>
-                                <input asp-for="grand_father_name" class="form-control" placeholder="Your grand father name" type="text" name="grand_father_name" id="grand_father_name">
-                                <span asp-validation-for="grand_father_name" class="text-danger"></span>
-                            </div>
-                        </div>
+                        
                     </div>
                     <div class="row">
                                    
-                        <div class="col-md-8">
+                        <div class="col-md-5">
                             <div class="mb-3">
                                 <label class="form-label" for="enrollment">Enrollment number</label>
                                             <input asp-for="enrollment" class="form-control" id="enrollment" type="text" name="enrollment" id="enrollment" readonly>
                                 <span asp-validation-for="enrollment" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="mb-3">
+                                <label class="form-label" for="last_name">Grand Father's Name</label>
+                                <input asp-for="grand_father_name" class="form-control" placeholder="Your grand father name" type="text" name="grand_father_name" id="grand_father_name">
+                                <span asp-validation-for="grand_father_name" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -174,21 +182,23 @@
                         </div>
                     </div>
                         <div class="row">
-                            <div class="col-md-5">
-                                <div class="mb-3">
+                            <div class="col-md-4">
+                                <div class="mb-4">
                                     <label class="form-label" for="permanent_city">Permanent City:</label>
                                     <input asp-for="permanent_city" class="form-control" type="text" name="permanent_city" id="permanent_city">
                                     <span asp-validation-for="permanent_city" class="text-danger"></span>
 
                                 </div>
-
-                                <div class="mb-3">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-4">
                                     <label class="form-label" for="permanent_state">Permanent State:</label>
                                     <input asp-for="permanent_state" class="form-control" type="text" name="permanent_state" id="permanent_state">
                                     <span asp-validation-for="permanent_state" class="text-danger"></span>
                                 </div>
-
-                                <div class="mb-3">
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-4">
                                     <label class="form-label" for="permanent_pincode">Permanent Pincode:</label>
                                     <input asp-for="permanent_pincode" class="form-control" type="text" name="permanent_pincode" id="permanent_pincode">
                                     <span asp-validation-for="permanent_pincode" class="text-danger"></span>
@@ -257,7 +267,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <label class="form-label">Language Gujarati:</label>
+                                    <label class="form-label">Language Gujarati:</label><br/>
                                     <div class="custom-radio form-check form-check-inline">
                                         <input type="radio" asp-for="lang_guj" id="lang_guj" name="lang_guj" class="form-check-input" value="yes">
                                         <label class="form-check-label" for="lang_guj">Yes</label>
@@ -287,9 +297,9 @@
 
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="lang_other">Language Other:</label><br />
+                                    <label class="form-label" for="lang_other">Other Known Language(s):</label><br />
                                     <input asp-for="lang_other" class="form-control" type="text" name="lang_other" id="lang_other">
                                     <span asp-validation-for="lang_other" class="text-danger"></span>
                                 </div>
