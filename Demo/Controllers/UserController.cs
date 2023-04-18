@@ -149,7 +149,6 @@ namespace Demo.Controllers
         {
             if (ModelState.IsValid)
             {
-                
                 return RedirectToAction("ChangePassword");
             }
             return View(model);
