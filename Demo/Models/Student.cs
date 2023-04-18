@@ -1,4 +1,5 @@
 ﻿using CsvHelper.Configuration.Attributes;
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
 namespace Demo.Models
@@ -15,24 +16,55 @@ namespace Demo.Models
         [Index(3)]
         public int department_id { get; set; }
         [Index(4)]
+
+        [Required(ErrorMessage = "You must provide a surname!")]
+        [JsonProperty("surname")]
         public string surname { get; set; }
         [Index(5)]
+
+        [Required(ErrorMessage = "You must provide a first_name!")]
+        [JsonProperty("first_name")]
         public string first_name { get; set; }
         [Index(6)]
+
+        [Required(ErrorMessage = "You must provide a last_name!")]
+        [JsonProperty("last_name")]
         public string last_name { get; set; }
         [Index(7)]
+
+        [Required(ErrorMessage = "You must provide a grand_father_name!")]
+        [JsonProperty("grand_father_name")]
         public string grand_father_name { get; set; }
         [Index(8)]
+        
         public string enrollment { get; set; }
         [Index(9)]
+
+        [Required(ErrorMessage = "You must provide a gender!")]
+        [JsonProperty("gender")]
         public string gender { get; set; }
         [Index(10)]
+
+        [Required(ErrorMessage = "You must provide a contact number!")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid contact number")]
+        [JsonProperty("contact")]
         public string contact { get; set; }
         [Index(11)]
+
+        [Required(ErrorMessage = "You must provide a alt_contact number!")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid contact number")]
+        [JsonProperty("alt_contact")]
         public string alt_contact { get; set; }
         [Index(12)]
+
+        [Required(ErrorMessage = "You must provide a parent_contact number!")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid contact number")]
+        [JsonProperty("parent_contact")]
         public string parent_contact { get; set; }
         [Index(13)]
+
+        [Required(ErrorMessage = "Please Select Your Date Of Birth")]
+        [JsonProperty("dob")]
         public string dob { get; set; }
         [Index(14)]
         public string lang_eng { get; set; }
@@ -45,12 +77,22 @@ namespace Demo.Models
         [Index(18)]
         public string lang_other { get; set; }
         [Index(19)]
+
+        [Required(ErrorMessage = "You must provide a address!")]
+        [JsonProperty("address")]
         public string address { get; set; }
         [Index(20)]
+
+        [Required(ErrorMessage = "You must provide a pincode!")]
+        [JsonProperty("pincode")]
         public string pincode { get; set; }
         [Index(21)]
+
+        [Required(ErrorMessage = "You must provide a city!")]
+        [JsonProperty("city")]
         public string city { get; set; }
         [Index(22)]
+
         public string state { get; set; }
         [Index(23)]
         public string permanent_address { get; set; }
