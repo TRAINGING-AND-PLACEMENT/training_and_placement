@@ -90,7 +90,7 @@ namespace Demo.Controllers
                                     int sessionid = Convert.ToInt32(logindetails.Student[0]["session_id"]);
                                     int studentid = Convert.ToInt32(logindetails.Student[0]["id"]);
                                     context.HttpContext.Session.SetInt32("role", role);
-                                    context.HttpContext.Session.SetInt32("userid", userid);
+                                    context.HttpContext.Session.SetInt32("userid", userid); 
                                     context.HttpContext.Session.SetInt32("sessionid", sessionid);
                                     context.HttpContext.Session.SetInt32("studentid", studentid);
                                     return RedirectToAction("StudentProfile", "Student");

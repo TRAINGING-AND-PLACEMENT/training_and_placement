@@ -30,12 +30,20 @@ namespace Demo.Controllers.Json
         [AllowNull]
         public Dictionary<string, string>[] Student { get; set; }
 
+        [JsonProperty("studentInfo")]
+        public Student[] studentInfo { get; set; }
+
         [JsonProperty("companies")]
         [AllowNull]
         public List<Company> Companies { get; set; }
 
         [JsonProperty("company")]
         public Company[] Company { get; set; }
+
+        [JsonProperty("hirings")]
+        [AllowNull]
+        public List<Hiring> hirings { get; set; }
+
     }
     public partial class JsonDecode
     {
