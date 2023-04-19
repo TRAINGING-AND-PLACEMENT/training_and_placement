@@ -1,11 +1,13 @@
 ﻿using Demo.api;
 using Demo.Controllers.Json;
 using Demo.Models;
+using MailKit;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using NuGet.Protocol.Plugins;
 using System.Diagnostics;
 using System.Text;
+using static System.Net.WebRequestMethods;
 
 namespace Demo.Controllers
 {
@@ -140,6 +142,32 @@ namespace Demo.Controllers
             context.HttpContext.Session.Remove("studentid");
             return RedirectToAction("Login");
         }
+        /*public IActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ChangePassword(MailRequest model)
+        {
+            if (ModelState.IsValid)
+            {
+                Random rnd = new Random();
+                var otp = rnd.Next(11111,99999);
+                *//*model.Subject = "Password Reset.";
+                model.Body = "Your OTP is: "+otp;*/
+
+        /*try
+        {
+            await emailSender.SendEmailAsync(model);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }*//*
+    }
+    return View(model);
+}*/
         public IActionResult ChangePassword()
         {
             return View();
@@ -149,8 +177,21 @@ namespace Demo.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                return RedirectToAction("ChangePassword");
+                MailRequest mail = new MailRequest();
+                Random rnd = new Random();
+                var otp = rnd.Next(11111, 99999);
+                mail.ToEmail = model.email;
+                mail.Subject = "Password Reset.";
+                mail.Body = "Your OTP is: " + otp;
+                try
+                {
+                    await emailSender.SendEmailAsync(mail);
+                    return RedirectToAction("ChangePassword");
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
             }
             return View(model);
         }
