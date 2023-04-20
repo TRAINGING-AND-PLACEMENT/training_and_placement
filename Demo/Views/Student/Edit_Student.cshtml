@@ -1,4 +1,6 @@
 ﻿@model Student
+@using Microsoft.AspNetCore.Http 
+@inject IHttpContextAccessor context
 <div class="main-content" style="width:100%;margin-left:10%;">
 
     <div class="page-content">
@@ -43,7 +45,7 @@
                         <div class="col-md-5">
                             <div class="mb-3">
                                 <label class="form-label" for="enrollment">Enrollment number</label>
-                                            <input asp-for="enrollment" class="form-control" id="enrollment" type="text" name="enrollment" id="enrollment" readonly>
+                                            <input asp-for="enrollment" class="form-control" id="enrollment" type="text" name="enrollment" id="enrollment">
                                 <span asp-validation-for="enrollment" class="text-danger"></span>
                             </div>
                         </div>
@@ -169,7 +171,7 @@
                                 <label class="form-label">Email Address:</label>
                                 <div>
                                     <input type="email" class="form-control" required data-parsley-type="digits"
-                                            data-parsley-minlength="10" placeholder="e.g. abc@gmail.com" />
+                                                       data-parsley-minlength="10" placeholder=@context.HttpContext.Session.GetString("studentemail") readonly/>
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
