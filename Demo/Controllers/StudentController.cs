@@ -132,6 +132,29 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
+        [HttpPost]
+        public IActionResult EditTenthData(Student model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PutAsync(client.BaseAddress + "editten_details&id=" + @context.HttpContext.Session.GetInt32("studentid"), content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("StudentProfile");
+                }
+                return View();
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
         public IActionResult View12thData()
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)

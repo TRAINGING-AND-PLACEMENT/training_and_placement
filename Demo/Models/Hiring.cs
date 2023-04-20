@@ -24,9 +24,5 @@ namespace Demo.Models
         public string other_requirement { get; set; }
         public int status { get; set; }
         public string remarks { get; set; }
-
-
-
-
     }
 }

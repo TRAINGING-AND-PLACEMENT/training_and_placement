@@ -89,10 +89,12 @@ namespace Demo.Controllers
                                     int userid = Convert.ToInt32(logindetails.User[0]["id"]);
                                     int sessionid = Convert.ToInt32(logindetails.Student[0]["session_id"]);
                                     int studentid = Convert.ToInt32(logindetails.Student[0]["id"]);
+                                    string studentemailid = logindetails.User[0]["email"];
                                     context.HttpContext.Session.SetInt32("role", role);
                                     context.HttpContext.Session.SetInt32("userid", userid); 
                                     context.HttpContext.Session.SetInt32("sessionid", sessionid);
                                     context.HttpContext.Session.SetInt32("studentid", studentid);
+                                    context.HttpContext.Session.SetString("studentemail", studentemailid);
                                     return RedirectToAction("StudentProfile", "Student");
                                 }
                                 else if (role == 2)
