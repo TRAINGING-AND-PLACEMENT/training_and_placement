@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Student
 @{
     Layout = "_StudentLayout";
 }
@@ -35,7 +33,7 @@
                                                     <th scope="row">01</th>
                                                     <td>College Name:</td>
                                                     <td>
-                                                        college name here
+                                                        @Model.pg_college
                                                     </td>
 
 
@@ -44,7 +42,7 @@
                                                     <th scope="row">02</th>
                                                     <td>Degree Name:</td>
                                                     <td>
-                                                        Name of degree
+                                                        @Model.pg_degree
                                                     </td>
 
 
@@ -53,7 +51,7 @@
                                                     <th scope="row">03</th>
                                                     <td>Year of passing:</td>
                                                     <td>
-                                                        2019
+                                                        @Model.pg_passyear
                                                     </td>
 
                                                 </tr>
@@ -61,7 +59,7 @@
                                                     <th scope="row">04</th>
                                                     <td><a href="#" class="text-dark">College Address</a></td>
                                                     <td>
-                                                        address with pincode city
+                                                        @Model.pg_collegeaddress, @Model.pg_collegecity - @Model.pg_collegepincode
                                                     </td>
 
 
@@ -70,7 +68,7 @@
                                                     <th scope="row">05</th>
                                                     <td><a href="#" class="text-dark">University name:</a></td>
                                                     <td>
-                                                        name here
+                                                        @Model.pg_university
                                                     </td>
 
 
@@ -79,7 +77,7 @@
                                                     <th scope="row">06</th>
                                                     <td><a href="#" class="text-dark">Marks scored:</a></td>
                                                     <td>
-                                                        300 out of 600
+                                                        @Model.pg_score out of @Model.pg_scoreoutof
                                                     </td>
 
                                                 </tr>
@@ -87,7 +85,7 @@
                                                     <th scope="row">07</th>
                                                     <td>12<sup>th</sup> Gap number:</td>
                                                     <td>
-                                                        none
+                                                        @Model.pg_gapno
                                                     </td>
 
 
@@ -96,7 +94,7 @@
                                                     <th scope="row">08</th>
                                                     <td>12<sup>th</sup> Gap year(s):</td>
                                                     <td>
-                                                        none
+                                                        @Model.pg_gapyears
                                                     </td>
 
 
@@ -105,7 +103,7 @@
                                                     <th scope="row">09</th>
                                                     <td>Admission Quota:</td>
                                                     <td>
-                                                        add quota
+                                                        @Model.pg_admissionquota
                                                     </td>
 
                                                 </tr>
