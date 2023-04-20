@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Student
 @{
     Layout = "_StudentLayout";
 }
@@ -31,7 +29,7 @@
                                                     <th scope="row">01</th>
                                                     <td>School Name:</td>
                                                     <td>
-                                                       schhol name here
+                                                       @Model.ten_school
                                                     </td>
                                                    
                                                    
@@ -40,7 +38,7 @@
                                                     <th scope="row">02</th>
                                                     <td>Year of passing:</td>
                                                     <td>
-                                                        2019
+                                                        @Model.ten_passyear
                                                     </td>
                                                    
                                                 </tr>
@@ -48,7 +46,7 @@
                                                     <th scope="row">03</th>
                                                     <td><a href="#" class="text-dark">School Address</a></td>
                                                     <td>
-                                                       address with pincode city
+                                                       @Model.ten_schooladdress, @Model.ten_schoolcity- @Model.ten_schoolpincode
                                                     </td>
                                                    
                                                     
@@ -57,7 +55,7 @@
                                                     <th scope="row">04</th>
                                                     <td><a href="#" class="text-dark">Board name:</a></td>
                                                     <td>
-                                                        GSEB
+                                                        @Model.ten_board
                                                     </td>
                                                    
                                                    
@@ -66,7 +64,7 @@
                                                     <th scope="row">05</th>
                                                     <td><a href="#" class="text-dark">Marks scored:</a></td>
                                                     <td>
-                                                        455 out of 500
+                                                        @Model.ten_score out of @Model.ten_scoreoutof
                                                     </td>
                                                    
                                                 </tr>
@@ -74,7 +72,7 @@
                                                     <th scope="row">06</th>
                                                     <td>Tenth Gap number</td>
                                                     <td>
-                                                        none
+                                                       @Model.ten_gapno
                                                     </td>
 
 
@@ -83,7 +81,7 @@
                                                     <th scope="row">07</th>
                                                     <td>Tenth Gap year(s)</td>
                                                     <td>
-                                                       none
+                                                       @Model.ten_gapyears
                                                     </td>
                                                    
                                                    
@@ -92,7 +90,7 @@
                                                     <th scope="row">08</th>
                                                     <td>Admission Quota</td>
                                                     <td>
-                                                        add quota
+                                                        @Model.ten_admissionquota
                                                     </td>
 
 
@@ -104,7 +102,7 @@
                                 </div>
                             </div><!-- end card -->
                             <div style="display:flex;justify-content:center">
-                            <a href="#" class="btn btn-primary waves-effect waves-light">Edit Your Results</a>
+                            <a asp-controller="Student" asp-action="Edit10Details" class="btn btn-primary waves-effect waves-light">Edit Your Results</a>
                             </div>
                         </div>
                     </div>
