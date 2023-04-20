@@ -1,5 +1,6 @@
 using Demo;
 using Demo.Models;
+using MailKit;
 using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);

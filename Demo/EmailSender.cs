@@ -1,9 +1,11 @@
 ﻿using System.Net.Mail;
+using MailKit.Net.Smtp;
 using System.Net;
 using Demo.Models;
 using MailKit;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using MailKit.Security;
 
 namespace Demo
 {
@@ -39,6 +41,14 @@ namespace Demo
             email.Subject = mailRequest.Subject;
             var builder = new BodyBuilder();
             builder.TextBody = mailRequest.Body;
+            email.Body = builder.ToMessageBody();
+
+            using var smtp = new MailKit.Net.Smtp.SmtpClient();
+            smtp.Connect(_mailSettings.Host, _mailSettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
+            smtp.Authenticate(_mailSettings.EmailId, _mailSettings.Password);
+            await smtp.SendAsync(email);
+            smtp.Disconnect(true);
+
         }
     }
 }
