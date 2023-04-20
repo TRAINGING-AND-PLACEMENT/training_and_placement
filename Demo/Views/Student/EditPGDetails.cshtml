@@ -9,8 +9,11 @@
                         <div class="card-body">
                             <h4 class="card-title">Edit your profile - Student Post Graduation Details</h4>
                             <p class="card-title-desc">Verify all information again before updating.</p>
-                            <form asp-controller="Student" method="post" asp-action="update_student" class="needs-validation custom-validation" novalidate>
-
+                            <form asp-controller="Student" method="post" asp-action="edit_pg_data" class="needs-validation custom-validation" novalidate>
+                                <input type="hidden" asp-for="id" />
+                                <input type="hidden" asp-for="session_id" />
+                                <input type="hidden" asp-for="user_id" />
+                                <input type="hidden" asp-for="department_id" />
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="mb-3">
