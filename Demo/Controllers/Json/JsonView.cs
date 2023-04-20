@@ -26,6 +26,9 @@ namespace Demo.Controllers.Json
         [AllowNull]
         public Dictionary<string, string>[] Sessions { get; set; }
 
+        [JsonProperty("session")]
+        public List<Sessions> session { get; set; }
+
         [JsonProperty("student")]
         [AllowNull]
         public Dictionary<string, string>[] Student { get; set; }
