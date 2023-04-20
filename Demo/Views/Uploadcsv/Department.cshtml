@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Department CSV";
+}
+
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-body">
+                            <form asp-controller="Uploadcsv" asp-action="Department" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label>Upload CSV</label>
+                                    <input type="file" name="file" class="form-control " />
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <input type="submit" value="Import" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

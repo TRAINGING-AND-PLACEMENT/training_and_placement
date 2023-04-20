@@ -25,9 +25,58 @@ namespace Demo.Controllers
             client.BaseAddress = baseAddress;
             context = httpContextAccessor;
         }
+        public IActionResult Department()
+        {
+            return View("~/Views/Uploadcsv/Department.cshtml");
+        }
+        [HttpPost]
+        public IActionResult Department(IFormFile file, [FromServices] IWebHostEnvironment webHostEnvironment)
+        {
+            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{file.FileName}";
+            using (FileStream fileStream = System.IO.File.Create(filename))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            List<Department> model = new List<Department>();
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + file.FileName;
+
+            var config = new CsvConfiguration(CultureInfo.CurrentCulture)
+            {
+                Delimiter = ",",
+                Encoding = Encoding.UTF8,
+                MissingFieldFound = null
+            };
+            using (var reader = new StreamReader(path))
+            using (var csv = new CsvReader(reader, config))
+            {
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    var department = csv.GetRecord<Department>();
+                    department.status = 0;
+                    department.remarks = "";
+                    department.created_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
+                    department.updated_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
+                    model.Add(department);
+                }
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "set_department", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data2 = response.Content.ReadAsStringAsync().Result;
+                    Debug.Write(data2);
+                    return RedirectToAction("Index");
+                }
+            }
+
+            return RedirectToAction("Department");
+        }
+
         public IActionResult Index()
         {
-            Debug.WriteLine(@context.HttpContext.Session.GetInt32("role"));
             return View();
         }
         [HttpPost]
