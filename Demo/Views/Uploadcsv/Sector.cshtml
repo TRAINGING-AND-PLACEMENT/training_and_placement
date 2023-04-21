@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Department CSV";
+﻿
+@{
+    ViewData["Title"] = "Sector Csv";
 }
 
 
@@ -10,7 +11,7 @@
                 <div class="col-md-10">
                     <div class="card">
                         <div class="card-body">
-                            <form asp-controller="Uploadcsv" asp-action="Department" method="post" enctype="multipart/form-data">
+                            <form asp-controller="Uploadcsv" asp-action="Sector" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label>Upload CSV</label>
                                     <input type="file" name="file" class="form-control " />
@@ -25,4 +26,5 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
+
