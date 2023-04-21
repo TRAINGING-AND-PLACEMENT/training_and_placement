@@ -75,6 +75,55 @@ namespace Demo.Controllers
             return RedirectToAction("Department");
         }
 
+        public IActionResult Sector()
+        {
+            return View("~/Views/Uploadcsv/Sector.cshtml");
+        }
+        [HttpPost]
+        public IActionResult Sector(IFormFile file, [FromServices] IWebHostEnvironment webHostEnvironment)
+        {
+            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{file.FileName}";
+            using (FileStream fileStream = System.IO.File.Create(filename))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            List<Sector> model = new List<Sector>();
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + file.FileName;
+
+            var config = new CsvConfiguration(CultureInfo.CurrentCulture)
+            {
+                Delimiter = ",",
+                Encoding = Encoding.UTF8,
+                MissingFieldFound = null
+            };
+            using (var reader = new StreamReader(path))
+            using (var csv = new CsvReader(reader, config))
+            {
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    var sector = csv.GetRecord<Sector>();
+                    sector.status = 0;
+                    sector.remarks = "";
+                    sector.created_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
+                    sector.updated_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
+                    model.Add(sector);
+                }
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "set_sector", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data2 = response.Content.ReadAsStringAsync().Result;
+                    Debug.Write(data2);
+                    return RedirectToAction("Index");
+                }
+            }
+
+            return RedirectToAction("Sector");
+        }
         public IActionResult Index()
         {
             return View();

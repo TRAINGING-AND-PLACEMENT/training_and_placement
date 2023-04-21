@@ -3,8 +3,10 @@ using Demo.Controllers.Json;
 using Demo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using NuGet.DependencyResolver;
 using System.Diagnostics;
+using System.Text;
 
 namespace Demo.Controllers
 {
@@ -73,6 +75,37 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateHiring(ViewCompnaySession model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                if (ModelState.IsValid)
+                {
+                    String data = JsonConvert.SerializeObject(model);
+                    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "companyhiringdetails", content).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        String result = response.Content.ReadAsStringAsync().Result;
+                        Debug.Write(result);
+                        return RedirectToAction("Index");
+                    }
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        
         public IActionResult HiringCompanies() {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
