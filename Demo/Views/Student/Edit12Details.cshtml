@@ -9,27 +9,30 @@
                         <div class="card-body">
                             <h4 class="card-title">Edit your profile - Student Twelfth Details</h4>
                             <p class="card-title-desc">Verify all information again before updating.</p>
-                            <form asp-controller="Student" method="post" asp-action="update_student" class="needs-validation custom-validation" novalidate>
-
+                            <form asp-controller="Student" method="post" asp-action="edit_twelve_data" class="needs-validation custom-validation" novalidate>
+                                <input type="hidden" asp-for="id" />
+                                <input type="hidden" asp-for="session_id" />
+                                <input type="hidden" asp-for="user_id" />
+                                <input type="hidden" asp-for="department_id" />
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="surname">School name</label>
-                                            <input asp-for="surname" class="form-control" placeholder="School name" type="text" name="surname" id="surname">
-                                            <span asp-validation-for="surname" class="text-danger"></span>
+                                            <label class="form-label" for="twelve_school">School name</label>
+                                            <input asp-for="twelve_school" class="form-control" placeholder="School name" type="text" name="twelve_school" id="twelve_school">
+                                            <span asp-validation-for="twelve_school" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="first_name">Year of passing</label>
-                                            <input asp-for="first_name" class="form-control" id="first_name" placeholder="passing year" type="text" name="first_name" id="first_name">
-                                            <span asp-validation-for="first_name" class="text-danger"></span>
+                                            <label class="form-label" for="twelve_passyear">Year of passing</label>
+                                            <input asp-for="twelve_passyear" class="form-control" id="first_name" placeholder="passing year" type="text" name="twelve_passyear" id="twelve_passyear">
+                                            <span asp-validation-for="twelve_passyear" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="last_name">School Address</label>
-                                            <input asp-for="last_name" class="form-control" id="last_name" placeholder="address of school" type="text" name="last_name" id="surname">
+                                            <label class="form-label" for="twelve_schooladdress	">School Address</label>
+                                            <input asp-for="twelve_schooladdress" class="form-control" placeholder="address of school" type="text" name="twelve_schooladdress" id="twelve_schooladdress">
                                             <span asp-validation-for="last_name" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -39,16 +42,16 @@
 
                                     <div class="col-md-5">
                                         <div class="mb-3">
-                                            <label class="form-label" for="enrollment">School Pincode</label>
-                                            <input asp-for="enrollment" class="form-control" id="enrollment" placeholder="pincode" type="text" name="enrollment" id="enrollment" readonly>
-                                            <span asp-validation-for="enrollment" class="text-danger"></span>
+                                            <label class="form-label" for="twelve_schoolpincode">School Pincode</label>
+                                            <input asp-for="enrollment" class="form-control" id="twelve_schoolpincode" placeholder="pincode" type="text" name="twelve_schoolpincode" id="twelve_schoolpincode" >
+                                            <span asp-validation-for="twelve_schoolpincode" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="mb-3">
-                                            <label class="form-label" for="last_name">School city</label>
-                                            <input asp-for="grand_father_name" class="form-control" placeholder="school city" type="text" name="grand_father_name" id="grand_father_name">
-                                            <span asp-validation-for="grand_father_name" class="text-danger"></span>
+                                            <label class="form-label" for="twelve_schoolcity">School city</label>
+                                            <input asp-for="twelve_schoolcity" class="form-control" placeholder="school city" type="text" name="twelve_schoolcity" id="twelve_schoolcity">
+                                            <span asp-validation-for="twelve_schoolcity" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -59,26 +62,26 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="contact">Board name</label>
-                                            <input asp-for="contact" class="form-control" placeholder="board name" type="text" name="contact" id="contact">
-                                            <span asp-validation-for="contact" class="text-danger"></span>
+                                            <label class="form-label" for="twelve_score">Board name</label>
+                                            <input asp-for="twelve_board" class="form-control" placeholder="board name" type="text" name="twelve_board" id="twelve_board">
+                                            <span asp-validation-for="twelve_board" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="contact">Total marks in twelfth</label>
+                                            <label class="form-label" for="twelve_score">Total marks in twelfth</label>
                                             <div>
-                                                <input asp-for="alt_contact" class="form-control" id="alt_contact" placeholder="total marks" type="text" name="alt_contact" id="alt_contact" />
+                                                <input asp-for="twelve_scoreoutof" class="form-control" id="alt_contact" placeholder="total marks" type="text" name="twelve_scoreoutof" id="twelve_scoreoutof" />
 
                                             </div>
-                                            <span asp-validation-for="alt_contact" class="text-danger"></span>
+                                            <span asp-validation-for="twelve_scoreoutof" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="parent_contact">Marks scored in twelfth</label>
-                                            <input asp-for="parent_contact" class="form-control" placeholder="scored marks" type="text" name="parent_contact" id="parent_contact">
-                                            <span asp-validation-for="parent_contact" class="text-danger"></span>
+                                            <label class="form-label" for="twelve_score">Marks scored in twelfth</label>
+                                            <input asp-for="twelve_score" class="form-control" placeholder="scored marks" type="text" name="twelve_score" id="twelve_score">
+                                            <span asp-validation-for="twelve_score" class="text-danger"></span>
 
                                         </div>
                                     </div>
@@ -87,17 +90,17 @@
                                 <div class="row">
                                     <div class="col-md-7">
                                         <div class="mb-3">
-                                            <label class="form-label" for="permanent_address">Gap number:</label>
-                                            <input asp-for="permanent_address" class="form-control" id="permanent_address" placeholder="gap number" type="text" name="permanent_address" id="permanent_address">
-                                            <span asp-validation-for="permanent_address" class="text-danger"></span>
+                                            <label class="form-label" for="twelve_gapno">Gap number:</label>
+                                            <input asp-for="twelve_gapno" class="form-control" id="permanent_address" placeholder="gap number" type="text" name="twelve_gapno" id="twelve_gapno">
+                                            <span asp-validation-for="twelve_gapno" class="text-danger"></span>
                                         </div>
                                     </div>
 
                                     <div class="col-md-5">
                                         <div class="mb-3">
-                                            <label class="form-label" for="blood_group">Gap(s) in years taken in twelfth</label>
-                                            <input asp-for="blood_group" class="form-control" id="blood_group" placeholder="gaps taken in years" type="text" name="blood_group" id="blood_group">
-                                            <span asp-validation-for="blood_group" class="text-danger"></span>
+                                            <label class="form-label" for="twelve_gapyears">Gap(s) in years taken in twelfth</label>
+                                            <input asp-for="twelve_gapyears" class="form-control" id="blood_group" placeholder="gaps taken in years" type="text" name="twelve_gapyears" id="twelve_gapyears">
+                                            <span asp-validation-for="twelve_gapyears" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -106,17 +109,17 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="city">Admission Quota</label>
-                                            <input asp-for="city" class="form-control" placeholder="quota" type="text" name="city" id="city">
-                                            <span asp-validation-for="city" class="text-danger"></span>
+                                            <label class="form-label" for="twelve_admissionquota">Admission Quota</label>
+                                            <input asp-for="twelve_admissionquota" class="form-control" placeholder="quota" type="text" name="twelve_admissionquota" id="twelve_admissionquota">
+                                            <span asp-validation-for="twelve_admissionquota" class="text-danger"></span>
                                         </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="city">Specialization</label>
-                                            <input asp-for="city" class="form-control" placeholder="sprc." type="text" name="city" id="city">
-                                            <span asp-validation-for="city" class="text-danger"></span>
+                                            <label class="form-label" for="citwelve_specializationty">Specialization</label>
+                                            <input asp-for="twelve_specialization" class="form-control" placeholder="sprc." type="text" name="twelve_specialization" id="twelve_specialization">
+                                            <span asp-validation-for="twelve_specialization" class="text-danger"></span>
                                         </div>
                                     </div>
 

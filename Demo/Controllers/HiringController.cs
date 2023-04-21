@@ -109,7 +109,8 @@ namespace Demo.Controllers
         public IActionResult HiringCompanies() {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
-                List<Hiring> model = new List<Hiring>();
+                List<Hiring> hiringmodel = new List<Hiring>();
+                List<Company> companymodel = new List<Company>();
 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "gethiringdetails").Result;
                 if (response.IsSuccessStatusCode)
@@ -119,10 +120,24 @@ namespace Demo.Controllers
                     var res = JsonDecode.FromJson(data);
                     foreach (var hiring in res.hirings)
                     {
-                        model.Add(hiring);
+                        hiringmodel.Add(hiring);
                     }
                 }
-                return View(model);
+                HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response2.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var companies = JsonDecode.FromJson(data);
+                    foreach (var company in companies.Companies)
+                    {
+                        companymodel.Add(company);
+                    }
+                }
+                ViewCompnaySession viewCompnaySession = new ViewCompnaySession();
+                viewCompnaySession.Companies = companymodel;
+                viewCompnaySession.Hiring = hiringmodel;
+                return View(viewCompnaySession);
             }
             else
             {

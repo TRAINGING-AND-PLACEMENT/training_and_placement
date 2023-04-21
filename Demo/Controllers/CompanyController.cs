@@ -126,16 +126,20 @@ namespace Demo.Controllers
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
-                String data = JsonConvert.SerializeObject(model);
-                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response = client.PutAsync(client.BaseAddress + "updatecompanydetails&id=" + model.id, content).Result;
-                if (response.IsSuccessStatusCode)
+                if (ModelState.IsValid)
                 {
-                    String result = response.Content.ReadAsStringAsync().Result;
-                    return RedirectToAction("Index");
+                    String data = JsonConvert.SerializeObject(model);
+                    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = client.PutAsync(client.BaseAddress + "updatecompanydetails&id=" + model.id, content).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        String result = response.Content.ReadAsStringAsync().Result;
+                        return RedirectToAction("Index");
+                    }
+                    return View();
                 }
-                return View();
+                return View(model);
             }
             else
             {

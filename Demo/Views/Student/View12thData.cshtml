@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Student
 @{
     Layout = "_StudentLayout";
 }
@@ -31,7 +29,7 @@
                                                     <th scope="row">01</th>
                                                     <td>School Name:</td>
                                                     <td>
-                                                        schhol name here
+                                                        @Model.twelve_school
                                                     </td>
 
 
@@ -40,7 +38,7 @@
                                                     <th scope="row">02</th>
                                                     <td>Year of passing:</td>
                                                     <td>
-                                                        2019
+                                                        @Model.twelve_passyear
                                                     </td>
 
                                                 </tr>
@@ -48,7 +46,7 @@
                                                     <th scope="row">03</th>
                                                     <td><a href="#" class="text-dark">School Address</a></td>
                                                     <td>
-                                                        address with pincode city
+                                                        @Model.twelve_schooladdress, @Model.twelve_schoolcity - @Model.twelve_schoolpincode
                                                     </td>
 
 
@@ -57,7 +55,7 @@
                                                     <th scope="row">04</th>
                                                     <td><a href="#" class="text-dark">Board name:</a></td>
                                                     <td>
-                                                        GSEB
+                                                        @Model.twelve_board
                                                     </td>
 
 
@@ -66,7 +64,7 @@
                                                     <th scope="row">05</th>
                                                     <td><a href="#" class="text-dark">Marks scored:</a></td>
                                                     <td>
-                                                        300 out of 600
+                                                        @Model.twelve_score out of @Model.twelve_scoreoutof
                                                     </td>
 
                                                 </tr>
@@ -74,7 +72,7 @@
                                                     <th scope="row">06</th>
                                                     <td>12<sup>th</sup> Gap number:</td>
                                                     <td>
-                                                        none
+                                                        @Model.twelve_gapno
                                                     </td>
 
 
@@ -83,7 +81,7 @@
                                                     <th scope="row">07</th>
                                                     <td>12<sup>th</sup> Gap year(s):</td>
                                                     <td>
-                                                        none
+                                                        @Model.twelve_gapyears
                                                     </td>
 
 
@@ -92,7 +90,7 @@
                                                     <th scope="row">08</th>
                                                     <td>Admission Quota:</td>
                                                     <td>
-                                                        add quota
+                                                        @Model.twelve_admissionquota
                                                     </td>
 
                                                 </tr>
@@ -100,7 +98,7 @@
                                                     <th scope="row">09</th>
                                                     <td>Specialization:</td>
                                                     <td>
-                                                        add spec
+                                                        @Model.twelve_specialization
                                                     </td>
 
                                                 </tr>

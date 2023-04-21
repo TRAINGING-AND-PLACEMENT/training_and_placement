@@ -132,6 +132,29 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
+        [HttpPost]
+        public IActionResult EditTenthData(Student model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PutAsync(client.BaseAddress + "editten_details&id=" + @context.HttpContext.Session.GetInt32("studentid"), content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("ViewTenthData");
+                }
+                return View();
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
         public IActionResult View12thData()
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
@@ -145,6 +168,30 @@ namespace Demo.Controllers
                     model = res.studentInfo[0];
                 }
                 return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult edit_twelve_data(Student model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PutAsync(client.BaseAddress + "editstudent_twelve_data&id=" + @context.HttpContext.Session.GetInt32("studentid"), content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("View12thData");
+                }
+                return View();
             }
             else
             {
@@ -174,6 +221,32 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
+
+        [HttpPost]
+        public IActionResult edit_ug_data(Student model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PutAsync(client.BaseAddress + "editstudent_ug_data&id=" + @context.HttpContext.Session.GetInt32("studentid"), content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("ViewUGData");
+                }
+                return View();
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+
         public IActionResult ViewPGData()
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
@@ -187,6 +260,30 @@ namespace Demo.Controllers
                     model = res.studentInfo[0];
                 }
                 return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult edit_pg_data(Student model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PutAsync(client.BaseAddress + "editstudent_pg_data&id=" + @context.HttpContext.Session.GetInt32("studentid"), content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("ViewPGData");
+                }
+                return View();
             }
             else
             {
@@ -220,16 +317,67 @@ namespace Demo.Controllers
 
         public IActionResult Edit12Details()
         {
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                Student model = new Student();
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstudentdetail&id=" + @context.HttpContext.Session.GetInt32("studentid")).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    var res = JsonDecode.FromJson(data);
+                    model = res.studentInfo[0];
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
         }
 
         public IActionResult EditUGDetails()
         {
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                Student model = new Student();
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstudentdetail&id=" + @context.HttpContext.Session.GetInt32("studentid")).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    var res = JsonDecode.FromJson(data);
+                    model = res.studentInfo[0];
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
         }
         public IActionResult EditPGDetails()
         {
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                Student model = new Student();
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstudentdetail&id=" + @context.HttpContext.Session.GetInt32("studentid")).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    var res = JsonDecode.FromJson(data);
+                    model = res.studentInfo[0];
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
         }
     }
 }

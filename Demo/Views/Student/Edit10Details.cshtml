@@ -9,7 +9,7 @@
                         <div class="card-body">
                             <h4 class="card-title">Edit your profile - Student Tenth Details</h4>
                             <p class="card-title-desc">Verify all information again before updating.</p>
-                            <form asp-controller="Student" method="post" asp-action="update_student" class="needs-validation custom-validation" novalidate>
+                            <form asp-controller="Student" method="post" asp-action="EditTenthData" class="needs-validation custom-validation" novalidate>
                                 <input type="hidden" asp-for="id" />
                                 <input type="hidden" asp-for="session_id" />
                                 <input type="hidden" asp-for="user_id" />
@@ -39,7 +39,6 @@
 
                                 </div>
                                 <div class="row">
-
                                     <div class="col-md-5">
                                         <div class="mb-3">
                                             <label class="form-label" for="ten_schoolpincode">School Pincode</label>
