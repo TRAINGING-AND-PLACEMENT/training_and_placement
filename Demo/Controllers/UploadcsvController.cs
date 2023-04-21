@@ -68,10 +68,11 @@ namespace Demo.Controllers
                 {
                     String data2 = response.Content.ReadAsStringAsync().Result;
                     Debug.Write(data2);
-                    return RedirectToAction("Index");
+                    TempData["success"] = "Department inserted.";
+                    return RedirectToAction("Department");
                 }
             }
-
+            //TempData["error"] = "choose any role to sign in.";
             return RedirectToAction("Department");
         }
 
@@ -119,6 +120,7 @@ namespace Demo.Controllers
                 {
                     String data2 = response.Content.ReadAsStringAsync().Result;
                     Debug.Write(data2);
+                    TempData["success"] = "User inserted.";
                     return RedirectToAction("Index");
                 }
             }
