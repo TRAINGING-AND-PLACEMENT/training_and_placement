@@ -1,4 +1,6 @@
 ﻿@model ViewCompnaySession
+@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor context;
 @{
     ViewData["Title"] = "Create Hiring";
 }
@@ -23,10 +25,8 @@
                     <div class="card">
                         <div class="card-body">
                             <form asp-controller="Hiring" asp-action="CreateHiring" method="post">
-                                @foreach (var sesssion in Model.Session)
-                                {
-                                    <input type="hidden" asp-for="@sesssion.id" />
-                                } 
+
+                                @*<input type="hidden" asp-for="@context.HttpContext.Session.GetInt32("sessionid")" />*@
                                 <div class="row">
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Company Name</label>
@@ -53,23 +53,23 @@
                                         <label for="example-number-input" class=" col-form-label">Department</label>
                                         <select class="form-select">
                                             <option value="-1">Select</option>
-                                            @foreach (var company in Model.Companies)
+                                            @foreach (var department in Model.Departments)
                                             {
-                                                <option name="company_id" value="@company.id">@company.name</option>
+                                                <option name="department_id" value="@department.id">@department.department</option>
                                             }
                                         </select>
-                                        <span asp-validation-for="@Model.Hiring.company_id" class="text-danger"></span>
+                                        <span asp-validation-for="@Model.Hiring_Departments.department_id" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Sector</label>
                                         <select class="form-select">
                                             <option value="-1">Select</option>
-                                            @foreach (var company in Model.Companies)
+                                            @foreach (var sector in Model.Sectors)
                                             {
-                                                <option name="company_id" value="@company.id">@company.name</option>
+                                                <option name="sector_id" value="@sector.id">@sector.sector</option>
                                             }
                                         </select>
-                                        <span asp-validation-for="@Model.Hiring.company_id" class="text-danger"></span>
+                                        <span asp-validation-for="@Model.Hiring_sectors.sector_id" class="text-danger"></span>
                                     </div>
 
                                     <div class="col-md-6 col-md-2">

@@ -40,6 +40,8 @@ namespace Demo.Controllers
             {
                 List<Company> companymodel = new List<Company>();
                 List<Sessions> sessionsmodel = new List<Sessions>();
+                List<Department> departmentmodel = new List<Department>();
+                List<Sector> sectormodel = new List<Sector>();
 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
                 if (response.IsSuccessStatusCode)
@@ -63,9 +65,33 @@ namespace Demo.Controllers
                         sessionsmodel.Add(session);
                     }
                 }
+                HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "get_department").Result;
+                if (response2.IsSuccessStatusCode)
+                {
+                    String data = response2.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var department = JsonDecode.FromJson(data);
+                    foreach (var departments in department.departments)
+                    {
+                        departmentmodel.Add(departments);
+                    }
+                }
+                HttpResponseMessage response3 = client.GetAsync(client.BaseAddress + "get_sector").Result;
+                if (response1.IsSuccessStatusCode)
+                {
+                    String data = response3.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var sector = JsonDecode.FromJson(data);
+                    foreach (var sectors in sector.sectors)
+                    {
+                        sectormodel.Add(sectors);
+                    }
+                }
                 ViewCompnaySession viewCompnaySession = new ViewCompnaySession();   
                 viewCompnaySession.Companies = companymodel;
                 viewCompnaySession.Session = sessionsmodel;
+                viewCompnaySession.Departments = departmentmodel;
+                viewCompnaySession.Sectors = sectormodel;
                 return View(viewCompnaySession);
             }
             else
@@ -134,10 +160,10 @@ namespace Demo.Controllers
                         companymodel.Add(company);
                     }
                 }
-                ViewCompnaySession viewCompnaySession = new ViewCompnaySession();
-                viewCompnaySession.Companies = companymodel;
-                viewCompnaySession.Hiring = hiringmodel;
-                return View(viewCompnaySession);
+                ViewHiring viewHiring   = new ViewHiring();
+                viewHiring.Companies = companymodel;
+                viewHiring.Hirings = hiringmodel;
+                return View(viewHiring);
             }
             else
             {
