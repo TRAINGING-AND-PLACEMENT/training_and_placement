@@ -1,7 +1,7 @@
-﻿@model List<Hiring>
+﻿@model ViewCompnaySession
 
 <!--Total Companies page-->
-<div class="main-content" style="margin-left:5%;width:110%;">
+<div class="main-content" style="margin-left:10%;width:100%;">
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
@@ -36,10 +36,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model)
+                                        @foreach (var item in Model.Hiring)
                                         {
                                             <tr>
-                                                <td>@item.company_id</td>
+                                                @foreach (var company in Model.Companies)
+                                                {
+                                                    if(item.company_id == company.id)
+                                                    {
+                                                        <td>@company.name</td>
+                                                    }
+                                                }
                                                 <td>@item.session_id</td>
                                                 <td>@item.designation</td>
                                                 <td>@item.joblocation</td>
