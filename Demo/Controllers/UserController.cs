@@ -95,7 +95,7 @@ namespace Demo.Controllers
                                     context.HttpContext.Session.SetInt32("sessionid", sessionid);
                                     context.HttpContext.Session.SetInt32("studentid", studentid);
                                     context.HttpContext.Session.SetString("studentemail", studentemailid);
-                                    return RedirectToAction("StudentProfile", "Student");
+                                    return RedirectToAction("Index", "Home");
                                 }
                                 else if (role == 2)
                                 {
