@@ -2,6 +2,7 @@
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
 using Demo.api;
+using Demo.Controllers.Json;
 using Demo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,13 @@ namespace Demo.Controllers
             client = new HttpClient();
             client.BaseAddress = baseAddress;
             context = httpContextAccessor;
+        }
+        public void DestorySession()
+        {
+            context.HttpContext.Session.Remove("role");
+            context.HttpContext.Session.Remove("userid");
+            context.HttpContext.Session.Remove("sessionid");
+            context.HttpContext.Session.Remove("studentid");
         }
         public IActionResult Department()
         {
@@ -119,11 +127,40 @@ namespace Demo.Controllers
                 {
                     String data2 = response.Content.ReadAsStringAsync().Result;
                     Debug.Write(data2);
+                    TempData["success"] = "Sector inserted.";
                     return RedirectToAction("Sector");
                 }
             }
 
             return RedirectToAction("Sector");
+        }
+
+        public IActionResult View_Sector()
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                List<Sector> model = new List<Sector>();
+
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_sector").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var Sectors = JsonDecode.FromJson(data);
+                    foreach (var sector in Sectors.sectors)
+                    {
+                        model.Add(sector);
+                    }
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+            return View();
         }
         public IActionResult Index()
         {
