@@ -83,7 +83,99 @@ namespace Demo.Controllers
             //TempData["error"] = "choose any role to sign in.";
             return RedirectToAction("Department");
         }
+        public IActionResult Edit_Department(int id)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                Department model = new Department();
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_department&id=" + id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var department = JsonDecode.FromJson(data);
+                    Debug.WriteLine(department);
+                    model = department.departments[0];
+                    Debug.WriteLine(model);
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
 
+        }
+        [HttpPost]
+        public IActionResult Update_Department(Department model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                if (ModelState.IsValid)
+                {
+                    String data = JsonConvert.SerializeObject(model);
+                    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = client.PutAsync(client.BaseAddress + "update_department&id=" + model.id, content).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        String result = response.Content.ReadAsStringAsync().Result;
+                        return RedirectToAction("View_Department");
+                    }
+                    return View();
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        public IActionResult View_Department()
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                List<Department> model = new List<Department>();
+
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_department").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var Departments = JsonDecode.FromJson(data);
+                    foreach (var department in Departments.departments)
+                    {
+                        model.Add(department);
+                    }
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        public IActionResult Delete_Department(int id)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "delete_department&id=" + id).Result;
+                return RedirectToAction("View_Department");
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
         public IActionResult Sector()
         {
             return View("~/Views/Uploadcsv/Sector.cshtml");
@@ -134,7 +226,57 @@ namespace Demo.Controllers
 
             return RedirectToAction("Sector");
         }
+        public IActionResult Edit_Sector(int id)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                Sector model = new Sector();
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_sector&id=" + id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var sector = JsonDecode.FromJson(data);
+                    Debug.WriteLine(sector);
+                    model = sector.sectors[0];
+                    Debug.WriteLine(model);
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
 
+        }
+        [HttpPost]
+        public IActionResult Update_Sector(Sector model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                if (ModelState.IsValid)
+                {
+                    String data = JsonConvert.SerializeObject(model);
+                    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = client.PutAsync(client.BaseAddress + "update_sector&id=" + model.id, content).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        String result = response.Content.ReadAsStringAsync().Result;
+                        return RedirectToAction("View_Sector");
+                    }
+                    return View();
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
         public IActionResult View_Sector()
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
@@ -161,6 +303,21 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
             return View();
+        }
+
+        public IActionResult Delete_Sector(int id)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "delete_sector&id=" + id).Result;
+                return RedirectToAction("View_Sector");
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
         }
         public IActionResult Index()
         {

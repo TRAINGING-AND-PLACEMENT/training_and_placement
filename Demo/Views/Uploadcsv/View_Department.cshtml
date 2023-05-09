@@ -1,7 +1,11 @@
-﻿@model List<Sector>
+﻿@model List<Department>
+@{
+    ViewData["Title"] = "View_Department";
+}
 @{
     Layout = "_CoOrdLayout";
 }
+
 <div class="main-content" style="margin-left:5%;width:112%;">
     <div class="page-content">
         <div class="container-fluid">
@@ -10,11 +14,11 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h4 class="card-title">Sector List</h4>
+                            <h4 class="card-title">Department List</h4>
                             <p class="card-title-desc">
 
                             </p>
-                            <table class="table table-striped table-bordered dt-responsive" id="sector-table" style="width:100%;">
+                            <table class="table table-striped table-bordered dt-responsive" id="department-table" style="width:100%;">
                                 @if (Model == null)
                                 {
                                     <p>There is no data to be displayed</p>
@@ -23,7 +27,7 @@
                                 {
                                     <thead>
                                         <tr>
-                                            <td>Sector Name</td>
+                                            <td>Department Name</td>
                                             <td>Action</td>
                                         </tr>
                                     </thead>
@@ -31,10 +35,10 @@
                                         @foreach (var item in Model)
                                         {
                                             <tr>
-                                                <td>@item.sector</td>
+                                                <td>@item.department</td>
                                                 <td>
-                                                    <a class="btn btn-outline-primary" asp-action="Edit_Sector" asp-route-id="@item.id">Edit</a>
-                                                    <a class="btn btn-outline-danger" asp-action="Delete_Sector" asp-route-id="@item.id">Delete</a>
+                                                    <a class="btn btn-outline-primary" asp-action="Edit_Department" asp-route-id="@item.id">Edit</a>
+                                                    <a class="btn btn-outline-danger" asp-action="Delete_Department" asp-route-id="@item.id">Delete</a>
                                                 </td>
                                             </tr>
                                         }
@@ -54,7 +58,7 @@
 
     <script>
         $(document).ready(function () {
-            var table = $("#sector-table").DataTable({
+            var table = $("#department-table").DataTable({
                 "scrollX": true,
                 pageLength: 5,
                 lengthMenu: [5, 10, 20]
@@ -62,3 +66,5 @@
         });
     </script>
 }
+
+
