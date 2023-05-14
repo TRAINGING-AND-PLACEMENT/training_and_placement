@@ -53,7 +53,7 @@
                         <span>Hirirng Companies</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a asp-controller="Hiring" asp-action="CreateHiring">Add Hiring Details</a></li>
+                        <li><a asp-controller="Hiring" asp-action="Create">Add Hiring Details</a></li>
                         @*<li><a asp-controller="Hiring" asp-action="Index">View Hiring Details</a></li>*@
                     </ul>
                 </li>
@@ -63,16 +63,28 @@
                     </a>
                 </li>
                 <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <span>Departments</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a asp-controller="Uploadcsv" asp-action="Department">Upload Department details</a></li>
+                        <li><a asp-controller="Uploadcsv" asp-action="View_Department">View Department Details</a></li>
+                    </ul>
+                </li>
+                @*<li>
                     <a asp-controller="Uploadcsv" asp-action="Department" class="waves-effect">
                         <span>Upload Department details</span>
                     </a>
-                </li>
+                </li>*@
                 <li>
-                    <a asp-controller="Uploadcsv" asp-action="Sector" class="waves-effect">
-                        <span>Upload Sector details</span>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <span>Sectors</span>
                     </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a asp-controller="Uploadcsv" asp-action="Sector">Upload Sectors details</a></li>
+                        <li><a asp-controller="Uploadcsv" asp-action="View_Sector">View Sectors Details</a></li>
+                    </ul>
                 </li>
-
                 <li>
                     <a asp-controller="User" asp-action="Logout" class="waves-effect">
                         <span>Logout</span>
