@@ -1,5 +1,4 @@
 ﻿@model ViewCompnaySession
-@using Microsoft.AspNetCore.Http;
 @inject IHttpContextAccessor context;
 @{
     ViewData["Title"] = "Create Hiring";
@@ -25,10 +24,9 @@
                     <div class="card">
                         <div class="card-body">
                             <form asp-controller="Hiring" asp-action="CreateHiring" method="post">
-
-                                @*<input type="hidden" asp-for="@context.HttpContext.Session.GetInt32("sessionid")" />*@
+                                <input class="form-control" type="hidden" name="sessionid" value="@context.HttpContext.Session.GetInt32("sessionid")">
                                 <div class="row">
-                                    <div class="col-md-6 col-md-2">
+                                    @*<div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Company Name</label>
                                         <select class="form-select">
                                             <option value="-1">Select</option>
@@ -43,12 +41,12 @@
                                         <label for="example-number-input" class=" col-form-label">Designation</label>
                                         <input asp-for="@Model.Hiring.designation" class="form-control" type="text" name="designation" id="designation">
                                         <span asp-validation-for="@Model.Hiring.designation" class="text-danger"></span>
-                                    </div>
+                                    </div>*@
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Other Requirement</label>
                                         <input asp-for="@Model.Hiring.other_requirement" class="form-control" type="text" name="other_requirement" id="other_requirement">
-                                        <span asp-validation-for="@Model.Hiring.other_requirement" class="text-danger"></span>
-                                    </div>
+                                        @*<span asp-validation-for="@Model.Hiring.other_requirement" class="text-danger"></span>*@
+                                    @*</div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Department</label>
                                         <select class="form-select">
@@ -144,8 +142,7 @@
                                         <label for="example-number-input" class="col col-form-label">Interview location</label>
                                         <input asp-for="@Model.Hiring.interview_location" class="form-control" type="text" name="interview_location" id="interview_location">
                                         <span asp-validation-for="@Model.Hiring.interview_location" class="text-danger"></span>
-                                    </div>
-                                    
+                                    </div>*@
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="submit" value="Save" class="btn btn-primary" />

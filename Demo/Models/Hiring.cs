@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -80,7 +81,7 @@ namespace Demo.Models
         [JsonProperty("interview_location")]
         public string interview_location { get; set; }
 
-        [Required(ErrorMessage = "You must provide a other requirements")]
+        [ValidateNever]
         [JsonProperty("other_requirement")]
         public string other_requirement { get; set; }
 

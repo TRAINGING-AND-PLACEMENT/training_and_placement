@@ -119,6 +119,7 @@ namespace Demo.Controllers
                 {
                     String data2 = response.Content.ReadAsStringAsync().Result;
                     Debug.Write(data2);
+                    TempData["success"] = "Sector inserted.";
                     return RedirectToAction("Sector");
                 }
             }

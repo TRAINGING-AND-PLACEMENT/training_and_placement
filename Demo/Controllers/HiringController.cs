@@ -35,7 +35,7 @@ namespace Demo.Controllers
             return View();
         }
 
-        public IActionResult Create() {
+        public IActionResult CreateHiring() {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
                 List<Company> companymodel = new List<Company>();
@@ -104,7 +104,6 @@ namespace Demo.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult CreateHiring(ViewCompnaySession model)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
