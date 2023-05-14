@@ -11,18 +11,28 @@ namespace Demo.Models
         [JsonProperty("id")]
         public long id { get; set; }
 
-        [DisplayName("Company Name")]
-        [Required(ErrorMessage = "You must provide a Company Name!")]
+        [DisplayName("Company Id")]
+        [Required(ErrorMessage = "You must provide a Company Id!")]
         [JsonProperty("company_id")]
         public long company_id { get; set; }
 
-        [DisplayName("Session Name")]
-        [Required(ErrorMessage = "You must provide a Session Name!")]
+        [DisplayName("Session Id")]
+        [Required(ErrorMessage = "You must provide a Session Id!")]
         [JsonProperty("session_id")]
         public long session_id { get;set; }
 
+        [DisplayName("Department Id")]
+        [Required(ErrorMessage = "You must provide a Department Id!")]
+        [JsonProperty("department_id")]
+        public long department_id { get; set; }
+
+        [DisplayName("Sector Id")]
+        [Required(ErrorMessage = "You must provide a Sector Id!")]
+        [JsonProperty("sector_id")]
+        public long sector_id { get; set; }
+
         [DisplayName("Designation")]
-        
+        [Required(ErrorMessage = "You must provide a Designation!")]
         [JsonProperty("designation")]
         public string designation { get; set; }
 
@@ -37,22 +47,24 @@ namespace Demo.Models
         public string bond_condition { get; set; }
 
         [Required(ErrorMessage = "You must provide a Fix Salary!")]
-        [RegularExpression(@"^\d$", ErrorMessage = "Not a valid number")]
+        [RegularExpression(@"^\d${9}", ErrorMessage = "Not a valid number")]
         [JsonProperty("fix_salary")]
         public double fix_salary { get; set; }
 
         [Required(ErrorMessage = "You must provide a bonus")]
-        [RegularExpression(@"^\d$", ErrorMessage = "Not a valid number")]
+        [RegularExpression(@"^\d${9}", ErrorMessage = "Not a valid number")]
         [JsonProperty("bonus")]
         public double bonus { get; set; }
 
 
         [Required(ErrorMessage = "You must provide a performance incentives")]
+        [RegularExpression(@"^\d${9}", ErrorMessage = "Not a valid number")]
         [JsonProperty("performance_inc")]
+
         public double performance_inc { get; set; }
 
         [Required(ErrorMessage = "You must provide a Total Salary")]
-        [RegularExpression(@"^\d$", ErrorMessage = "Not a valid number")]
+        [RegularExpression(@"^\d${9}", ErrorMessage = "Not a valid number")]
         [JsonProperty("total_salary")]
         public double total_salary { get; set; }
 
@@ -82,6 +94,7 @@ namespace Demo.Models
 
        
         [JsonProperty("other_requirement")]
+        [Required(ErrorMessage = "You must provide a Other Requirement")]
         public string other_requirement { get; set; }
 
 

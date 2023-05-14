@@ -25,119 +25,119 @@
                     <div class="card">
                         <div class="card-body">
                             <form asp-controller="Hiring" asp-action="Create" method="post">
-                                <input type="hidden" name="session_id" value="@context.HttpContext.Session.GetInt32("sessionid")" />
+                                <input type="hidden" asp-for="@Model.Hiring.session_id" value="@context.HttpContext.Session.GetInt32("sessionid")" />
                                 <div class="row">
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Company Name</label>
-                                        <select  class="form-select">
+                                        <select asp-for="@Model.Hiring.company_id" class="form-select">
                                             <option value="-1">Select</option>
                                             @foreach (var company in Model.Companies)
                                             {
-                                                <option name="company_id" value="@company.id">@company.name</option>
+                                                <option value="@company.id">@company.name</option>
                                             }
                                         </select>
                                         <span asp-validation-for="@Model.Hiring.company_id" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Designation</label>
-                                        <input asp-for="@Model.Hiring.designation" class="form-control" type="text" name="designation" id="designation">
+                                        <input asp-for="@Model.Hiring.designation" class="form-control" type="text"  id="designation">
                                         <span asp-validation-for="@Model.Hiring.designation" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Other Requirement</label>
-                                        <input asp-for="@Model.Hiring.other_requirement" class="form-control" type="text" name="other_requirement" id="other_requirement">
+                                        <input asp-for="@Model.Hiring.other_requirement" class="form-control" type="text" id="other_requirement">
                                         <span asp-validation-for="@Model.Hiring.other_requirement" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Department</label>
-                                        <select class="form-select">
+                                        <select asp-for="@Model.Hiring.department_id" class="form-select">
                                             <option value="-1">Select</option>
                                             @foreach (var department in Model.Departments)
                                             {
-                                                <option name="department_id" value="@department.id">@department.department</option>
+                                                <option value="@department.id">@department.department</option>
                                             }
                                         </select>
-                                        <span asp-validation-for="@Model.Hiring_Departments.department_id" class="text-danger"></span>
+                                        <span asp-validation-for="@Model.Hiring.department_id" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Sector</label>
-                                        <select class="form-select">
+                                        <select asp-for="@Model.Hiring.sector_id" class="form-select">
                                             <option value="-1">Select</option>
                                             @foreach (var sector in Model.Sectors)
                                             {
-                                                <option name="sector_id" value="@sector.id">@sector.sector</option>
+                                                <option value="@sector.id">@sector.sector</option>
                                             }
                                         </select>
-                                        <span asp-validation-for="@Model.Hiring_sectors.sector_id" class="text-danger"></span>
+                                        <span asp-validation-for="@Model.Hiring.sector_id" class="text-danger"></span>
                                     </div>
 
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Fix Salary</label>
-                                        <input asp-for="@Model.Hiring.fix_salary" class="form-control" type="text" name="fix_salary" id="fix_salary">
+                                        <input asp-for="@Model.Hiring.fix_salary" class="form-control" type="text" id="fix_salary">
                                         <span asp-validation-for="@Model.Hiring.fix_salary" class="text-danger"></span>
                                     </div>
 
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Performance Incentives</label>
-                                        <input asp-for="@Model.Hiring.performance_inc" class="form-control" type="text" name="performance_inc" id="performance_inc">
+                                        <input asp-for="@Model.Hiring.performance_inc" class="form-control" type="text"  id="performance_inc">
                                         <span asp-validation-for="@Model.Hiring.performance_inc" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Total Salary</label>
-                                        <input asp-for="@Model.Hiring.total_salary" class="form-control" type="text" name="total_salary" id="total_salary">
+                                        <input asp-for="@Model.Hiring.total_salary" class="form-control" type="text"  id="total_salary">
                                         <span asp-validation-for="@Model.Hiring.total_salary" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Bonus</label>
-                                        <input asp-for="@Model.Hiring.bonus" class="form-control" type="text" name="bonus" id="bonus">
+                                        <input asp-for="@Model.Hiring.bonus" class="form-control" type="text" id="bonus">
                                         <span asp-validation-for="@Model.Hiring.bonus" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2 ">
                                         <label for="example-number-input" class="col col-form-label">Joining Date</label>
-                                        <input asp-for="@Model.Hiring.joindate" class="form-control" type="date" name="joindate" id="joindate">
+                                        <input asp-for="@Model.Hiring.joindate" class="form-control" type="date"  id="joindate">
                                         <span asp-validation-for="@Model.Hiring.joindate" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2 ">
                                         <label for="example-number-input" class="col col-form-label">Start Date</label>
-                                        <input asp-for="@Model.Hiring.startdate" class="form-control" type="date" name="startdate" id="startdate">
+                                        <input asp-for="@Model.Hiring.startdate" class="form-control" type="date" id="startdate">
                                         <span asp-validation-for="@Model.Hiring.startdate" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">End Date</label>
-                                        <input asp-for="@Model.Hiring.enddate" class="form-control" type="date" name="enddate" id="enddate">
+                                        <input asp-for="@Model.Hiring.enddate" class="form-control" type="date" id="enddate">
                                         <span asp-validation-for="@Model.Hiring.enddate" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Interview Mode</label>
-                                        <input asp-for="@Model.Hiring.interview_mode" class="form-control" type="text" name="interview_mode" id="interview_mode">
+                                        <input asp-for="@Model.Hiring.interview_mode" class="form-control" type="text"  id="interview_mode">
                                         <span asp-validation-for="@Model.Hiring.interview_mode" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Interview location</label>
-                                        <input asp-for="@Model.Hiring.interview_location" class="form-control" type="text" name="interview_location" id="interview_location">
+                                        <input asp-for="@Model.Hiring.interview_location" class="form-control" type="text" id="interview_location">
                                         <span asp-validation-for="@Model.Hiring.interview_location" class="text-danger"></span>
                                     </div>
                                     <div class="mt-2">
                                         <label class="form-label d-block mb-3">Bond</label>
                                         <div class="custom-radio form-check form-check-inline">
-                                            <input type="radio" asp-for="@Model.Hiring.bond" id="bond" name="bond" class="form-check-input" value="Yes">
+                                            <input type="radio" asp-for="@Model.Hiring.bond" id="bond" class="form-check-input" value="Yes">
                                             <label class="form-check-label" for="bond">Yes</label>
-                                            <span asp-validation-for="@Model.Hiring.bond" class="text-danger"></span>
                                         </div>
                                         <div class="custom-radio form-check form-check-inline">
-                                            <input type="radio" asp-for="@Model.Hiring.bond" id="bond1" name="bond" class="form-check-input" value="No">
+                                            <input type="radio" asp-for="@Model.Hiring.bond" id="bond" class="form-check-input" value="No">
                                             <label class="form-check-label" for="bond">No</label>
-                                            <span asp-validation-for="@Model.Hiring.bond" class="text-danger"></span>
                                         </div>
+                                        <br>
+                                        <span asp-validation-for="@Model.Hiring.bond" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2" id="bond_condition_div">
                                         <label for="example-number-input" class="col col-form-label">Bond Condition</label>
-                                        <input asp-for="@Model.Hiring.bond_condition" class="form-control" type="text" name="bond_condition" id="bondcondition" value="null">
+                                        <input asp-for="@Model.Hiring.bond_condition" class="form-control" type="text"  id="bondcondition" value="null">
                                         <span asp-validation-for="@Model.Hiring.bond_condition" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2" id="job_location_div">
                                         <label for="example-number-input" class="col col-form-label">Job Location</label>
-                                        <input asp-for="@Model.Hiring.joblocation" class="form-control" type="text" name="joblocation" id="joblocation" value="null">
+                                        <input asp-for="@Model.Hiring.joblocation" class="form-control" type="text" id="joblocation" value="null">
                                         <span asp-validation-for="@Model.Hiring.joblocation" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -159,10 +159,12 @@
     <script>
         $(document).ready(function (){
            // alert('ready');
+          // var rVal = $("#bond:checked").val();
+           //alert(rVal);
             $('#bond_condition_div').hide();
             $('#job_location_div').hide();
 
-            $('input[name="bond"]').change(function () {
+            $('#bond').change(function () {
                 if ($(this).val() === "Yes") {
                     $('#bond_condition_div').show();
                     $('#job_location_div').show();
