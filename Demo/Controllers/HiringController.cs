@@ -89,7 +89,7 @@ namespace Demo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ViewCompnaySession model)
+        public IActionResult CreateHiring(ViewCompnaySession model)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
@@ -103,7 +103,7 @@ namespace Demo.Controllers
 
                 Hiring hiring = model.Hiring;
                 if (hiring != null)
-                    {
+                {
                     Debug.WriteLine(hiring);
                 }
                 Debug.WriteLine(data);
@@ -121,7 +121,7 @@ namespace Demo.Controllers
                 //        return RedirectToAction("Index");
                 //    }
                 //}
-                return View(model);
+                return RedirectToAction("CreateHiring");
             }
             else
             {

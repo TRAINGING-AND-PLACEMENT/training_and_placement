@@ -24,12 +24,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form asp-controller="Hiring" asp-action="Create" method="post">
-                                <input type="hidden" name="session_id" value="@context.HttpContext.Session.GetInt32("sessionid")" />
+                            <form asp-controller="Hiring" asp-action="CreateHiring" method="post">
+                                <input type="hidden" asp-for="@Model.Hiring.session_id" value="@context.HttpContext.Session.GetInt32("sessionid")" />
                                 <div class="row">
-                                    @*<div class="col-md-6 col-md-2">
+                                    <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Company Name</label>
-                                        <select  class="form-select">
+                                        <select  class="form-select" asp-for="@Model.Hiring.company_id">
                                             <option value="-1">Select</option>
                                             @foreach (var company in Model.Companies)
                                             {
@@ -40,15 +40,15 @@
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Designation</label>
-                                        <input asp-for="@Model.Hiring.designation" class="form-control" type="text" name="designation" id="designation">
+                                        <input asp-for="@Model.Hiring.designation" class="form-control" type="text" id="designation">
                                         <span asp-validation-for="@Model.Hiring.designation" class="text-danger"></span>
-                                    </div>*@
+                                    </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Other Requirement</label>
-                                        <input asp-for="@Model.Hiring.other_requirement" class="form-control" type="text" name="other_requirement" id="other_requirement">
-                                        @*<span asp-validation-for="@Model.Hiring.other_requirement" class="text-danger"></span>*@
-                                    @*</div>
-                                    <div class="col-md-6 col-md-2">
+                                        <input asp-for="@Model.Hiring.other_requirement" class="form-control" type="text" id="other_requirement">
+                                        <span asp-validation-for="@Model.Hiring.other_requirement" class="text-danger"></span>
+                                    </div>
+                                        @*<div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Department</label>
                                         <select class="form-select">
                                             <option value="-1">Select</option>
@@ -139,7 +139,7 @@
                                         <label for="example-number-input" class="col col-form-label">Job Location</label>
                                         <input asp-for="@Model.Hiring.joblocation" class="form-control" type="text" name="joblocation" id="joblocation" value="null">
                                         <span asp-validation-for="@Model.Hiring.joblocation" class="text-danger"></span>
-                                    </div>
+                                    </div>*@
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="submit" value="Save" class="btn btn-primary" />
