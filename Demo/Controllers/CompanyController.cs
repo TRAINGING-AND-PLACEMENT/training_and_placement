@@ -79,6 +79,7 @@ namespace Demo.Controllers
                 if (ModelState.IsValid)
                 {
                     String data = JsonConvert.SerializeObject(model);
+                    Debug.WriteLine(data);
                     StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
                     HttpResponseMessage response = client.PostAsync(client.BaseAddress + "companydetails", content).Result;
                     if (response.IsSuccessStatusCode)

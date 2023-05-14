@@ -22,7 +22,7 @@ namespace Demo.Models
         public long session_id { get;set; }
 
         [DisplayName("Designation")]
-        [Required(ErrorMessage = "You must provide a identification number!")]
+        
         [JsonProperty("designation")]
         public string designation { get; set; }
 
@@ -37,12 +37,12 @@ namespace Demo.Models
         public string bond_condition { get; set; }
 
         [Required(ErrorMessage = "You must provide a Fix Salary!")]
-        [RegularExpression(@"^\(?([0-9])$", ErrorMessage = "Not a valid number")]
+        [RegularExpression(@"^\d$", ErrorMessage = "Not a valid number")]
         [JsonProperty("fix_salary")]
         public double fix_salary { get; set; }
 
         [Required(ErrorMessage = "You must provide a bonus")]
-        [RegularExpression(@"^\(?([0-9])$", ErrorMessage = "Not a valid number")]
+        [RegularExpression(@"^\d$", ErrorMessage = "Not a valid number")]
         [JsonProperty("bonus")]
         public double bonus { get; set; }
 
@@ -52,7 +52,7 @@ namespace Demo.Models
         public double performance_inc { get; set; }
 
         [Required(ErrorMessage = "You must provide a Total Salary")]
-        [RegularExpression(@"^\(?([0-9])$", ErrorMessage = "Not a valid number")]
+        [RegularExpression(@"^\d$", ErrorMessage = "Not a valid number")]
         [JsonProperty("total_salary")]
         public double total_salary { get; set; }
 
@@ -80,7 +80,7 @@ namespace Demo.Models
         [JsonProperty("interview_location")]
         public string interview_location { get; set; }
 
-        [Required(ErrorMessage = "You must provide a other requirements")]
+       
         [JsonProperty("other_requirement")]
         public string other_requirement { get; set; }
 
