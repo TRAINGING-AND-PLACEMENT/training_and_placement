@@ -36,7 +36,7 @@ namespace Demo.Controllers
             return View();
         }
 
-        public IActionResult Create() {
+        public IActionResult CreateHiring() {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
                 var companymodel = new List<Company>();
@@ -105,7 +105,7 @@ namespace Demo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ViewCompnaySession model)
+        public IActionResult CreateHiring(ViewCompnaySession model)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
@@ -124,7 +124,22 @@ namespace Demo.Controllers
                         return RedirectToAction("Index");
                     }
                 }
-                return RedirectToAction("Create");
+                Debug.WriteLine(data);
+
+                //if (ModelState.IsValid)
+                //{
+                //    String data = JsonConvert.SerializeObject(model);
+                //    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                //    Debug.WriteLine(content);
+                //    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "companyhiringdetails", content).Result;
+                //    if (response.IsSuccessStatusCode)
+                //    {
+                //        String result = response.Content.ReadAsStringAsync().Result;
+                //        Debug.Write(result);
+                //        return RedirectToAction("Index");
+                //    }
+                //}
+                return View(model);
             }
             else
             {
