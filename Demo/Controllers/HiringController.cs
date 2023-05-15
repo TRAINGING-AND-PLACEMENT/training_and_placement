@@ -102,14 +102,13 @@ namespace Demo.Controllers
             }
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult CreateHiring(ViewCompnaySession model)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
-  
+ 
                 if (ModelState.IsValid)
                 {
                     String data = JsonConvert.SerializeObject(model);
