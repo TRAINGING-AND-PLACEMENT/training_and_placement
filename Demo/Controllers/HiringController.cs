@@ -109,7 +109,6 @@ namespace Demo.Controllers
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
-                ModelState.Remove(model.Companies);
   
                 if (ModelState.IsValid)
                 {
