@@ -24,7 +24,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form asp-controller="Hiring" asp-action="Create" method="post">
+                            <form asp-controller="Hiring" asp-action="CreateHiring" method="post">
                                 <input type="hidden" asp-for="@Model.Hiring.session_id" value="@context.HttpContext.Session.GetInt32("sessionid")" />
                                 <div class="row">
                                     <div class="col-md-6 col-md-2">
@@ -48,7 +48,7 @@
                                         <input asp-for="@Model.Hiring.other_requirement" class="form-control" type="text" id="other_requirement">
                                         <span asp-validation-for="@Model.Hiring.other_requirement" class="text-danger"></span>
                                     </div>
-                                        @*<div class="col-md-6 col-md-2">
+                                        <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Department</label>
                                         <select asp-for="@Model.Hiring.department_id" class="form-select">
                                             <option value="-1">Select</option>
@@ -139,7 +139,7 @@
                                         <label for="example-number-input" class="col col-form-label">Job Location</label>
                                         <input asp-for="@Model.Hiring.joblocation" class="form-control" type="text" id="joblocation" value="null">
                                         <span asp-validation-for="@Model.Hiring.joblocation" class="text-danger"></span>
-                                    </div>*@
+                                    </div>
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="submit" value="Save" class="btn btn-primary" />

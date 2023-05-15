@@ -109,7 +109,7 @@ namespace Demo.Controllers
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
-                ModelState.Remove(model.Companies);
+                //ModelState.Remove(model.Companies);
   
                 if (ModelState.IsValid)
                 {
@@ -124,21 +124,6 @@ namespace Demo.Controllers
                         return RedirectToAction("Index");
                     }
                 }
-                Debug.WriteLine(data);
-
-                //if (ModelState.IsValid)
-                //{
-                //    String data = JsonConvert.SerializeObject(model);
-                //    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-                //    Debug.WriteLine(content);
-                //    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "companyhiringdetails", content).Result;
-                //    if (response.IsSuccessStatusCode)
-                //    {
-                //        String result = response.Content.ReadAsStringAsync().Result;
-                //        Debug.Write(result);
-                //        return RedirectToAction("Index");
-                //    }
-                //}
                 return View(model);
             }
             else
