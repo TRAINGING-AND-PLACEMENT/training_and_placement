@@ -132,8 +132,7 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
-
-        
+                
         public IActionResult HiringCompanies() {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
