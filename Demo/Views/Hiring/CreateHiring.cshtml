@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Designation</label>
-                                        <input asp-for="@Model.Hiring.designation" class="form-control" type="text" name="designation" id="designation">
+                                        <input asp-for="@Model.Hiring.designation" class="form-control" type="text" id="designation">
                                         <span asp-validation-for="@Model.Hiring.designation" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
@@ -48,7 +48,7 @@
                                         <input asp-for="@Model.Hiring.other_requirement" class="form-control" type="text" id="other_requirement">
                                         <span asp-validation-for="@Model.Hiring.other_requirement" class="text-danger"></span>
                                     </div>
-                                        <div class="col-md-6 col-md-2">
+                                    <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Department</label>
                                         <select asp-for="@Model.Hiring.department_id" class="form-select">
                                             <option value="-1">Select</option>

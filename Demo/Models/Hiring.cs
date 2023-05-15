@@ -48,24 +48,23 @@ namespace Demo.Models
         public string bond_condition { get; set; }
 
         [Required(ErrorMessage = "You must provide a Fix Salary!")]
-        [RegularExpression(@"^\d${9}", ErrorMessage = "Not a valid number")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
         [JsonProperty("fix_salary")]
         public double fix_salary { get; set; }
 
         [Required(ErrorMessage = "You must provide a bonus")]
-        [RegularExpression(@"^\d${9}", ErrorMessage = "Not a valid number")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
         [JsonProperty("bonus")]
         public double bonus { get; set; }
 
 
         [Required(ErrorMessage = "You must provide a performance incentives")]
-        [RegularExpression(@"^\d${9}", ErrorMessage = "Not a valid number")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
         [JsonProperty("performance_inc")]
-
         public double performance_inc { get; set; }
 
         [Required(ErrorMessage = "You must provide a Total Salary")]
-        [RegularExpression(@"^\d${9}", ErrorMessage = "Not a valid number")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
         [JsonProperty("total_salary")]
         public double total_salary { get; set; }
 
@@ -98,8 +97,10 @@ namespace Demo.Models
         [Required(ErrorMessage = "You must provide a Other Requirement")]
         public string other_requirement { get; set; }
 
-
+        [ValidateNever]
         public int status { get; set; }
+
+        [ValidateNever]
         public string remarks { get; set; }
     }
 }
