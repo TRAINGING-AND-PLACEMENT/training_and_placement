@@ -29,7 +29,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Company Name</label>
-                                        <select  class="form-select">
+                                        <select  class="form-select" asp-for="@Model.Hiring.company_id">
                                             <option value="-1">Select</option>
                                             @foreach (var company in Model.Companies)
                                             {
@@ -62,7 +62,7 @@
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Sector</label>
                                         <select asp-for="@Model.Hiring.sector_id" class="form-select">
-                                            <option value="-1">Select</option>
+                                            <option>Select</option>
                                             @foreach (var sector in Model.Sectors)
                                             {
                                                 <option value="@sector.id">@sector.sector</option>
@@ -120,11 +120,11 @@
                                     <div class="mt-2">
                                         <label class="form-label d-block mb-3">Bond</label>
                                         <div class="custom-radio form-check form-check-inline">
-                                            <input type="radio" asp-for="@Model.Hiring.bond" id="bond" class="form-check-input" value="Yes">
+                                            <input type="radio" asp-for="@Model.Hiring.bond" id="bond" class="form-check-input bond" value="Yes">
                                             <label class="form-check-label" for="bond">Yes</label>
                                         </div>
                                         <div class="custom-radio form-check form-check-inline">
-                                            <input type="radio" asp-for="@Model.Hiring.bond" id="bond" class="form-check-input" value="No">
+                                            <input type="radio" asp-for="@Model.Hiring.bond" id="bond" class="form-check-input bond" value="No">
                                             <label class="form-check-label" for="bond">No</label>
                                         </div>
                                         <br>
@@ -164,14 +164,14 @@
             $('#bond_condition_div').hide();
             $('#job_location_div').hide();
 
-            $('#bond').change(function () {
+            $('.bond').change(function () {
                 if ($(this).val() === "Yes") {
                     $('#bond_condition_div').show();
                     $('#job_location_div').show();
 
                     $('#bondcondition').val("");
                     $('#joblocation').val("");
-                } else {
+                } else if ($(this).val() === "No") {
                     $('#bond_condition_div').hide();
                     $('#job_location_div').hide();
                 }

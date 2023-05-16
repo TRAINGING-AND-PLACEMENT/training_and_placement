@@ -107,21 +107,21 @@ namespace Demo.Controllers
         public IActionResult CreateHiring(ViewCompnaySession model)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
-            {
- 
+            { 
                 if (ModelState.IsValid)
                 {
                     String data = JsonConvert.SerializeObject(model);
                     StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
                     Debug.WriteLine(content);
-                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "companyhiringdetails", content).Result;
+                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "addhiringdetails", content).Result;
                     if (response.IsSuccessStatusCode)
                     {
                         String result = response.Content.ReadAsStringAsync().Result;
                         Debug.Write(result);
-                        return RedirectToAction("Index");
+                        return RedirectToAction("CreateHiring");
                     }
                 }
+                TempData["success"] = "Hiring successfully added.";
                 return View(model);
             }
             else
