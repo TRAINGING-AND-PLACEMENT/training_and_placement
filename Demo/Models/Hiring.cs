@@ -53,7 +53,7 @@ namespace Demo.Models
         public double fix_salary { get; set; }
 
         [Required(ErrorMessage = "You must provide a bonus")]
-        [RegularExpression(@"^\d+${9}", ErrorMessage = "Not a valid number")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
         [JsonProperty("bonus")]
         public double bonus { get; set; }
 
