@@ -107,21 +107,22 @@ namespace Demo.Controllers
         public IActionResult CreateHiring(ViewCompnaySession model)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
-            {
- 
+            { 
                 if (ModelState.IsValid)
                 {
                     String data = JsonConvert.SerializeObject(model);
                     StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
                     Debug.WriteLine(content);
-                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "companyhiringdetails", content).Result;
+                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "addhiringdetails", content).Result;
                     if (response.IsSuccessStatusCode)
                     {
                         String result = response.Content.ReadAsStringAsync().Result;
                         Debug.Write(result);
-                        return RedirectToAction("Index");
+                        TempData["success"] = "Hiring successfully added.";
+                        return RedirectToAction("CreateHiring");
                     }
                 }
+                
                 return View(model);
             }
             else
@@ -133,10 +134,10 @@ namespace Demo.Controllers
         }
                 
         public IActionResult HiringCompanies() {
-            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            if (@context.HttpContext.Session.GetInt32("role") == 1 || @context.HttpContext.Session.GetInt32("role") == 2)
             {
                 List<Hiring> hiringmodel = new List<Hiring>();
-                List<Company> companymodel = new List<Company>();
+                var companymodel = new List<Company>();
 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "gethiringdetails").Result;
                 if (response.IsSuccessStatusCode)
@@ -157,7 +158,12 @@ namespace Demo.Controllers
                     var companies = JsonDecode.FromJson(data);
                     foreach (var company in companies.Companies)
                     {
-                        companymodel.Add(company);
+                        var Company = new Company
+                        {
+                            id = company.id,
+                            name = company.name
+                        };
+                        companymodel.Add(Company);
                     }
                 }
                 ViewHiring viewHiring   = new ViewHiring();
@@ -167,11 +173,73 @@ namespace Demo.Controllers
             }
             else
             {
-                TempData["serror"] = "You have to login with student id and password to access the page.";
+                TempData["serror"] = "You have to login to access the page.";
                 DestorySession();
                 return RedirectToAction("Login", "User");
             }
         }
         
+        public IActionResult EditHiring(int id)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1 || @context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                List<Hiring> hiringmodel = new List<Hiring>();
+                var companymodel = new List<Company>();
+
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "gethiringdetails&id=" + id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var res = JsonDecode.FromJson(data);
+                    foreach (var hiring in res.hirings)
+                    {
+                        hiringmodel.Add(hiring);
+                    }
+                }
+                HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response2.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var companies = JsonDecode.FromJson(data);
+                    foreach (var company in companies.Companies)
+                    {
+                        var Company = new Company
+                        {
+                            id = company.id,
+                            name = company.name
+                        };
+                        companymodel.Add(Company);
+                    }
+                }
+                ViewHiring viewHiring = new ViewHiring();
+                viewHiring.Companies = companymodel;
+                viewHiring.Hirings = hiringmodel;
+                return View(viewHiring);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        public IActionResult DeleteHiring(int id)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "deletehiringdetails&id=" + id).Result;
+                TempData["success"] = "Hiring successfully deleted.";
+                return RedirectToAction("HiringCompanies");
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
     }
 }
