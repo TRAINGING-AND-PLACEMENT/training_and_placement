@@ -1,6 +1,9 @@
 ﻿using CsvHelper.Configuration.Attributes;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Models
 {
@@ -8,12 +11,19 @@ namespace Demo.Models
     {
         [Key]
         [Index(0)]
+        [JsonProperty("id")]
         public int id { get; set; }
         [Index(1)]
+        [JsonProperty("session_id")]
+
         public int session_id { get; set; }
         [Index(2)]
+        [JsonProperty("user_id")]
+
         public int user_id { get; set; }
         [Index(3)]
+        [JsonProperty("department_id")]
+
         public int department_id { get; set; }
         [Index(4)]
 
@@ -36,7 +46,9 @@ namespace Demo.Models
         [JsonProperty("grand_father_name")]
         public string grand_father_name { get; set; }
         [Index(8)]
-        
+
+        [Required(ErrorMessage = "You must provide your Enrollment number!")]
+        [JsonProperty("enrollment")]
         public string enrollment { get; set; }
         [Index(9)]
 
@@ -67,14 +79,20 @@ namespace Demo.Models
         [JsonProperty("dob")]
         public string dob { get; set; }
         [Index(14)]
+        [JsonProperty("lang_eng")]
+
         public string lang_eng { get; set; }
         [Index(15)]
+        [JsonProperty("lang_hindi")]
         public string lang_hindi { get; set; }
         [Index(16)]
+        [JsonProperty("lang_guj")]
         public string lang_guj { get; set; }
         [Index(17)]
+        [JsonProperty("lang_marathi")]
         public string lang_marathi { get; set; }
         [Index(18)]
+        [JsonProperty("lang_other")]
         public string lang_other { get; set; }
         [Index(19)]
 
@@ -92,25 +110,42 @@ namespace Demo.Models
         [JsonProperty("city")]
         public string city { get; set; }
         [Index(22)]
-
+        [JsonProperty("state")]
         public string state { get; set; }
         [Index(23)]
+        [JsonProperty("permanent_address")]
+
         public string permanent_address { get; set; }
         [Index(24)]
+        [JsonProperty("permanent_pincode")]
+
         public string permanent_pincode { get; set; }
         [Index(25)]
+        [JsonProperty("permanent_city")]
+
         public string permanent_city { get; set; }
         [Index(26)]
+        [JsonProperty("permanent_state")]
+
         public string permanent_state { get; set; }
         [Index(27)]
+        [JsonProperty("blood_group")]
+
         public string blood_group { get; set; }
         [Index(28)]
+        [JsonProperty("adhaar")]
+
         public string adhaar { get; set; }
         [Index(29)]
+        [JsonProperty("pan")]
+
         public string pan { get; set; }
         [Index(30)]
+        [JsonProperty("driving")]
+
         public string driving { get; set; }
         [Index(31)]
+
         public string ten_school { get; set; }
         [Index(32)]
         public string ten_passyear { get; set; }
@@ -209,8 +244,8 @@ namespace Demo.Models
         [Index(79)]
         public string remarks { get; set; }
         [Index(80)]
-        public string created_at { get; set; }
+        public string created_at { get; set; } = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
         [Index(81)]
-        public string updated_at { get; set; }
+        public string updated_at { get; set; } = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
     }
 }
