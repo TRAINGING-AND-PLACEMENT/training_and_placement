@@ -9,13 +9,16 @@
                         <div class="card-body">
                             <h4 class="card-title">Edit your profile - Student Under Graduation Details</h4>
                             <p class="card-title-desc">Verify all information again before updating.</p>
-                            <form asp-controller="Student" method="post" asp-action="update_student" class="needs-validation custom-validation" novalidate>
-
+                            <form asp-controller="Student" method="post" asp-action="edit_ug_data" class="needs-validation custom-validation" novalidate>
+                                <input type="hidden" asp-for="id" />
+                                <input type="hidden" asp-for="session_id" />
+                                <input type="hidden" asp-for="user_id" />
+                                <input type="hidden" asp-for="department_id" />
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="ug_college">College name</label>
-                                            <input asp-for="ug_college" class="form-control" placeholder="School name" type="text" name="ug_college" id="ug_college">
+                                            <input asp-for="ug_college" class="form-control" placeholder="College name" type="text" name="ug_college" id="ug_college">
                                             <span asp-validation-for="ug_college" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -29,7 +32,7 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="ug_collegeaddress">College Address</label>
-                                            <input asp-for="ug_collegeaddress" class="form-control" id="last_name" placeholder="address of school" type="text" name="ug_collegeaddress" id="ug_collegeaddress">
+                                            <input asp-for="ug_collegeaddress" class="form-control" id="last_name" placeholder="address of college" type="text" name="ug_collegeaddress" id="ug_collegeaddress">
                                             <span asp-validation-for="ug_collegeaddress" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -47,7 +50,7 @@
                                     <div class="col-md-5">
                                         <div class="mb-3">
                                             <label class="form-label" for="ug_collegecity">College city</label>
-                                            <input asp-for="ug_collegecity" class="form-control" placeholder="school city" type="text" name="ug_collegecity" id="ug_collegecity">
+                                            <input asp-for="ug_collegecity" class="form-control" placeholder="college city" type="text" name="ug_collegecity" id="ug_collegecity">
                                             <span asp-validation-for="ug_collegecity" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -60,7 +63,7 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="ug_university">University Name</label>
-                                            <input asp-for="ug_university" class="form-control" placeholder="board name" type="text" name="ug_university" id="ug_university">
+                                            <input asp-for="ug_university" class="form-control" placeholder="University name" type="text" name="ug_university" id="ug_university">
                                             <span asp-validation-for="ug_university" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -68,7 +71,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="ug_scoreoutof">Total marks in under-graduation</label>
                                             <div>
-                                                <input asp-for="ug_scoreoutof" class="form-control" id="alt_contact" placeholder="total marks" type="text" name="ug_scoreoutof" id="ug_scoreoutof" />
+                                                <input asp-for="ug_scoreoutof" class="form-control" placeholder="total marks" type="text" name="ug_scoreoutof" id="ug_scoreoutof" />
 
                                             </div>
                                             <span asp-validation-for="ug_scoreoutof" class="text-danger"></span>

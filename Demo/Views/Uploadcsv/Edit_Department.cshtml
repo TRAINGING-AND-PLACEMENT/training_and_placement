@@ -1,0 +1,47 @@
+﻿@model Department
+@{
+    ViewData["Title"] = "Edit_Department";
+}
+<div class="main-content" style="margin-left:5%;width:112%;">
+    <div class="page-content">
+        <div class="container-fluid">
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0">Edit Department Details</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form asp-controller="Uploadcsv" asp-action="Update_Department" method="post">
+                                <input type="hidden" asp-for="id" />
+                                <div class="row">
+                                    <div class="col-md-6 col-md-2">
+                                        <label for="example-number-input" class=" col-form-label">Department</label>
+                                        <input asp-for="department" class="form-control" type="text" name="department" id="department">
+                                        <span asp-validation-for="department" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

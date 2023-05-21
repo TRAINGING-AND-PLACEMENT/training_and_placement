@@ -29,6 +29,12 @@ namespace Demo.Controllers.Json
         [JsonProperty("session")]
         public List<Sessions> session { get; set; }
 
+        [JsonProperty("departments")]
+        public List<Department> departments { get; set; }
+
+        [JsonProperty("sectors")]
+        public List<Sector> sectors { get; set; }
+
         [JsonProperty("student")]
         [AllowNull]
         public Dictionary<string, string>[] Student { get; set; }

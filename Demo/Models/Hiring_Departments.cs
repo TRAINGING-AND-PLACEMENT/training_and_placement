@@ -1,29 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.Data.SqlClient.DataClassification;
 using System.ComponentModel.DataAnnotations;
 
 namespace Demo.Models
 {
-    public class Sessions
+    public class Hiring_Departments
     {
         [Key]
         [ValidateNever]
         public int id { get; set; }
 
         [ValidateNever]
-        public string start_date { get; set; }
+        public long hiring_id { get; set; }
 
         [ValidateNever]
-        public string end_date { get; set; }
+        public long department_id { get; set; }
 
         [ValidateNever]
-        public string label { get; set; }
-
-        [ValidateNever]
-        public int default_year { get; set; }
-
-        [ValidateNever]
-        public string status { get; set; }
+        public int status { get; set; }
 
         [ValidateNever]
         public string remarks { get; set; }

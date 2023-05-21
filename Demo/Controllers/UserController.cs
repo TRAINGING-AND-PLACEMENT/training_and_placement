@@ -95,7 +95,7 @@ namespace Demo.Controllers
                                     context.HttpContext.Session.SetInt32("sessionid", sessionid);
                                     context.HttpContext.Session.SetInt32("studentid", studentid);
                                     context.HttpContext.Session.SetString("studentemail", studentemailid);
-                                    return RedirectToAction("StudentProfile", "Student");
+                                    return RedirectToAction("Index", "Home");
                                 }
                                 else if (role == 2)
                                 {
@@ -144,32 +144,6 @@ namespace Demo.Controllers
             context.HttpContext.Session.Remove("studentid");
             return RedirectToAction("Login");
         }
-        /*public IActionResult ChangePassword()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult ChangePassword(MailRequest model)
-        {
-            if (ModelState.IsValid)
-            {
-                Random rnd = new Random();
-                var otp = rnd.Next(11111,99999);
-                *//*model.Subject = "Password Reset.";
-                model.Body = "Your OTP is: "+otp;*/
-
-        /*try
-        {
-            await emailSender.SendEmailAsync(model);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            throw;
-        }*//*
-    }
-    return View(model);
-}*/
         public IActionResult ChangePassword()
         {
             return View();
@@ -179,23 +153,57 @@ namespace Demo.Controllers
         {
             if (ModelState.IsValid)
             {
-                MailRequest mail = new MailRequest();
                 Random rnd = new Random();
                 var otp = rnd.Next(11111, 99999);
-                mail.ToEmail = model.email;
-                mail.Subject = "Password Reset.";
-                mail.Body = "Your OTP is: " + otp;
-                try
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "check_user&otp="+otp, content).Result;
+                if (response.IsSuccessStatusCode)
                 {
-                    await emailSender.SendEmailAsync(mail);
-                    return RedirectToAction("ChangePassword");
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(result);
+                    if (JsonDecode.FromJson(result).Success)
+                    {
+                        MailRequest mail = new MailRequest();
+                        mail.ToEmail = model.email;
+                        mail.Subject = "Password Reset.";
+                        mail.Body = "Your OTP is: " + otp;
+                        try
+                        {
+                            await emailSender.SendEmailAsync(mail);
+                            TempData["success"] = "otp sent, check your inbox or spam.";
+                            return RedirectToAction("ConfirmPassword");
+                        }
+                        catch (Exception ex)
+                        {
+                            throw;
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("email", "This email is not registered, enter a valid email id.");
+                        return View(model);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    throw;
-                }
+                
             }
             return View(model);
+        }
+        public IActionResult ConfirmPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult ConfirmPassword(ConfirmPassword confirmPassword)
+        {
+            Debug.WriteLine(confirmPassword.otp);
+            Debug.WriteLine(confirmPassword.password);
+            Debug.WriteLine(confirmPassword.cpassword);
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("ConfirmPassword");
+            }
+            return View(confirmPassword);
         }
     }
 }

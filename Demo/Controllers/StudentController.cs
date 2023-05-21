@@ -144,7 +144,7 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
-                    return RedirectToAction("StudentProfile");
+                    return RedirectToAction("ViewTenthData");
                 }
                 return View();
             }
@@ -176,6 +176,30 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
+
+        [HttpPost]
+        public IActionResult edit_twelve_data(Student model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PutAsync(client.BaseAddress + "editstudent_twelve_data&id=" + @context.HttpContext.Session.GetInt32("studentid"), content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("View12thData");
+                }
+                return View();
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
         public IActionResult ViewUGData()
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
@@ -197,6 +221,32 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
+
+        [HttpPost]
+        public IActionResult edit_ug_data(Student model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PutAsync(client.BaseAddress + "editstudent_ug_data&id=" + @context.HttpContext.Session.GetInt32("studentid"), content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("ViewUGData");
+                }
+                return View();
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+
         public IActionResult ViewPGData()
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
@@ -210,6 +260,30 @@ namespace Demo.Controllers
                     model = res.studentInfo[0];
                 }
                 return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult edit_pg_data(Student model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PutAsync(client.BaseAddress + "editstudent_pg_data&id=" + @context.HttpContext.Session.GetInt32("studentid"), content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("ViewPGData");
+                }
+                return View();
             }
             else
             {

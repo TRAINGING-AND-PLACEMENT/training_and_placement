@@ -9,7 +9,7 @@
                         <div class="card-body">
                             <h4 class="card-title">Edit your profile - Student Twelfth Details</h4>
                             <p class="card-title-desc">Verify all information again before updating.</p>
-                            <form asp-controller="Student" method="post" asp-action="update_student" class="needs-validation custom-validation" novalidate>
+                            <form asp-controller="Student" method="post" asp-action="edit_twelve_data" class="needs-validation custom-validation" novalidate>
                                 <input type="hidden" asp-for="id" />
                                 <input type="hidden" asp-for="session_id" />
                                 <input type="hidden" asp-for="user_id" />
@@ -43,7 +43,7 @@
                                     <div class="col-md-5">
                                         <div class="mb-3">
                                             <label class="form-label" for="twelve_schoolpincode">School Pincode</label>
-                                            <input asp-for="enrollment" class="form-control" id="twelve_schoolpincode" placeholder="pincode" type="text" name="twelve_schoolpincode" id="twelve_schoolpincode" readonly>
+                                            <input asp-for="enrollment" class="form-control" id="twelve_schoolpincode" placeholder="pincode" type="text" name="twelve_schoolpincode" id="twelve_schoolpincode" >
                                             <span asp-validation-for="twelve_schoolpincode" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -63,7 +63,7 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="twelve_score">Board name</label>
-                                            <input asp-for="twelve_score" class="form-control" placeholder="board name" type="text" name="twelve_score" id="twelve_score">
+                                            <input asp-for="twelve_board" class="form-control" placeholder="board name" type="text" name="twelve_board" id="twelve_board">
                                             <span asp-validation-for="twelve_board" class="text-danger"></span>
                                         </div>
                                     </div>

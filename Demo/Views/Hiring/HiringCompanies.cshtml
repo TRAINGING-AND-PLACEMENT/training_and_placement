@@ -1,5 +1,5 @@
-﻿@model List<Hiring>
-
+﻿@model ViewHiring
+@inject IHttpContextAccessor context;
 <!--Total Companies page-->
 <div class="main-content" style="margin-left:10%;width:100%;">
     <div class="page-content">
@@ -36,10 +36,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model)
+                                        @foreach (var item in Model.Hirings)
                                         {
                                             <tr>
-                                                <td>@item.company_id</td>
+                                                @foreach (var company in Model.Companies)
+                                                {
+                                                    if(item.company_id == company.id)
+                                                    {
+                                                        <td>@company.name</td>
+                                                    }
+                                                }
                                                 <td>@item.session_id</td>
                                                 <td>@item.designation</td>
                                                 <td>@item.joblocation</td>
@@ -49,11 +55,24 @@
                                                 <td>@item.interview_mode</td>
                                                 <td>@item.interview_location</td>
                                                 <td>@item.other_requirement</td>
-                                                <td>
-                                                    <a asp-controller="Company" asp-action="CompanyDetails" class="btn btn-info waves-effect waves-light" asp-route-id="@item.company_id">
-                                                        Info
-                                                    </a>
-                                                </td>
+                                                @if(@context.HttpContext.Session.GetInt32("role") == 1){
+                                                    <td>
+                                                        <a asp-controller="Company" asp-action="CompanyDetails" class="btn btn-info waves-effect waves-light" asp-route-id="@item.company_id">
+                                                            Info
+                                                        </a>
+                                                    </td>
+                                                }
+                                                else if (@context.HttpContext.Session.GetInt32("role") == 2)
+                                                {
+                                                    <td>
+                                                        <a asp-controller="Hiring" asp-action="EditHiring" class="btn btn-info waves-effect waves-light" asp-route-id="@item.id">
+                                                            Edit
+                                                        </a>
+                                                        <a asp-controller="Hiring" asp-action="DeleteHiring" class="btn btn-info waves-effect waves-light" asp-route-id="@item.id">
+                                                            Delete
+                                                        </a>
+                                                    </td>
+                                                }
                                             </tr>
                                         }
                                     </tbody>

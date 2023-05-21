@@ -43,7 +43,7 @@ namespace Demo
             builder.TextBody = mailRequest.Body;
             email.Body = builder.ToMessageBody();
 
-            using var smtp = new MailKit.Net.Smtp.SmtpClient();
+            using MailKit.Net.Smtp.SmtpClient smtp = new MailKit.Net.Smtp.SmtpClient();
             smtp.Connect(_mailSettings.Host, _mailSettings.Port, MailKit.Security.SecureSocketOptions.StartTls);
             smtp.Authenticate(_mailSettings.EmailId, _mailSettings.Password);
             await smtp.SendAsync(email);
