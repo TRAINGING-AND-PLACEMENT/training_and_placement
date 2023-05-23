@@ -1,7 +1,7 @@
 ﻿@model ViewHiring
 @inject IHttpContextAccessor context;
 <!--Total Companies page-->
-<div class="main-content" style="margin-left:10%;width:100%;">
+<div class="main-content" style="margin-left:4%;width:120%;">
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
@@ -9,7 +9,7 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h4 class="card-title">Companies List</h4>
+                            <h4 class="card-title">Hirings List</h4>
                             <p class="card-title-desc">
 
                             </p>
@@ -46,7 +46,14 @@
                                                         <td>@company.name</td>
                                                     }
                                                 }
-                                                <td>@item.session_id</td>
+                                                @foreach (var session in Model.Session)
+                                                {
+                                                    if (item.session_id == session.id)
+                                                    {
+                                                        <td>@session.label</td>
+                                                    }
+                                                }
+                                               
                                                 <td>@item.designation</td>
                                                 <td>@item.joblocation</td>
                                                 <td>@item.joindate</td>

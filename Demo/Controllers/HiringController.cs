@@ -111,6 +111,7 @@ namespace Demo.Controllers
                 if (ModelState.IsValid)
                 {
                     String data = JsonConvert.SerializeObject(model);
+                    Debug.WriteLine(data);
                     StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
                     Debug.WriteLine(content);
                     HttpResponseMessage response = client.PostAsync(client.BaseAddress + "addhiringdetails", content).Result;
@@ -119,7 +120,7 @@ namespace Demo.Controllers
                         String result = response.Content.ReadAsStringAsync().Result;
                         Debug.Write(result);
                         TempData["success"] = "Hiring successfully added.";
-                        return RedirectToAction("CreateHiring");
+                        return RedirectToAction("HiringCompanies");
                     }
                 }
 
@@ -138,6 +139,7 @@ namespace Demo.Controllers
             {
                 List<Hiring> hiringmodel = new List<Hiring>();
                 var companymodel = new List<Company>();
+                var sessionmodel = new List<Sessions>();
 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "gethiringdetails").Result;
                 if (response.IsSuccessStatusCode)
@@ -151,7 +153,7 @@ namespace Demo.Controllers
                     }
                 }
                 HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
-                if (response.IsSuccessStatusCode)
+                if (response2.IsSuccessStatusCode)
                 {
                     String data = response2.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
@@ -166,9 +168,26 @@ namespace Demo.Controllers
                         companymodel.Add(Company);
                     }
                 }
+                HttpResponseMessage response3 = client.GetAsync(client.BaseAddress + "getsession").Result;
+                if (response3.IsSuccessStatusCode)
+                {
+                    String data = response3.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var sessions = JsonDecode.FromJson(data);
+                    foreach (var session in sessions.session)
+                    {
+                        var Session = new Sessions
+                        {
+                            id = session.id,
+                            label = session.label
+                        };
+                        sessionmodel.Add(Session);
+                    }
+                }
                 ViewHiring viewHiring   = new ViewHiring();
                 viewHiring.Companies = companymodel;
                 viewHiring.Hirings = hiringmodel;
+                viewHiring.Session = sessionmodel;
                 return View(viewHiring);
             }
             else

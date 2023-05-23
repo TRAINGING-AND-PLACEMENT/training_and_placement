@@ -25,12 +25,12 @@ namespace Demo.Models
         [DisplayName("Department Id")]
         [Required(ErrorMessage = "You must provide a Department Id!")]
         [JsonProperty("department_id")]
-        public long department_id { get; set; }
+        public List<string> department_id { get; set; }
 
         [DisplayName("Sector Id")]
         [Required(ErrorMessage = "You must provide a Sector Id!")]
         [JsonProperty("sector_id")]
-        public long sector_id { get; set; }
+        public List<string> sector_id { get; set; }
 
         [DisplayName("Designation")]
         [Required(ErrorMessage = "You must provide a Designation!")]
