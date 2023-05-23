@@ -1,4 +1,4 @@
-﻿@model Company
+﻿@model ViewHiring
 <div class="main-content" style="margin-left:10%;width:100%;">
     <div class="page-content">
         <div class="container-fluid">
@@ -12,112 +12,136 @@
                                         <button type="button" class="btn btn-primary w-xs waves-effect waves-light" id="sa-warning" style="float:right">Apply now</button>
 
                                     <h5 class="font-size-14"><a href="#" class="text-muted">Hiring Details</a></h5>
-                                    <h4 class="font-size-20 mb-3">Company name here</h4>
-                                   <div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="mt-3">
+                                    @foreach(var hiring in Model.Hirings)
+                                    {
+                                            @foreach (var companies in Model.Companies)
+                                            {
+                                                if (hiring.company_id == companies.id)
+                                                {
+                                                    <h4 class="font-size-20 mb-3">@companies.name</h4>
+                                                    <div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="mt-3">
 
-                                                    <h5 class="font-size-14">General Info :</h5>
-                                                    <ul class="list-unstyled product-desc-list text-muted">
-                                                        <li><i class="fas fa-male me-1 align-middle"></i> Designation :- //name here//</li>
-                                                        <li><i class="fas fa-map-marker-alt me-1 align-middle"></i> Job Location :- //here//</li>
-                                                        <li><i class="fas fa-calendar me-1 align-middle"></i> Joining Date :- //here//</li>
-                                                        <li><i class="fas fa-calendar-check me-1 align-middle"></i> Date of starting :- //here//</li>
-                                                        <li><i class="fas fa-calendar-times me-1 align-middle"></i> Date of ending :- //here//</li>
-                                                    </ul>
+                                                                    <h5 class="font-size-14">General Info :</h5>
+                                                                    <ul class="list-unstyled product-desc-list text-muted">
+                                                                        <li><i class="fas fa-male me-1 align-middle"></i> Designation :- @hiring.designation</li>
+                                                                        <li><i class="fas fa-map-marker-alt me-1 align-middle"></i> Job Location :- @hiring.joblocation</li>
+                                                                        <li><i class="fas fa-calendar me-1 align-middle"></i> Joining Date :- @hiring.joindate</li>
+                                                                        <li><i class="fas fa-calendar-check me-1 align-middle"></i> Date of starting :- @hiring.startdate</li>
+                                                                        <li><i class="fas fa-calendar-times me-1 align-middle"></i> Date of ending :- @hiring.enddate</li>
+                                                                    </ul>
 
-                                                </div>
-                                            </div>
+                                                                </div>
+                                                            </div>
 
-                                            <div class="col-md-6">
-                                                <div class="mt-3">
-                                                    <h5 class="font-size-14">Salary Details :</h5>
-                                                    <ul class="list-unstyled product-desc-list text-muted">
-                                                        <li><i class="fas fa-rupee-sign me-1 font-size-16"></i> Fix Salary :- //here//</li>
-                                                        <li><i class="fas fa-money-bill-alt me-1 font-size-16"></i> Bonus :- //here//</li>
-                                                        <li><i class="fas fa-money-bill-wave me-1 font-size-16"></i> Performance Increment :- //here//</li>
-                                                        <li><i class="fas fa-money-check-alt me-1 font-size-16"></i> Total Salary :- //here//</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="mt-3">
+                                                                    <h5 class="font-size-14">Salary Details :</h5>
+                                                                    <ul class="list-unstyled product-desc-list text-muted">
+                                                                        <li><i class="fas fa-rupee-sign me-1 font-size-16"></i> Fix Salary :- @hiring.fix_salary</li>
+                                                                        <li><i class="fas fa-money-bill-alt me-1 font-size-16"></i> Bonus :- @hiring.bonus</li>
+                                                                        <li><i class="fas fa-money-bill-wave me-1 font-size-16"></i> Performance Increment :- @hiring.performance_inc</li>
+                                                                        <li><i class="fas fa-money-check-alt me-1 font-size-16"></i> Total Salary :- @hiring.total_salary</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
 
-                                            <div class="col-md-6">
-                                                    <div class="mt-3">
-                                                    <h5 class="font-size-14">Bond Details :</h5>
-                                                    <ul class="list-unstyled product-desc-list text-muted">
-                                                        <li><i class="fas fa-business-time me-1 align-middle"></i> Company Bond :- //here//</li>
-                                                        <li><i class="fas fa-user-clock me-1 align-middle"></i> Bond Condition :- //here//</li>
-                                                    
-                                                    </ul>
-                                                    </div>
-                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="mt-3">
+                                                                    <h5 class="font-size-14">Bond Details :</h5>
+                                                                    <ul class="list-unstyled product-desc-list text-muted">
+                                                                        <li><i class="fas fa-business-time me-1 align-middle"></i> Company Bond :- @hiring.bond</li>
+                                                                        <li><i class="fas fa-user-clock me-1 align-middle"></i> Bond Duration :-@hiring.bond_condition </li>
 
-                                            <div class="col-md-6">
-                                                <div class="mt-3">
-                                                    <h5 class="font-size-14">Interview Details :</h5>
-                                                    <ul class="list-unstyled product-desc-list text-muted">
-                                                        <li><i class="fas fa-door-open me-1 align-middle"></i> Interview Mode :- //here//</li>
-                                                        <li><i class="fas fa-map-pin me-1 align-middle"></i> Interview Location :- //here//</li>
-                                                    </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                
-                        
-                     
-                                    <div class="mt-4">
-                                        <h5 class="font-size-14 mb-4">Company Info: </h5>
-                                                 <div class="product-desc">
-                                                    <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
-                                                        <li class="nav-item">
-                                                            <a class="nav-link active" id="desc-tab" data-bs-toggle="tab" href="#desc" role="tab">Other requirements</a>
-                                                        </li>
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" id="specifi-tab" data-bs-toggle="tab" href="#specifi" role="tab">Contact Info</a>
-                                                        </li>
-                                                    </ul>
-                                                        <div class="tab-content border border-top-0 p-4">
-                                                        <div class="tab-pane fade show active" id="desc" role="tabpanel">
-                                                            <div class="row">
-                                                                <div class="col-sm-9 col-md-10">
-                                                                    <div class="text-muted p-2">
-                                                                        <p>If several languages coalesce, the grammar of the resulting language is more simple and regular</p>
-                                                                        <p>Everyone realizes why a new common language would be desirable, one could refuse to pay expensive translators.</p>
-                                                                        <p>It will be as simple as occidental in fact.</p>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
 
-                                                                    </div>
+                                                            <div class="col-md-6">
+                                                                <div class="mt-3">
+                                                                    <h5 class="font-size-14">Interview Details :</h5>
+                                                                    <ul class="list-unstyled product-desc-list text-muted">
+                                                                        <li><i class="fas fa-door-open me-1 align-middle"></i> Interview Mode :- @hiring.interview_mode</li>
+                                                                        <li><i class="fas fa-map-pin me-1 align-middle"></i> Interview Location :- @hiring.interview_location</li>
+                                                                    </ul>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="tab-pane fade" id="specifi" role="tabpanel">
-                                                           <div class="table-responsive">
-                                                                <table class="table table-nowrap mb-0">
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <th scope="row" style="width: 20%;">Company Email Address</th>
-                                                                            <td>email here</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th scope="row">Alternate Email Address</th>
-                                                                            <td>alt email here</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th scope="row">Contact number</th>
-                                                                            <td>phone here</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <th scope="row">Alternate Contact number</th>
-                                                                            <td>alt phone here</td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
-                                                         </div>
                                                     </div>
-                                                 </div>
-                                    </div>
+
+
+
+
+
+
+
+
+
+
+                                                    <div class="mt-4">
+                                                        <h5 class="font-size-14 mb-4">Company Info: </h5>
+                                                        <div class="product-desc">
+                                                            <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link active" id="desc-tab" data-bs-toggle="tab" href="#desc" role="tab">Other requirements</a>
+                                                                </li>
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" id="specifi-tab" data-bs-toggle="tab" href="#specifi" role="tab">Contact Info</a>
+                                                                </li>
+                                                            </ul>
+                                                            <div class="tab-content border border-top-0 p-4">
+                                                                <div class="tab-pane fade show active" id="desc" role="tabpanel">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-9 col-md-10">
+                                                                            <div class="text-muted p-2">
+                                                                                <p>@hiring.other_requirement</p>
+                                                                                <p>If several languages coalesce, the grammar of the resulting language is more simple and regular</p>
+                                                                                <p>Everyone realizes why a new common language would be desirable, one could refuse to pay expensive translators.</p>
+                                                                                <p>It will be as simple as occidental in fact.</p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="tab-pane fade" id="specifi" role="tabpanel">
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-nowrap mb-0">
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <th scope="row" style="width: 20%;">Company Email Address</th>
+                                                                                    <td>@companies.email</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th scope="row">Alternate Email Address</th>
+                                                                                    <td>@companies.alt_email</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th scope="row">Contact number</th>
+                                                                                    <td>@companies.contact</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th scope="row">Alternate Contact number</th>
+                                                                                    <td>@companies.alt_contact</td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                    }     
+                                                                   
+                        
+                     
+
                                </div>
                             </div>
                         </div>
