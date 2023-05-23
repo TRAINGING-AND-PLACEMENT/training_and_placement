@@ -25,14 +25,14 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="surname">Surname</label>
-                                            <input asp-for="surname" class="form-control" placeholder="Your surname" type="text" name="surname" id="surname">
+                                            <input asp-for="surname" class="form-control" placeholder="Your surname" type="text">
                                             <span asp-validation-for="surname" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="first_name">First name</label>
-                                            <input asp-for="first_name" class="form-control" id="first_name" placeholder="your name" type="text" name="first_name" id="first_name">
+                                            <input asp-for="first_name" class="form-control" id="first_name" placeholder="your name" type="text" >
                                             <span asp-validation-for="first_name" class="text-danger"></span>
                                         </div>
                                     </div>
@@ -332,3 +332,8 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

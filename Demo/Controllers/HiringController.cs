@@ -88,11 +88,11 @@ namespace Demo.Controllers
                         sectormodel.Add(Sector);
                     }
                 }
-                ViewCompnaySession viewCompnaySession = new ViewCompnaySession();   
-                viewCompnaySession.Companies = companymodel;
-                viewCompnaySession.Departments = departmentmodel;
-                viewCompnaySession.Sectors = sectormodel;
-                return View(viewCompnaySession);
+                ViewCompnaySession viewCompanaySession = new ViewCompnaySession();
+                viewCompanaySession.Companies = companymodel;
+                viewCompanaySession.Departments = departmentmodel;
+                viewCompanaySession.Sectors = sectormodel;
+                return View(viewCompanaySession);
             }
             else
             {
@@ -137,7 +137,7 @@ namespace Demo.Controllers
         public IActionResult HiringCompanies() {
             if (@context.HttpContext.Session.GetInt32("role") == 1 || @context.HttpContext.Session.GetInt32("role") == 2)
             {
-                List<Hiring> hiringmodel = new List<Hiring>();
+                var hiringmodel = new List<Hiring>();
                 var companymodel = new List<Company>();
                 var sessionmodel = new List<Sessions>();
 

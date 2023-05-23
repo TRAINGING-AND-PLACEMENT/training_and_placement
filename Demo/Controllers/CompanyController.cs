@@ -217,22 +217,54 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
-        public IActionResult CompanyDetails(int id)
+
+        public IActionResult CompanyDetails(string ids)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
-                Company model = new Company();
-                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails&id=" + id).Result;
+                Debug.WriteLine(ids);
+                string[] idArray = ids.Split(',');
+                int cid = 0;
+                int hid = 0;
+                for (int i = 0; i < idArray.Length; i++)
+                { 
+                    cid = int.Parse(idArray[0]);
+                    hid = int.Parse(idArray[1]);
+                }
+                
+                Debug.WriteLine(cid);
+                Debug.WriteLine(hid);
+                var hiringmodel = new List<Hiring>();
+                var companymodel = new List<Company>();
+                
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails&id="+cid).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
-                    var company = JsonDecode.FromJson(data);
-                    Debug.WriteLine(company);
-                    model = company.Company[0];
-                    Debug.WriteLine(model);
+                    var companies = JsonDecode.FromJson(data);
+                    foreach (var company in companies.Company)
+                    { 
+                        companymodel.Add(company);
+                    }
+                    Debug.WriteLine(companymodel);
                 }
-                return View(model);
+
+                HttpResponseMessage response1 = client.GetAsync(client.BaseAddress + "gethiringdetails&id="+hid).Result;
+                if (response1.IsSuccessStatusCode)
+                {
+                    String data = response1.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var hirings = JsonDecode.FromJson(data);
+                    foreach (var hiring in hirings.Hiring)
+                    {
+                        hiringmodel.Add(hiring);
+                    }
+                }
+                ViewHiring viewStudentHiring = new ViewHiring();
+                viewStudentHiring.Companies = companymodel;
+                viewStudentHiring.Hirings = hiringmodel;
+                return View(viewStudentHiring);
             }
             else
             {

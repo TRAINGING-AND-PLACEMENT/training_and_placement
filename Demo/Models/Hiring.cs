@@ -13,7 +13,7 @@ namespace Demo.Models
         public long id { get; set; }
 
         [DisplayName("Company Id")]
-        [Required(ErrorMessage = "You must provide a Company Id!")]
+        [Required(ErrorMessage = "You must provide a Company Name!")]
         [JsonProperty("company_id")]
         public long company_id { get; set; }
 
@@ -23,12 +23,12 @@ namespace Demo.Models
         public long session_id { get;set; }
 
         [DisplayName("Department Id")]
-        [Required(ErrorMessage = "You must provide a Department Id!")]
+        [Required(ErrorMessage = "You must provide a Department Name!")]
         [JsonProperty("department_id")]
         public List<string> department_id { get; set; }
 
         [DisplayName("Sector Id")]
-        [Required(ErrorMessage = "You must provide a Sector Id!")]
+        [Required(ErrorMessage = "You must provide a Sector Name!")]
         [JsonProperty("sector_id")]
         public List<string> sector_id { get; set; }
 
