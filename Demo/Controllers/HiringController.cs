@@ -269,6 +269,34 @@ namespace Demo.Controllers
             }
         }
 
+        public IActionResult StdAppList(int id)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                List<Student> model = new List<Student>();
+
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getappliedstudents&id=" + id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var students = JsonDecode.FromJson(data);
+                    foreach (var student in students.students)
+                    {
+                        model.Add(student);
+                    }
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+            return View();
+        }
+
         public IActionResult test()
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
