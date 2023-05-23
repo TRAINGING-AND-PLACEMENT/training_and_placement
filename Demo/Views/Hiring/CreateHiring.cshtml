@@ -51,7 +51,6 @@
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label" col-form-label">Department</label>
                                         <select asp-for="@Model.Hiring.department_id" class="form-select js-example-basic-multiple"  multiple="multiple">
-                                            @*<option value="-1">Select</option>*@
                                             @foreach (var department in Model.Departments)
                                             {
                                                 <option value="@department.id">@department.department</option>
@@ -62,7 +61,6 @@
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label" col-form-label">Sector</label>
                                         <select asp-for="@Model.Hiring.sector_id" class="form-select js-example-basic-multiple"  multiple="multiple">
-                                            <option>Select</option>
                                             @foreach (var sector in Model.Sectors)
                                             {
                                                 <option value="@sector.id">@sector.sector</option>

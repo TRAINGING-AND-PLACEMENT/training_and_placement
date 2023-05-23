@@ -113,7 +113,6 @@ namespace Demo.Controllers
                     String data = JsonConvert.SerializeObject(model);
                     Debug.WriteLine(data);
                     StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-                    Debug.WriteLine(content);
                     HttpResponseMessage response = client.PostAsync(client.BaseAddress + "addhiringdetails", content).Result;
                     if (response.IsSuccessStatusCode)
                     {
