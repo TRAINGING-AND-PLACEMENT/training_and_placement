@@ -241,5 +241,59 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
+
+        public IActionResult StudentApplications()
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                List<Company> model = new List<Company>();
+
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getappliedcompanies").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var companies = JsonDecode.FromJson(data);
+                    foreach (var company in companies.Companies)
+                    {
+                        model.Add(company);
+                    }
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        public IActionResult test()
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                List<StudentApplication> model = new List<StudentApplication>();
+
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstduentapplication").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    var applications = JsonDecode.FromJson(data);
+                    Debug.WriteLine(applications);
+                    foreach (var application in applications.applications)
+                    {
+                        model.Add(application);
+                    }
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
     }
 }
