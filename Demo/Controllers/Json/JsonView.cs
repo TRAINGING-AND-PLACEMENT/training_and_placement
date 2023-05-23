@@ -53,6 +53,10 @@ namespace Demo.Controllers.Json
         [AllowNull]
         public List<Hiring> hirings { get; set; }
 
+        [JsonProperty("applications")]
+        [AllowNull]
+        public List<StudentApplication> applications { get; set; }
+
     }
     public partial class JsonDecode
     {

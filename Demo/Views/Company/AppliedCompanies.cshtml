@@ -6,7 +6,7 @@
 }
 
 
-<div class="main-content">
+<div class="main-content" style="width:100%;margin-left:10%;">
 
     <div class="page-content">
         <div class="container-fluid">
@@ -14,27 +14,45 @@
             <!-- start page title -->
             <div class="row">
                 <div class="col-12">
-                    <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">Companies you have applied for :</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-100 col-xl-100">
                     <div class="card">
                         <div class="card-body">
-                            <div>
-                                <h4 class="m-3">
-                                    <span>TCS</span>
-                                    <a asp-controller="Company" asp-action="CompanyDetails" asp-route-id="1">
-                                        <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light">View Details</button>
-                                    </a>
-                                </h4>
-                            </div>
+
+                            <h4 class="card-title">Companies you have applied for :</h4>
+                            <p class="card-title-desc">
+                                Check the status of your application 
+                            </p>
+
+                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Company Name</th>
+                                        <th>Application date</th>
+                                        <th>Application Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    <tr>
+                                        <td>//name here//</td>
+                                        <td>// stud. appl. created date here//</td>
+                                        <td>
+                                            <p type="button" class="btn btn-primary btn-sm waves-effect waves-light">Applied</p>
+                                            <p type="button" class="btn btn-success btn-sm waves-effect waves-light">Selected</p>
+                                            <p type="button" class="btn btn-danger btn-sm waves-effect waves-light">Rejected</p>
+                                        </td>
+                                        <td>
+                                            <a asp-controller="Company" asp-action="CompanyDetails" asp-route-id="1" class="btn btn-primary btn-soft-primary waves-effect waves-light">
+                                            Details
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </div>
-
+                </div> <!-- end col -->
             </div>
         </div>
     </div>
