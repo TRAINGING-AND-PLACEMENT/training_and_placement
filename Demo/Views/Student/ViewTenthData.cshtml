@@ -12,7 +12,11 @@
                         <div class="col-md-12">
                             <div class="card card-body">
                                 <div>
-                                    <h5 class="font-size-16 mb-4">10<sup>th</sup> Marksheet Details</h5>
+                                    <a asp-controller="Student" style="float:right" asp-action="Edit10Details" class="btn btn-primary waves-effect waves-light mb-2">Edit Your Results</a>
+
+                                    <h5 class="font-size-16 mb-4" style="padding-right:70%">10<sup>th</sup> Marksheet Details</h5>
+
+
 
                                     <div class="table-responsive">
                                         <table class="table table-nowrap table-hover mb-0">
@@ -101,9 +105,7 @@
                                     </div>
                                 </div>
                             </div><!-- end card -->
-                            <div style="display:flex;justify-content:center">
-                            <a asp-controller="Student" asp-action="Edit10Details" class="btn btn-primary waves-effect waves-light">Edit Your Results</a>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
