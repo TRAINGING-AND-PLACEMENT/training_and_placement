@@ -18,7 +18,13 @@ namespace Demo.Models
         [AllowNull]
         [ValidateNever]
         public IEnumerable<Sector> Sectors { get; set; }
-        
+        [AllowNull]
+        [ValidateNever]
+        public IEnumerable<Hiring_Departments> Hiring_Departments { get; set; }
+        [AllowNull]
+        [ValidateNever]
+        public IEnumerable<Hiring_sectors> Hiring_sectors { get; set; }
+
         public Hiring Hiring { get; set; }  
 
     }
