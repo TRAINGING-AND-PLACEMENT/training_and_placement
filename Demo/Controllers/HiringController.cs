@@ -3,11 +3,13 @@ using Demo.Controllers.Json;
 using Demo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using NuGet.DependencyResolver;
 using System.Diagnostics;
 using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Demo.Controllers
 {
@@ -196,29 +198,30 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
-        
+       
         public IActionResult EditHiring(int id)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1 || @context.HttpContext.Session.GetInt32("role") == 2)
             {
-                List<Hiring> hiringmodel = new List<Hiring>();
+                Hiring model = new Hiring();
                 var companymodel = new List<Company>();
+                var departmentmodel = new List<Department>();
+                var sectormodel = new List<Sector>();
+                var hiringdepartmentmodel = new List<Hiring_Departments>();
+                var hiringsectormodel = new List<Hiring_sectors>();
 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "gethiringdetails&id=" + id).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
-                    var res = JsonDecode.FromJson(data);
-                    foreach (var hiring in res.hirings)
-                    {
-                        hiringmodel.Add(hiring);
-                    }
+                    var hirings = JsonDecode.FromJson(data);
+                    model = hirings.Hiring[0];
                 }
-                HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
-                if (response.IsSuccessStatusCode)
+                HttpResponseMessage response1 = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
+                if (response1.IsSuccessStatusCode)
                 {
-                    String data = response2.Content.ReadAsStringAsync().Result;
+                    String data = response1.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
                     var companies = JsonDecode.FromJson(data);
                     foreach (var company in companies.Companies)
@@ -231,10 +234,64 @@ namespace Demo.Controllers
                         companymodel.Add(Company);
                     }
                 }
-                ViewHiring viewHiring = new ViewHiring();
-                viewHiring.Companies = companymodel;
-                viewHiring.Hirings = hiringmodel;
-                return View(viewHiring);
+                HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "get_department").Result;
+                if (response2.IsSuccessStatusCode)
+                {
+                    String data = response2.Content.ReadAsStringAsync().Result;
+                    var department = JsonDecode.FromJson(data);
+                    foreach (var departments in department.departments)
+                    {
+                        var Department = new Department
+                        {
+                            id = departments.id,
+                            department = departments.department
+                        };
+                        departmentmodel.Add(Department);
+                    }
+                }
+                HttpResponseMessage response3 = client.GetAsync(client.BaseAddress + "get_sector").Result;
+                if (response3.IsSuccessStatusCode)
+                {
+                    String data = response3.Content.ReadAsStringAsync().Result;
+                    var sector = JsonDecode.FromJson(data);
+                    foreach (var sectors in sector.sectors)
+                    {
+                        var Sector = new Sector
+                        {
+                            id = sectors.id,
+                            sector = sectors.sector
+                        };
+                        sectormodel.Add(Sector);
+                    }
+                }
+                HttpResponseMessage response4 = client.GetAsync(client.BaseAddress + "gethiringdepartments&id=" + id).Result;
+                if (response4.IsSuccessStatusCode)
+                {
+                    String data = response4.Content.ReadAsStringAsync().Result;
+                    var hiringdepartments = JsonDecode.FromJson(data);
+                    foreach (var hiringdepartment in hiringdepartments.Hiring_Departments)
+                    {
+                        hiringdepartmentmodel.Add(hiringdepartment);
+                    }
+                }
+                HttpResponseMessage response5 = client.GetAsync(client.BaseAddress + "gethiringsectors&id=" + id).Result;
+                if (response5.IsSuccessStatusCode)
+                {
+                    String data = response5.Content.ReadAsStringAsync().Result;
+                    var hiringsectors = JsonDecode.FromJson(data);
+                    foreach (var hiringsector in hiringsectors.Hiring_sectors)
+                    {
+                        hiringsectormodel.Add(hiringsector);
+                    }
+                }
+                ViewCompnaySession ViewCompnaySession = new ViewCompnaySession();
+                ViewCompnaySession.Companies = companymodel;
+                ViewCompnaySession.Hiring = model;
+                ViewCompnaySession.Departments = departmentmodel;
+                ViewCompnaySession.Sectors = sectormodel;
+                ViewCompnaySession.Hiring_Departments = hiringdepartmentmodel;
+                ViewCompnaySession.Hiring_sectors = hiringsectormodel;
+                return View(ViewCompnaySession);
             }
             else
             {

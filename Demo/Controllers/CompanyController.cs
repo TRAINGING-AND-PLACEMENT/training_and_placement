@@ -26,7 +26,7 @@ namespace Demo.Controllers
         public void DestorySession()
         {
             context.HttpContext.Session.Remove("role");
-            context.HttpContext.Session.Remove("userid");
+            context.HttpContext.Session.Remove("    ");
             context.HttpContext.Session.Remove("sessionid");
             context.HttpContext.Session.Remove("studentid");
         }
@@ -90,6 +90,31 @@ namespace Demo.Controllers
                     }
                 }
                 return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        public IActionResult ApplyCompany(StudentApplication model,int id)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                //if (ModelState.IsValid)
+                //{
+                    String data = JsonConvert.SerializeObject(model);
+                    Debug.WriteLine(data);
+                    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "studentapply&hiring_id=" + id +"&student_id="+ @context.HttpContext.Session.GetInt32("studentid"), content).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        String result = response.Content.ReadAsStringAsync().Result;
+                    }
+                // }
+                return RedirectToAction("AppliedCompanies");
             }
             else
             {
@@ -218,22 +243,22 @@ namespace Demo.Controllers
             }
         }
 
-        public IActionResult CompanyDetails(string ids)
+        public IActionResult CompanyDetails(int cid,int hid)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
-                Debug.WriteLine(ids);
-                string[] idArray = ids.Split(',');
-                int cid = 0;
-                int hid = 0;
-                for (int i = 0; i < idArray.Length; i++)
-                { 
-                    cid = int.Parse(idArray[0]);
-                    hid = int.Parse(idArray[1]);
-                }
+                //Debug.WriteLine(ids);
+                //string[] idArray = ids.Split(',');
+                //int cid = 0;
+                //int hid = 0;
+                //for (int i = 0; i < idArray.Length; i++)
+                //{ 
+                //    cid = int.Parse(idArray[0]);
+                //    hid = int.Parse(idArray[1]);
+                //}
                 
-                Debug.WriteLine(cid);
-                Debug.WriteLine(hid);
+                //Debug.WriteLine(cid);
+                //Debug.WriteLine(hid);
                 var hiringmodel = new List<Hiring>();
                 var companymodel = new List<Company>();
                 

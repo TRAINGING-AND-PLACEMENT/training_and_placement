@@ -139,6 +139,7 @@ namespace Demo.Models
 
         [Index(28)]
         [JsonProperty("adhaar")]
+        [Required(ErrorMessage ="Please enter your 14 digit AADHAR number")]
         public string adhaar { get; set; }
 
         [Index(29)]

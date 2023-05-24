@@ -1,7 +1,7 @@
 ﻿@model ViewHiring
 @inject IHttpContextAccessor context;
 <!--Total Companies page-->
-<div class="main-content" style="margin-left:4%;width:120%;">
+<div class="main-content" style="margin-left:4%;width:115%;">
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
@@ -26,12 +26,8 @@
                                             <th>Batch</th>
                                             <th>Designation</th>
                                             <th>Job Location</th>
-                                            <th>Joining Data</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
                                             <th>Interview Mode</th>
                                             <th>Interview Location</th>
-                                            <th>Other Requirnments</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -56,15 +52,11 @@
                                                
                                                 <td>@item.designation</td>
                                                 <td>@item.joblocation</td>
-                                                <td>@item.joindate</td>
-                                                <td>@item.startdate</td>
-                                                <td>@item.enddate</td>
                                                 <td>@item.interview_mode</td>
                                                 <td>@item.interview_location</td>
-                                                <td>@item.other_requirement</td>
                                                 @if(@context.HttpContext.Session.GetInt32("role") == 1){
                                                     <td>
-                                                        <a asp-controller="Company" asp-action="CompanyDetails" class="btn btn-info waves-effect waves-light" asp-route-ids="@item.company_id,@item.id">
+                                                        <a asp-controller="Company" asp-action="CompanyDetails" class="btn btn-info waves-effect waves-light" asp-route-cid="@item.company_id" asp-route-hid="@item.id">
                                                             Info
                                                         </a>
                                                     </td>
@@ -72,10 +64,10 @@
                                                 else if (@context.HttpContext.Session.GetInt32("role") == 2)
                                                 {
                                                     <td>
-                                                        <a asp-controller="Hiring" asp-action="EditHiring" class="btn btn-info waves-effect waves-light" asp-route-id="@item.id">
+                                                        <a asp-controller="Hiring" asp-action="EditHiring" class="btn btn-outline-primary" asp-route-id="@item.id">
                                                             Edit
                                                         </a>
-                                                        <a asp-controller="Hiring" asp-action="DeleteHiring" class="btn btn-info waves-effect waves-light" asp-route-id="@item.id">
+                                                        <a asp-controller="Hiring" asp-action="DeleteHiring" class="btn btn-outline-danger" asp-route-id="@item.id">
                                                             Delete
                                                         </a>
                                                     </td>
