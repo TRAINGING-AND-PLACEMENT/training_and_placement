@@ -196,7 +196,7 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
-        
+       
         public IActionResult EditHiring(int id)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1 || @context.HttpContext.Session.GetInt32("role") == 2)

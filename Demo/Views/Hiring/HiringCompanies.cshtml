@@ -64,7 +64,7 @@
                                                 <td>@item.other_requirement</td>
                                                 @if(@context.HttpContext.Session.GetInt32("role") == 1){
                                                     <td>
-                                                        <a asp-controller="Company" asp-action="CompanyDetails" class="btn btn-info waves-effect waves-light" asp-route-ids="@item.company_id,@item.id">
+                                                        <a asp-controller="Company" asp-action="CompanyDetails" class="btn btn-info waves-effect waves-light" asp-route-cid="@item.company_id" asp-route-hid="@item.id">
                                                             Info
                                                         </a>
                                                     </td>

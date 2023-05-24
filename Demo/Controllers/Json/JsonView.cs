@@ -64,6 +64,9 @@ namespace Demo.Controllers.Json
         [AllowNull]
         public List<StudentApplication> applications { get; set; }
 
+        [JsonProperty("application")]
+        public StudentApplication[] StudentApplicationss { get; set; }
+
     }
     public partial class JsonDecode
     {
