@@ -39,6 +39,10 @@ namespace Demo.Controllers.Json
         [AllowNull]
         public Dictionary<string, string>[] Student { get; set; }
 
+        [JsonProperty("students")]
+        [AllowNull]
+        public List<Student> students { get; set; }
+
         [JsonProperty("studentInfo")]
         public Student[] studentInfo { get; set; }
 

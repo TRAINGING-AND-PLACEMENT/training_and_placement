@@ -115,7 +115,6 @@ namespace Demo.Controllers
                     String data = JsonConvert.SerializeObject(model);
                     Debug.WriteLine(data);
                     StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-                    Debug.WriteLine(content);
                     HttpResponseMessage response = client.PostAsync(client.BaseAddress + "addhiringdetails", content).Result;
                     if (response.IsSuccessStatusCode)
                     {
@@ -343,6 +342,34 @@ namespace Demo.Controllers
                 DestorySession();
                 return RedirectToAction("Login", "User");
             }
+        }
+
+        public IActionResult StdAppList(int id)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                List<Student> model = new List<Student>();
+
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getappliedstudents&id=" + id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var students = JsonDecode.FromJson(data);
+                    foreach (var student in students.students)
+                    {
+                        model.Add(student);
+                    }
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+            return View();
         }
 
         public IActionResult test()
