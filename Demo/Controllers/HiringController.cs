@@ -315,6 +315,26 @@ namespace Demo.Controllers
             return View();
         }
 
+        public IActionResult pendingReSel(int id, int sid)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "pendingshortlist&sid=" + sid +"&id"+ id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                }
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+            return View();
+        }
+
         public IActionResult test()
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)

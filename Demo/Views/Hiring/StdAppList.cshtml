@@ -46,10 +46,42 @@
                                                 @if (@context.HttpContext.Session.GetInt32("role") == 2)
                                                 {
                                                     <td>
-                                                        <a asp-controller="Hiring" asp-action="EditHiring" class="btn btn-info waves-effect waves-light" asp-route-id="@item.id">
+                                                        @*<a asp-controller="Hiring" asp-action="pendingReSel" class="btn btn-info waves-effect waves-light" asp-route-id=101 asp-route-sid=@item.id>
                                                             Select
-                                                        </a>
-                                                        <a asp-controller="Hiring" asp-action="DeleteHiring" class="btn btn-info waves-effect waves-light" asp-route-id="@item.id">
+                                                        </a>*@
+                                                        <!-- Button trigger modal -->
+                                                        <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                            Select
+                                                        </button>
+
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <form  id="selectform"  method="post">
+                                                                        <div class="modal-body">
+                                                                                <div class="mb-3">
+                                                                                    <label for="exampleInputEmail1" class="form-label">Stipend</label>
+                                                                                    <input type="text" name="sti" class="form-control">
+                                                                                </div>
+                                                                                <div class="mb-3">
+                                                                                    <label for="exampleInputPassword1" class="form-label">Salary</label>
+                                                                                    <input type="text" name="sal" class="form-control" >
+                                                                                </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <a asp-controller="Hiring" asp-action="pendingReSel" class="btn btn-info waves-effect waves-light" asp-route-id=201 asp-route-sid=@item.id>
                                                             Reject
                                                         </a>
                                                     </td>
@@ -69,7 +101,7 @@
 </div>
 
 @section Scripts{
-
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script>
         $(document).ready(function () {
             var table = $("#company-table").DataTable({
@@ -77,8 +109,24 @@
                 pageLength: 5,
                 lengthMenu: [5, 10, 20]
             })
+            $('#exampleModal').on('shown.bs.modal', function () {
+                $('#myInput').trigger('focus')
+            })
+            $("#selectform").on("submit", function (e) {
+                e.preventDefault();
+                alert("hello");
+                //$("#selectform").validate({
+
+                //    rules: {
+                //        sti: "required"
+                //    },
+                //    messages: {
+                //        sti: "Please enter stipend!"
+                //    }
+
+                //});
+            })
         });
     </script>
 }
-
 

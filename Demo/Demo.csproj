@@ -32,4 +32,8 @@
     <Folder Include="wwwroot\files\student_csv\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\CustomValidation\custvalid.js" />
+  </ItemGroup>
+
 </Project>
