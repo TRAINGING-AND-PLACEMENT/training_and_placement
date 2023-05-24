@@ -56,6 +56,12 @@ namespace Demo.Controllers.Json
         [JsonProperty("hiring")]
         public Hiring[] Hiring { get; set; }
 
+        [JsonProperty("hiringdepartments")]
+        public Hiring_Departments[] Hiring_Departments { get; set; }
+
+        [JsonProperty("hiringsectors")]
+        public Hiring_sectors[] Hiring_sectors { get; set; }
+
         [JsonProperty("applications")]
         [AllowNull]
         public List<StudentApplication> applications { get; set; }

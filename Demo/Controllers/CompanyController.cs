@@ -218,22 +218,22 @@ namespace Demo.Controllers
             }
         }
 
-        public IActionResult CompanyDetails(string ids)
+        public IActionResult CompanyDetails(int cid,int hid)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
-                Debug.WriteLine(ids);
-                string[] idArray = ids.Split(',');
-                int cid = 0;
-                int hid = 0;
-                for (int i = 0; i < idArray.Length; i++)
-                { 
-                    cid = int.Parse(idArray[0]);
-                    hid = int.Parse(idArray[1]);
-                }
+                //Debug.WriteLine(ids);
+                //string[] idArray = ids.Split(',');
+                //int cid = 0;
+                //int hid = 0;
+                //for (int i = 0; i < idArray.Length; i++)
+                //{ 
+                //    cid = int.Parse(idArray[0]);
+                //    hid = int.Parse(idArray[1]);
+                //}
                 
-                Debug.WriteLine(cid);
-                Debug.WriteLine(hid);
+                //Debug.WriteLine(cid);
+                //Debug.WriteLine(hid);
                 var hiringmodel = new List<Hiring>();
                 var companymodel = new List<Company>();
                 

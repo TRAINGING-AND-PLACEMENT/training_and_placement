@@ -1,8 +1,8 @@
-﻿@model ViewCompnaySession
+﻿@model ViewCompnaySession;
 @using Microsoft.AspNetCore.Mvc;
 @inject IHttpContextAccessor context;
 @{
-    ViewData["Title"] = "Create Hiring";
+    ViewData["Title"] = "Edit Hiring";
 }
 @{
     Layout = "_CoOrdLayout";
@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">Add Hiring Details</h4>
+                        <h4 class="mb-0">Edit Hiring Details</h4>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,15 @@
                                             <option value="-1">Select</option>
                                             @foreach (var company in Model.Companies)
                                             {
-                                                <option value="@company.id">@company.name</option>
+                                                if (Model.Hiring.company_id == company.id)
+                                                {
+                                                    <option value="@company.id">@company.name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@company.id">@company.name</option>
+                                                }
+
                                             }
                                         </select>
                                         <span asp-validation-for="@Model.Hiring.company_id" class="text-danger"></span>
@@ -51,22 +59,38 @@
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Department</label>
-                                        <select asp-for="@Model.Hiring.department_id" class="form-select">
+                                        <select asp-for="@Model.Hiring.department_id" class="form-select js-example-basic-multiple" multiple="multiple">
                                             <option value="-1">Select</option>
                                             @foreach (var department in Model.Departments)
                                             {
-                                                <option value="@department.id">@department.department</option>
+                                                @*if (Model.Hiring.department_id.Equals(department.id))
+                                                {
+                                                    <option value="@department.id">@department.department</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@department.id">@department.department</option>
+                                                }*@
                                             }
+                                                
                                         </select>
                                         <span asp-validation-for="@Model.Hiring.department_id" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Sector</label>
-                                        <select asp-for="@Model.Hiring.sector_id" class="form-select">
+                                        <select asp-for="@Model.Hiring.sector_id" class="form-select js-example-basic-multiple" multiple="multiple">
                                             <option>Select</option>
                                             @foreach (var sector in Model.Sectors)
-                                            {
-                                                <option value="@sector.id">@sector.sector</option>
+                                            {@*
+                                                if (Model.Hiring.sector_id.Equals(sector.id))
+                                                {
+                                                    <option value="@sector.id">@sector.sector</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@sector.id">@sector.sector</option>
+                                                }*@
+                                               
                                             }
                                         </select>
                                         <span asp-validation-for="@Model.Hiring.sector_id" class="text-danger"></span>
@@ -157,6 +181,8 @@
     @{
         <partial name="_ValidationScriptsPartial" />
     }
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $(document).ready(function () {
             // alert('ready');
@@ -177,6 +203,7 @@
                     $('#job_location_div').hide();
                 }
             });
+            $('.js-example-basic-multiple').select2();
 
         })
 
