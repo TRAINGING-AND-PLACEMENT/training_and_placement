@@ -16,8 +16,11 @@
 
                             <h4 class="card-title">Department List</h4>
                             <p class="card-title-desc">
-
                             </p>
+                            <div class="float-end">
+                                <a class="btn btn-outline-primary" asp-action="Department">Upload Csv</a>
+                                <a class="btn btn-outline-primary" asp-action="Insert_dept">Add department</a>
+                            </div>
                             <table class="table table-striped table-bordered dt-responsive" id="department-table" style="width:100%;">
                                 @if (Model == null)
                                 {
