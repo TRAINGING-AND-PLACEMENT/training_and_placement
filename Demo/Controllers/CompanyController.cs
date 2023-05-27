@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 using System.Data;
+using Azure;
 
 
 namespace Demo.Controllers
@@ -261,6 +262,7 @@ namespace Demo.Controllers
                 //Debug.WriteLine(hid);
                 var hiringmodel = new List<Hiring>();
                 var companymodel = new List<Company>();
+                var studentApplicationModel = new List<StudentApplication>();
                 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails&id="+cid).Result;
                 if (response.IsSuccessStatusCode)
@@ -286,9 +288,28 @@ namespace Demo.Controllers
                         hiringmodel.Add(hiring);
                     }
                 }
+                HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "get_student_application").Result;
+                if (response2.IsSuccessStatusCode)
+                {
+                    String data = response2.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var student_applications = JsonDecode.FromJson(data);
+                    foreach (var student in student_applications.applications)
+                    {
+                        var Student = new StudentApplication
+                        {
+                            student_id = student.student_id,
+                            hiring_id = student.hiring_id
+                        };
+                        studentApplicationModel.Add(Student);
+                    }
+                }
+                
                 ViewHiring viewStudentHiring = new ViewHiring();
                 viewStudentHiring.Companies = companymodel;
                 viewStudentHiring.Hirings = hiringmodel;
+                viewStudentHiring.applications = studentApplicationModel;
+                
                 return View(viewStudentHiring);
             }
             else
