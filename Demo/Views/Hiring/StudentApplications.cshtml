@@ -1,7 +1,7 @@
 ﻿@model List<Company>
 
 <!--Total Companies page-->
-<div class="main-content" style="margin-left:10%;width:100%;">
+<div class="main-content" style="margin-left:7%;width:110%;">
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
@@ -42,8 +42,8 @@
                                                         <td>@item.email</td>
                                                         <td>@item.alt_email</td>
                                                         <td>
-                                                            <a asp-controller="Hiring" asp-action="StdAppList" class="btn btn-info waves-effect waves-light" asp-route-id="@item.id">
-                                                                details
+                                                            <a asp-controller="Hiring" asp-action="StdAppList" class="btn btn-outline-info " asp-route-id="@item.id">
+                                                                Details
                                                             </a>
                                                         </td>
                                                     </tr>

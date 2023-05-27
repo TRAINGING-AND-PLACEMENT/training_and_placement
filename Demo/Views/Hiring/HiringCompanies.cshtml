@@ -56,7 +56,7 @@
                                                 <td>@item.interview_location</td>
                                                 @if(@context.HttpContext.Session.GetInt32("role") == 1){
                                                     <td>
-                                                        <a asp-controller="Company" asp-action="CompanyDetails" class="btn btn-info waves-effect waves-light" asp-route-cid="@item.company_id" asp-route-hid="@item.id">
+                                                        <a asp-controller="Company" asp-action="CompanyDetails" class="btn btn-outline-info" asp-route-cid="@item.company_id" asp-route-hid="@item.id">
                                                             Info
                                                         </a>
                                                     </td>

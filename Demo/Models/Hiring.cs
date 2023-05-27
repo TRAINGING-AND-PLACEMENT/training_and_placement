@@ -64,9 +64,8 @@ namespace Demo.Models
         public double performance_inc { get; set; }
 
         [Required(ErrorMessage = "You must provide a Total Salary")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
         [JsonProperty("total_salary")]
-        public double total_salary { get; set; }
+        public string total_salary { get; set; }
 
         [Required(ErrorMessage = "You must provide a joblocation")]
         [JsonProperty("joblocation")]
