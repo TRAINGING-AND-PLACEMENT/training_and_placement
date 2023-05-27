@@ -5,7 +5,7 @@
         public IEnumerable<Company> Companies { get; set; }
         public IEnumerable<Sessions> Session { get; set; }
         public IEnumerable<Hiring> Hirings { get; set; }
-        public IEnumerable<Student> studentInfo { get; set; }
+        public IEnumerable<StudentApplication> applications { get; set; }
 
     }
 }

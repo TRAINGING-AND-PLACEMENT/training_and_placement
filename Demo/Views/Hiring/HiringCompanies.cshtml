@@ -8,6 +8,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+                            <a asp-controller="Hiring" asp-action="CreateHiring" style="float:right" class="btn btn-primary waves-effect waves-light mb-2">Add Hring</a>
 
                             <h4 class="card-title">Hirings List</h4>
                             <p class="card-title-desc">
@@ -60,6 +61,16 @@
                                                             Info
                                                         </a>
                                                     </td>
+                                                    @foreach (var student in Model.applications)
+                                                    {
+                                                        if (@context.HttpContext.Session.GetInt32("studentid") == student.student_id)
+                                                        {
+                                                            if (item.id == student.hiring_id)
+                                                            {
+                                                                <td>Applied</td>
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                                 else if (@context.HttpContext.Session.GetInt32("role") == 2)
                                                 {

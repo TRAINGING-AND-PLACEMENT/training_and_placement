@@ -9,7 +9,7 @@ namespace Demo.Models
         public int hiring_id { get; set; }
 
         [JsonProperty("student_id")]
-        public long stduent_id { get; set; }
+        public long student_id { get; set; }
 
         [JsonProperty("stipend")]
         public string stipend { get; set; }

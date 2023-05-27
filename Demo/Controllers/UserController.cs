@@ -104,7 +104,7 @@ namespace Demo.Controllers
                                     context.HttpContext.Session.SetInt32("role", role);
                                     context.HttpContext.Session.SetInt32("userid", userid);
                                     context.HttpContext.Session.SetInt32("sessionid", sessionid);
-                                    return RedirectToAction("Index", "Company");
+                                    return RedirectToAction("Index", "Home");
                                 }
                             }
                             else

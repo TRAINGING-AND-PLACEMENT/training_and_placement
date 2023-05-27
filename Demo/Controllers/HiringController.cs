@@ -141,6 +141,7 @@ namespace Demo.Controllers
                 var hiringmodel = new List<Hiring>();
                 var companymodel = new List<Company>();
                 var sessionmodel = new List<Sessions>();
+                var studentApplicationModel = new List<StudentApplication>();
 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "gethiringdetails").Result;
                 if (response.IsSuccessStatusCode)
@@ -185,10 +186,27 @@ namespace Demo.Controllers
                         sessionmodel.Add(Session);
                     }
                 }
+                HttpResponseMessage response4 = client.GetAsync(client.BaseAddress + "get_student_application").Result;
+                if (response4.IsSuccessStatusCode)
+                {
+                    String data = response4.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var student_applications = JsonDecode.FromJson(data);
+                    foreach (var student in student_applications.applications)
+                    {
+                        var Student = new StudentApplication
+                        {
+                            student_id = student.student_id,
+                            hiring_id = student.hiring_id 
+                        };
+                        studentApplicationModel.Add(Student);
+                    }
+                }
                 ViewHiring viewHiring   = new ViewHiring();
                 viewHiring.Companies = companymodel;
                 viewHiring.Hirings = hiringmodel;
                 viewHiring.Session = sessionmodel;
+                viewHiring.applications = studentApplicationModel;
                 return View(viewHiring);
             }
             else

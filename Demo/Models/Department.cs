@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Models
 {
@@ -10,13 +11,14 @@ namespace Demo.Models
         [ValidateNever]
         public int id { get; set; }
 
-        [ValidateNever]
+        [Required]
         public string department { get; set; }
 
         [ValidateNever]
         public int status { get; set; }
 
         [ValidateNever]
+        [AllowNull]
         public string remarks { get; set; }
 
         [ValidateNever]
