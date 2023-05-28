@@ -8,6 +8,8 @@ using System.Globalization;
 using System.Text;
 using System.Data;
 using Azure;
+using System.Security.Cryptography;
+using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 
 
 namespace Demo.Controllers
@@ -221,7 +223,66 @@ namespace Demo.Controllers
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
-                return View();
+                var hiringmodel = new List<Hiring>();
+                var studentApplicationModel = new List<StudentApplication>();
+                var companymodel = new List<Company>();
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_student_application").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var student_applications = JsonDecode.FromJson(data);
+                    foreach (var student in student_applications.applications)
+                    {
+                        var Student = new StudentApplication
+                        {
+                            student_id = student.student_id,
+                            hiring_id = student.hiring_id,
+                            created_at = student.created_at,
+                            status = student.status
+                        };
+                        studentApplicationModel.Add(Student);
+                    }
+                }
+                HttpResponseMessage response1 = client.GetAsync(client.BaseAddress + "gethiringdetails").Result;
+                if (response1.IsSuccessStatusCode)
+                {
+                    String data = response1.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var Hirings = JsonDecode.FromJson(data);
+                    foreach (var hiring in Hirings.hirings)
+                    {
+                        var Hiring = new Hiring
+                        {
+                            id = hiring.id,
+                            company_id = hiring.company_id,
+                        };
+                        hiringmodel.Add(Hiring);
+                    }
+                }
+                HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
+                if (response2.IsSuccessStatusCode)
+                {
+                    String data = response2.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var companies = JsonDecode.FromJson(data);
+                    foreach (var company in companies.Companies)
+                    {
+                        var Company = new Company
+                        {
+                            id = company.id,
+                            name = company.name
+                        };
+                        companymodel.Add(Company);
+                    }
+                    Debug.WriteLine(companymodel);
+                }
+                ViewHiring viewStudentHiring = new ViewHiring();
+                viewStudentHiring.Companies = companymodel;
+                viewStudentHiring.Hirings = hiringmodel;
+                viewStudentHiring.applications = studentApplicationModel;
+
+                return View(viewStudentHiring);
             }
             else
             {
