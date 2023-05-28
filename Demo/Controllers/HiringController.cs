@@ -189,7 +189,7 @@ namespace Demo.Controllers
                 HttpResponseMessage response4 = client.GetAsync(client.BaseAddress + "get_student_application").Result;
                 if (response4.IsSuccessStatusCode)
                 {
-                    String data = response4.Content.ReadAsStringAsync().Result;
+                     String data = response4.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
                     var student_applications = JsonDecode.FromJson(data);
                     foreach (var student in student_applications.applications)
