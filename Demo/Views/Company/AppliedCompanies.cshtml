@@ -41,10 +41,10 @@
                                             {
                                                 if (student_application.hiring_id == hiring.id)
                                                 {
-                                                    var id = hiring.id;
+                                                    
                                                     @foreach (var company in Model.Companies)
                                                     {
-                                                        if (id == company.id)   
+                                                        if (hiring.company_id == company.id)   
                                                         {
                                                             <tr>
                                                                 <td>@company.name</td>
