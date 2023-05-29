@@ -13,9 +13,11 @@
                                    
                                         
                                     <h5 class="font-size-14"><a href="#" class="text-muted">Hiring Details</a></h5>
-                                    @foreach(var hiring in Model.Hirings)
+                                    @{
+                                    bool isAlreadyApplied = false;
+                                    foreach(var hiring in Model.Hirings)
                                     {
-                                            @foreach (var companies in Model.Companies)
+                                            foreach (var companies in Model.Companies)
                                             {
                                                 if (hiring.company_id == companies.id)
                                                 {
@@ -72,27 +74,27 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    @foreach (var student_application in Model.applications)
-                                                    {
-                                                        @if (@context.HttpContext.Session.GetInt32("studentid") == student_application.student_id)
+
+                                                    isAlreadyApplied = false;
+                                                        foreach (var student_application in Model.applications)
                                                         {
-                                                            if ( hiring.id == student_application.hiring_id)
+                                                            if (@context.HttpContext.Session.GetInt32("studentid") == student_application.student_id && hiring.id == student_application.hiring_id)
                                                             {
-                                                                <a asp-controller="Company" asp-action="ApplyCompany" asp-route-id="@hiring.id">
-                                                                    <button class="btn btn-primary w-xs waves-effect waves-light" style="float:right" disabled>Already Applied</button>
-                                                                </a>
-                                                            }
-                                                            else 
-                                                            {
-                                                                <a asp-controller="Company" asp-action="ApplyCompany" asp-route-id="@hiring.id">
-                                                                    <button class="btn btn-primary w-xs waves-effect waves-light" style="float:right">Apply Now</button>
-                                                                </a>
+                                                                isAlreadyApplied = true;
+                                                                break;
                                                             }
                                                         }
-                                                    }
-                                                    
-                                                   
-                                                 
+
+                                                        <a asp-controller="Company" asp-action="ApplyCompany" asp-route-id="@hiring.id">
+                                                            @if (isAlreadyApplied)
+                                                            {
+                                                                <button class="btn btn-primary w-xs waves-effect waves-light" style="float:right" disabled>Already Applied</button>
+                                                            }
+                                                            else
+                                                            {
+                                                                <button class="btn btn-primary w-xs waves-effect waves-light" style="float:right">Apply Now</button>
+                                                            }
+                                                        </a>
 
                                                     <div class="mt-4">
                                                         <h5 class="font-size-14 mb-4">Company Info: </h5>
@@ -151,7 +153,7 @@
                                                                    
                         
                      
-
+                                }
                                </div>
                             </div>
                         </div>

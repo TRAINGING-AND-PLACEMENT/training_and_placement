@@ -1,0 +1,68 @@
+﻿<div class="main-content" style="width:100%;margin-left:10%">
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <a asp-controller="Student" asp-action="AddInternship" style="float:right" class="btn btn-primary waves-effect waves-light mb-2">Add New Data</a>
+
+                            <h4 class="card-title">Internship(s)</h4>
+                            <p class="card-title-desc">
+
+                            </p>
+                            <table class="table table-striped table-bordered dt-responsive" id="company-table" style="width:100%;">
+                               
+                                    <thead>
+                                        <tr class="table-primary">
+                                            <th>Internship Title</th>
+                                            <th>Company</th>
+                                            <th>Duration</th>
+                                            <th>Pincode</th>
+                                            <th>City</th>
+                                            <th>Address</th>
+                                            <th>Specialization</th>
+                                            <th>Remarks</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <a asp-controller="Student" asp-action="EditInternship" class="btn btn-outline-primary">
+                                                    Edit
+                                                </a>
+                                              
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+        </div>
+    </div>
+</div>
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            var table = $("#intern-table").DataTable({
+                "scrollX": true,
+                pageLength: 5,
+                lengthMenu: [5, 10, 20]
+            })
+        });
+    </script>
+}

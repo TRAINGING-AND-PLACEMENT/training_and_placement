@@ -126,12 +126,12 @@
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img class="rounded-circle header-profile-user" src="~/assets/images/users/headerUser.png"
                                  alt="Header Avatar">
-                            <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">UserName</span>
+                            <span class="d-none d-xl-inline-block ms-1 fw-medium font-size-15">@context.HttpContext.Session.GetString("studentName")</span>
                             <i class="fas fa-angle-down d-none d-xl-inline-block font-size-15"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
-                            <a class="dropdown-item" href="#"><i class="fas fa-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">View Profile</span></a>
+                            <a asp-controller="Student" asp-action="StudentProfile" class="dropdown-item" ><i class="fas fa-user-circle font-size-18 align-middle text-muted me-1"></i> <span class="align-middle">View Profile</span></a>
                             @if (@context.HttpContext.Session.GetInt32("role") == null)
                             {
                             <a class="dropdown-item" asp-controller="User" asp-action="Login"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Login</span></a>

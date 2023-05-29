@@ -379,5 +379,35 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
+
+        public IActionResult ViewInternships()
+        {
+            return View();
+        }
+
+        public IActionResult AddInternship()
+        {
+            return View();
+        }
+
+        public IActionResult EditInternship()
+        {
+            return View();
+        }
+
+        public IActionResult ViewWorkExp()
+        {
+            return View();
+        }
+
+        public IActionResult AddWorkExp()
+        {
+            return View();
+        }
+
+        public IActionResult EditWorkExp()
+        {
+            return View();
+        }
     }
 }
