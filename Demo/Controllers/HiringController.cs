@@ -110,6 +110,7 @@ namespace Demo.Controllers
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
+                Debug.WriteLine(model);
                 if (ModelState.IsValid)
                 {
                     String data = JsonConvert.SerializeObject(model);
@@ -290,7 +291,9 @@ namespace Demo.Controllers
                     foreach (var hiringdepartment in hiringdepartments.Hiring_Departments)
                     {
                         hiringdepartmentmodel.Add(hiringdepartment);
+                        
                     }
+                    Debug.WriteLine(hiringdepartmentmodel);
                 }
                 HttpResponseMessage response5 = client.GetAsync(client.BaseAddress + "gethiringsectors&id=" + id).Result;
                 if (response5.IsSuccessStatusCode)
@@ -301,6 +304,7 @@ namespace Demo.Controllers
                     {
                         hiringsectormodel.Add(hiringsector);
                     }
+                    Debug.WriteLine(hiringsectormodel);
                 }
                 ViewCompnaySession ViewCompnaySession = new ViewCompnaySession();
                 ViewCompnaySession.Companies = companymodel;
