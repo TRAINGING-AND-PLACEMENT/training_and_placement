@@ -1,6 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ViewHiring
+@inject IHttpContextAccessor context;
 @{
     Layout = "_StudentLayout";
 }
@@ -23,6 +22,12 @@
                             </p>
 
                             <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                @if (Model == null)
+                                {
+                                    <p>There is no data to be displayed</p>
+                                }
+                                else
+                                {
                                 <thead>
                                     <tr>
                                         <th>Company Name</th>
@@ -34,22 +39,55 @@
 
 
                                 <tbody>
-                                    <tr>
-                                        <td>//name here//</td>
-                                        <td>// stud. appl. created date here//</td>
-                                        <td>
-                                            <p type="button" class="btn btn-primary btn-sm waves-effect waves-light">Applied</p>
-                                            <p type="button" class="btn btn-success btn-sm waves-effect waves-light">Selected</p>
-                                            <p type="button" class="btn btn-danger btn-sm waves-effect waves-light">Rejected</p>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn btn-primary btn-soft-primary waves-effect waves-light">
-                                                <!--asp-controller="Company" asp-action="CompanyDetails" asp-route-id="1"-->
-                                            Details
-                                            </a>
-                                        </td>
-                                    </tr>
+                                    @foreach (var student_application in Model.applications)
+                                    {
+                                        if (student_application.student_id == @context.HttpContext.Session.GetInt32("studentid"))
+                                        {
+                                            @foreach (var hiring in Model.Hirings)
+                                            {
+                                                if (student_application.hiring_id == hiring.id)
+                                                {
+                                                    
+                                                    @foreach (var company in Model.Companies)
+                                                    {
+                                                        if (hiring.company_id == company.id)   
+                                                        {
+                                                            <tr>
+                                                                <td>@company.name</td>
+                                                                <td>@student_application.created_at</td>
+                                                                <td>
+                                                                    @if(student_application.status==0)
+                                                                    {
+                                                                        <p type="button" class="btn btn-primary btn-sm waves-effect waves-light">Applied</p>
+                                                                    }
+                                                                    else if(student_application.status==1)
+                                                                    {
+                                                                        <p type="button" class="btn btn-success btn-sm waves-effect waves-light">Selected</p>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <p type="button" class="btn btn-danger btn-sm waves-effect waves-light">Rejected</p>
+                                                                    }
+                                                                    
+                                                                </td>
+                                                                <td>
+                                                                    <a asp-controller="Company" asp-action="CompanyDetails" class="btn btn-outline-info" asp-route-cid="@company.id" asp-route-hid="@hiring.id">
+                                                                        Info
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                        }
+                                        
+                                        
+                                    }
+                                   
                                 </tbody>
+                                }
                             </table>
                         </div>
                     </div>

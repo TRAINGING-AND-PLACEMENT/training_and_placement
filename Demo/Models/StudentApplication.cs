@@ -22,5 +22,10 @@ namespace Demo.Models
 
         [ValidateNever]
         public string remarks { get; set; }
+        [ValidateNever]
+        public string created_at { get; set; }
+
+        [ValidateNever]
+        public string updated_at { get; set; }
     }
 }

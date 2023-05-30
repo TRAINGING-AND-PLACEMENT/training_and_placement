@@ -1,7 +1,7 @@
 ﻿@model List<Student>
 @inject IHttpContextAccessor context;
 <!--Total Companies page-->
-<div class="main-content" style="margin-left:10%;width:100%;">
+<div class="main-content" style="margin-left:4%;width:115%;">
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
@@ -50,7 +50,7 @@
                                                             Select
                                                         </a>*@
                                                         <!-- Button trigger modal -->
-                                                        <button type="button"  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        <button type="button"  class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                             Select
                                                         </button>
 
@@ -81,7 +81,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a asp-controller="Hiring" asp-action="pendingReSel" class="btn btn-info waves-effect waves-light" asp-route-id=201 asp-route-sid=@item.id>
+                                                        <a asp-controller="Hiring" asp-action="pendingReSel" class="btn btn-outline-danger" asp-route-id=201 asp-route-sid=@item.id>
                                                             Reject
                                                         </a>
                                                     </td>

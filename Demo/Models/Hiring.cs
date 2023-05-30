@@ -43,17 +43,24 @@ namespace Demo.Models
         public string bond { get; set; }
 
         [DisplayName("Bond Condition")]
-        [Required(ErrorMessage = "You must provide a Bond Condition!")]
+        [ValidateNever]
         [JsonProperty("bond_condition")]
         public string bond_condition { get; set; }
 
-        [Required(ErrorMessage = "You must provide a Fix Salary!")]
+        [Required(ErrorMessage = "You must provide a Stipend !")]
         [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
-        [JsonProperty("fix_salary")]
-        public double fix_salary { get; set; }
+        [JsonProperty("stipend")]
+        public double stipend { get; set; }
+
+        [Required(ErrorMessage = "You must provide a minimum package!")]
+        [JsonProperty("minimum_package")]
+        public string minimum_package { get; set; }
+
+        [Required(ErrorMessage = "You must provide a maximum package !")]
+        [JsonProperty("maximum_package")]
+        public string maximum_package { get; set; }
 
         [Required(ErrorMessage = "You must provide a bonus")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
         [JsonProperty("bonus")]
         public double bonus { get; set; }
 
@@ -63,10 +70,6 @@ namespace Demo.Models
         [JsonProperty("performance_inc")]
         public double performance_inc { get; set; }
 
-        [Required(ErrorMessage = "You must provide a Total Salary")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
-        [JsonProperty("total_salary")]
-        public double total_salary { get; set; }
 
         [Required(ErrorMessage = "You must provide a joblocation")]
         [JsonProperty("joblocation")]

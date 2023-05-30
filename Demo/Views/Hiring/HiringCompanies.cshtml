@@ -17,7 +17,7 @@
                             <table class="table table-striped table-bordered dt-responsive" id="company-table" style="width:100%;">
                                 @if (Model == null)
                                 {
-                                    <p>There is no data to be displayed</p>
+                                    <p>Apply in a company to see your data</p>
                                 }
                                 else
                                 {
@@ -30,6 +30,7 @@
                                             <th>Interview Mode</th>
                                             <th>Interview Location</th>
                                             <th>Action</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,20 +58,23 @@
                                                 <td>@item.interview_location</td>
                                                 @if(@context.HttpContext.Session.GetInt32("role") == 1){
                                                     <td>
-                                                        <a asp-controller="Company" asp-action="CompanyDetails" class="btn btn-info waves-effect waves-light" asp-route-cid="@item.company_id" asp-route-hid="@item.id">
+                                                        <a asp-controller="Company" asp-action="CompanyDetails" class="btn btn-outline-info" asp-route-cid="@item.company_id" asp-route-hid="@item.id">
                                                             Info
                                                         </a>
                                                     </td>
+                                                    <td style="color:green">
                                                     @foreach (var student in Model.applications)
                                                     {
                                                         if (@context.HttpContext.Session.GetInt32("studentid") == student.student_id)
                                                         {
                                                             if (item.id == student.hiring_id)
                                                             {
-                                                                <td>Applied</td>
+                                                                    <i class="fas fa-check"></i>
+                                                                    <i>Applied</i>
                                                             }
                                                         }
                                                     }
+                                                    </td>
                                                 }
                                                 else if (@context.HttpContext.Session.GetInt32("role") == 2)
                                                 {

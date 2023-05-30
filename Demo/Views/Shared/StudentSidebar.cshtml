@@ -1,7 +1,8 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-
+@using Microsoft.AspNetCore.Mvc;
+@inject IHttpContextAccessor context;
 <!-- ========== Left Sidebar Start ========== -->
 
 <div class="vertical-menu">
@@ -67,16 +68,33 @@
                                 <span>Applied Companies</span>
                             </a>
                         </li>
-                        <!--
+                       @* 
                         <li>
-                            <a asp-controller="Company" asp-action="SelectedCompanies">
+                            <a asp-controller="Home" asp-action="ReportView">
                                 <i class="fas fa-handshake"></i>
-                                <span>View Selection</span>
+                                <span>See Reports</span>
                             </a>
-                        </li>
-                        -->
+                        </li>*@
+                        
                     </ul>
                 </li>
+
+                <li class="menu-title">Work History</li>
+
+                <li>
+                    <a asp-controller="Student" asp-action="ViewInternships" class="waves-effect" >
+                        <i class="fas fa-clipboard"></i>
+                        <span>Past Internships</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="Student" asp-action="ViewWorkExp" class="waves-effect">
+                        <i class="fas fa-mail-bulk"></i>
+                        <span>Work Experience</span>
+                    </a>
+                </li>
+
 
 
                 <li class="menu-title">Profile</li>
