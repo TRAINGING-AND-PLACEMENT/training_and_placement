@@ -1,4 +1,4 @@
-﻿
+﻿@model internships
 <div class="main-content" style="width:100%;margin-left:10%;">
 
     <div class="page-content">
@@ -15,20 +15,20 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="ten_passyear">Internship Title</label>
-                                            <input class="form-control" id="first_name" placeholder="title here" type="text">
+                                            <input asp-for="title" class="form-control" id="first_name" placeholder="title here" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="ten_school">Company name</label>
-                                            <input class="form-control" placeholder="enter company name" type="text" name="ten_school" id="ten_school">
+                                            <input asp-for="company" class="form-control" placeholder="enter company name" type="text" name="ten_school" id="ten_school">
                                         </div>
                                     </div>
                                    
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="ten_schooladdress">Internship Duration</label>
-                                            <input class="form-control" placeholder="duration of internship" type="text" name="ten_schooladdress" id="ten_schooladdress">
+                                            <input asp-for="duration" class="form-control" placeholder="duration of internship" type="text" name="ten_schooladdress" id="ten_schooladdress">
                                         </div>
                                     </div>
 
@@ -37,13 +37,13 @@
                                     <div class="col-md-9">
                                         <div class="mb-3">
                                             <label class="form-label" for="ten_board">Address</label>
-                                            <input class="form-control" placeholder="address" type="text" name="ten_board" id="ten_board">
+                                            <input asp-for="address" class="form-control" placeholder="address" type="text" name="ten_board" id="ten_board">
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
                                             <label class="form-label" for="ten_schoolcity">City</label>
-                                            <input class="form-control" placeholder="internship city" type="text" name="ten_schoolcity" id="ten_schoolcity">
+                                            <input asp-for="city" class="form-control" placeholder="internship city" type="text" name="ten_schoolcity" id="ten_schoolcity">
                                         </div>
                                     </div>
 
@@ -56,14 +56,14 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="ten_schoolpincode">Pincode</label>
-                                            <input class="form-control" placeholder=" internship pincode" type="text" name="ten_schoolpincode" id="ten_schoolpincode">
+                                            <input asp-for="pincode" class="form-control" placeholder=" internship pincode" type="text" name="ten_schoolpincode" id="ten_schoolpincode">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="ten_scoreoutof">Specialization</label>
                                             <div>
-                                                <input class="form-control" id="alt_contact" placeholder="specialization" type="text" name="ten_scoreoutof" id="ten_scoreoutof" />
+                                                <input asp-for="specialization" class="form-control" id="alt_contact" placeholder="specialization" type="text" name="ten_scoreoutof" id="ten_scoreoutof" />
 
                                             </div>
                                         </div>
@@ -71,7 +71,7 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="ten_score">Remarks</label>
-                                            <input class="form-control" placeholder="remarks" type="text" name="ten_score" id="ten_score">
+                                            <input asp-for="remarks" class="form-control" placeholder="remarks" type="text" name="ten_score" id="ten_score">
 
                                         </div>
                                     </div>

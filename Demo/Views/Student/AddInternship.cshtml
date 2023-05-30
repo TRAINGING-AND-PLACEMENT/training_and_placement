@@ -1,4 +1,6 @@
-﻿
+﻿@model internships
+@using Microsoft.AspNetCore.Mvc;
+@inject IHttpContextAccessor context;
 <div class="main-content" style="width:100%;margin-left:10%;">
 
     <div class="page-content">
@@ -9,26 +11,29 @@
                         <div class="card-body">
                             <h4 class="card-title">Add new intership - Student</h4>
                             <p class="card-title-desc">Verify all information again before insertion.</p>
-                            <form asp-controller="Student" method="post" asp-action="" class="needs-validation custom-validation" novalidate>
-                          
+                            <form asp-controller="Student" method="post" asp-action="AddInternship" class="needs-validation custom-validation" novalidate>
+                                <input type="hidden" asp-for="student_id" value="@context.HttpContext.Session.GetInt32("studentid")" />
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="ten_passyear">Internship Title</label>
-                                            <input class="form-control" id="first_name" placeholder="title here" type="text">
+                                            <label class="form-label" for="title">Internship Title</label>
+                                            <input asp-for="title" class="form-control" placeholder="Internship Title" type="text" name="title" id="title">
+                                            <span asp-validation-for="title" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="ten_school">Company name</label>
-                                            <input class="form-control" placeholder="enter company name" type="text" name="ten_school" id="ten_school">
+                                            <label class="form-label" for="company">Company name</label>
+                                            <input asp-for="company" class="form-control" placeholder="Enter Company Name" type="text" name="company" id="company">
+                                            <span asp-validation-for="company" class="text-danger"></span>
                                         </div>
                                     </div>
                                    
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="ten_schooladdress">Internship Duration</label>
-                                            <input class="form-control" placeholder="duration of internship" type="text" name="ten_schooladdress" id="ten_schooladdress">
+                                            <label class="form-label" for="duration">Internship Duration</label>
+                                            <input asp-for="duration" class="form-control" placeholder="Enter duration of internship" type="text" name="duration" id="duration">
+                                            <span asp-validation-for="duration" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -36,14 +41,16 @@
                                 <div class="row">
                                     <div class="col-md-9">
                                         <div class="mb-3">
-                                            <label class="form-label" for="ten_board">Address</label>
-                                            <input class="form-control" placeholder="address" type="text" name="ten_board" id="ten_board">
+                                            <label class="form-label" for="address">Address</label>
+                                            <input asp-for="address" class="form-control" placeholder="Enter address of company" type="text" name="address" id="address">
+                                            <span asp-validation-for="address" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="mb-3">
-                                            <label class="form-label" for="ten_schoolcity">City</label>
-                                            <input class="form-control" placeholder="internship city" type="text" name="ten_schoolcity" id="ten_schoolcity">
+                                            <label class="form-label" for="city">City</label>
+                                            <input asp-for="city" class="form-control" placeholder="Enter city of company" type="text" name="city" id="city">
+                                            <span asp-validation-for="city" class="text-danger"></span>
                                         </div>
                                     </div>
 
@@ -55,24 +62,25 @@
                                     
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="ten_schoolpincode">Pincode</label>
-                                            <input class="form-control" placeholder=" internship pincode" type="text" name="ten_schoolpincode" id="ten_schoolpincode">
+                                            <label class="form-label" for="pincode">Pincode</label>
+                                            <input asp-for="pincode" class="form-control" placeholder="Enter Pincode" type="text" name="pincode" id="pincode">
+                                            <span asp-validation-for="pincode" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="ten_scoreoutof">Specialization</label>
+                                            <label class="form-label" for="specialization">Specialization</label>
                                             <div>
-                                                <input class="form-control" id="alt_contact" placeholder="specialization" type="text" name="ten_scoreoutof" id="ten_scoreoutof" />
-
+                                                <input asp-for="specialization" class="form-control" placeholder="Enter specialization" type="text" name="specialization" id="specialization">
+                                                <span asp-validation-for="specialization" class="text-danger"></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label class="form-label" for="ten_score">Remarks</label>
-                                            <input class="form-control" placeholder="remarks" type="text" name="ten_score" id="ten_score">
-
+                                            <label class="form-label" for="remarks">Remarks</label>
+                                            <input asp-for="remarks" class="form-control" placeholder="Enter remarks" type="text" name="remarks" id="remarks">
+                                            <span asp-validation-for="remarks" class="text-danger"></span>
                                         </div>
                                     </div>
                                 </div>
