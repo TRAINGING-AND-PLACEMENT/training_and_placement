@@ -66,7 +66,7 @@
 
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Stipend</label>
-                                        <input asp-for="@Model.Hiring.stipend" class="form-control" type="text" id="fix_salary">
+                                        <input asp-for="@Model.Hiring.stipend" class="form-control" type="text" id="stipend">
                                         <span asp-validation-for="@Model.Hiring.stipend" class="text-danger"></span>
                                     </div>
 
@@ -142,7 +142,7 @@
                                     
                                     <div class="col-md-12" id="bond_condition_div">
                                         <label for="example-number-input" class="col col-form-label">Bond Condition</label>
-                                        <textarea asp-for="@Model.Hiring.bond_condition" class="form-control" type="text" id="bondcondition" value="null" rows="7" cols="40"></textarea>
+                                        <textarea asp-for="@Model.Hiring.bond_condition" class="form-control" id="bondcondition" value="null" rows="7" cols="40"></textarea>
                                         <span asp-validation-for="@Model.Hiring.bond_condition" class="text-danger"></span>
                                     </div>
                                 </div>

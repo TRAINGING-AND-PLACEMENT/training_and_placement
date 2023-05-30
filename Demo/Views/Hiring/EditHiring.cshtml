@@ -54,12 +54,16 @@
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Department</label>
-                                        <select asp-for="@Model.Hiring.department_id" class="form-select" multiple="multiple">
+                                        <select asp-for="@Model.Hiring.department_id" class="form-select js-example-basic-multiple" multiple="multiple">
                                             @foreach (var department in Model.Departments)
                                             {
                                                 @foreach (var hiringdepartment in Model.Hiring_Departments)
                                                 {
                                                     if (department.id == hiringdepartment.department_id)
+                                                    {
+                                                        <option value="@department.id" selected>@department.department</option>
+                                                    }
+                                                    else
                                                     {
                                                         <option value="@department.id">@department.department</option>
                                                     }
@@ -71,16 +75,20 @@
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Sector</label>
-                                        <select asp-for="@Model.Hiring.sector_id" class="form-select ">
+                                        <select asp-for="@Model.Hiring.sector_id" class="form-select js-example-basic-multiple" multiple="multiple">
                                             @foreach (var sectors in Model.Sectors)
                                             {
                                                 @foreach (var hiringsectors in Model.Hiring_sectors)
                                                 {
                                                     if (sectors.id == hiringsectors.sector_id)
                                                     {
-                                                        <option value="@sectors.id">@sectors.sector</option>
-
+                                                        var select = "selected";   
                                                     }
+                                                    else
+                                                    {
+                                                        var select = "";
+                                                    }
+                                                    <option value="@sectors.id" selected >@sectors.sector</option>
                                                 }
                                             }
                                         </select>

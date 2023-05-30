@@ -43,7 +43,7 @@ namespace Demo.Models
         public string bond { get; set; }
 
         [DisplayName("Bond Condition")]
-        [Required(ErrorMessage = "You must provide a Bond Condition!")]
+        [ValidateNever]
         [JsonProperty("bond_condition")]
         public string bond_condition { get; set; }
 
@@ -61,7 +61,6 @@ namespace Demo.Models
         public string maximum_package { get; set; }
 
         [Required(ErrorMessage = "You must provide a bonus")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
         [JsonProperty("bonus")]
         public double bonus { get; set; }
 

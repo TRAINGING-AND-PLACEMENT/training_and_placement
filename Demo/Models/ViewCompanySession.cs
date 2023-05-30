@@ -15,6 +15,8 @@ namespace Demo.Models
         [ValidateNever]
         public IEnumerable<Department> Departments { get; set; }
 
+        [ValidateNever]
+        [AllowNull]
         public Department department { get; set; }
 
         [AllowNull]
