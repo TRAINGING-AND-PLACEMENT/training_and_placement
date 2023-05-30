@@ -73,6 +73,13 @@ namespace Demo.Controllers.Json
         [JsonProperty("application")]
         public StudentApplication[] StudentApplicationss { get; set; }
 
+        [JsonProperty("internships")]
+        [AllowNull]
+        public List<internships> internships { get; set; }
+
+        [JsonProperty("internship")]
+        public internships[] internship { get; set; }
+
     }
     public partial class JsonDecode
     {
