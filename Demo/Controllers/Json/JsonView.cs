@@ -18,6 +18,14 @@ namespace Demo.Controllers.Json
         [AllowNull]
         public bool Success { get; set; }
 
+        [JsonProperty("id")]
+        [AllowNull]
+        public String Jid { get; set; }
+
+        [JsonProperty("status")]
+        [AllowNull]
+        public String status { get; set; }
+
         [JsonProperty("user")]
         [AllowNull]
         public Dictionary<string, string>[] User { get; set; }
@@ -45,6 +53,9 @@ namespace Demo.Controllers.Json
 
         [JsonProperty("studentInfo")]
         public Student[] studentInfo { get; set; }
+
+        [JsonProperty("appliedstudent")]
+        public List<pendingshortlist> appliedstudent { get; set; }
 
         [JsonProperty("companies")]
         [AllowNull]

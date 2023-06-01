@@ -1,4 +1,4 @@
-﻿@model List<Student>
+﻿@model List<pendingshortlist>
 @inject IHttpContextAccessor context;
 <!--Total Companies page-->
 <div class="main-content" style="margin-left:4%;width:115%;">
@@ -36,7 +36,7 @@
                                         @foreach (var item in Model)
                                         {
                                             <tr>
-                                                 <td>@item.surname @item.first_name @item.last_name</td>
+                                                <td>@item.surname @item.first_name @item.last_name</td>
                                                 <td>@item.enrollment</td>
                                                 <td>@item.gender</td>
                                                 <td>@item.contact</td>
@@ -47,10 +47,10 @@
                                                 {
                                                     <td>
                                                         @*<a asp-controller="Hiring" asp-action="pendingReSel" class="btn btn-info waves-effect waves-light" asp-route-id=101 asp-route-sid=@item.id>
-                                                            Select
-                                                        </a>*@
+                                            Select
+                                            </a>*@
                                                         <!-- Button trigger modal -->
-                                                        <button type="button"  class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        <button type="button" class="btn btn-outline-info " data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                             Select
                                                         </button>
 
@@ -62,26 +62,26 @@
                                                                         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
-                                                                    <form  id="selectform"  method="post">
+                                                                    <form id="selectform" method="post" asp-controller="Hiring" asp-action="pendingshortlisted" asp-route-id=101 asp-route-sid=@item.id asp-route-hid=@item.hiring_id>
                                                                         <div class="modal-body">
-                                                                                <div class="mb-3">
-                                                                                    <label for="exampleInputEmail1" class="form-label">Stipend</label>
-                                                                                    <input type="text" name="sti" class="form-control">
-                                                                                </div>
-                                                                                <div class="mb-3">
-                                                                                    <label for="exampleInputPassword1" class="form-label">Salary</label>
-                                                                                    <input type="text" name="sal" class="form-control" >
-                                                                                </div>
+                                                                            <div class="mb-3">
+                                                                                <label for="exampleInputEmail1" class="form-label">Stipend</label>
+                                                                                <input type="text" name="sti" class="form-control">
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <label for="exampleInputPassword1" class="form-label">Salary</label>
+                                                                                <input type="text" name="sal" class="form-control">
+                                                                            </div>
                                                                         </div>
                                                                         <div class="modal-footer">
-                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                                            <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+                                                                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                                                                            <button type="submit" id="submit" class="btn btn-outline-primary">Submit</button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <a asp-controller="Hiring" asp-action="pendingReSel" class="btn btn-outline-danger" asp-route-id=201 asp-route-sid=@item.id>
+                                                        <a asp-controller="Hiring" asp-action="pendingshortlisted" class="btn btn-outline-danger " asp-route-id=201 asp-route-sid=@item.id asp-route-hid=@item.hiring_id>
                                                             Reject
                                                         </a>
                                                     </td>
@@ -108,23 +108,23 @@
                 "scrollX": true,
                 pageLength: 5,
                 lengthMenu: [5, 10, 20]
-            })
+            });
             $('#exampleModal').on('shown.bs.modal', function () {
                 $('#myInput').trigger('focus')
-            })
-            $("#selectform").on("submit", function (e) {
-                e.preventDefault();
-                alert("hello");
-                //$("#selectform").validate({
-
-                //    rules: {
-                //        sti: "required"
-                //    },
-                //    messages: {
-                //        sti: "Please enter stipend!"
-                //    }
-
-                //});
+            });
+            $("#selectform").validate({
+                rules: {
+                    sti: "required",
+                    sal: "required"
+                },
+                messages: {
+                    sti: "Please enter stipend!",
+                    sal: "Please enter Salary!"
+                },
+                submitHandler: function (form) {
+                    console.log("Submitted!");
+                    form.submit();
+                }
             })
         });
     </script>

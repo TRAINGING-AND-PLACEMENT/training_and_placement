@@ -104,7 +104,7 @@ namespace Demo.Controllers
             Response.Body.Flush();
         }
 
-        public IActionResult ExporDataToFile(String Export)
+        public IActionResult ExportDataToFile(String Export)
         {
             //var dictioneryexportType = Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
             //var exportType = dictioneryexportType["Export"];
