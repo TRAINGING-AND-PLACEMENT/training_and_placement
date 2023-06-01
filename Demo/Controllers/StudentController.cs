@@ -475,5 +475,14 @@ namespace Demo.Controllers
         {
             return View();
         }
+
+        public IActionResult ViewAQData()
+        {
+            return View();
+        }
+        public IActionResult EditAQData()
+        {
+            return View();
+        }
     }
 }

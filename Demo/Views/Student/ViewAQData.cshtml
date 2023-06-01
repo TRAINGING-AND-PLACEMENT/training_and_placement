@@ -1,0 +1,96 @@
+﻿@model Student
+@{
+    Layout = "_StudentLayout";
+}
+<div class="main-content" style="width:100%;margin-left:10%;">
+
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card card-body">
+                                <div>
+                                    <a asp-controller="Student" style="float:right" asp-action="EditAQData" class="btn btn-primary waves-effect waves-light mb-2">Edit Your Results</a>
+
+                                    <h5 class="font-size-16 mb-4" style="padding-right:70%">Additional Qualifications</h5>
+
+
+                                    <div class="table-responsive">
+                                        <table class="table table-nowrap table-hover mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Field</th>
+                                                    <th scope="col">Value</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">01</th>
+                                                    <td>Title:</td>
+                                                    <td>
+@*                                                        @Model.pg_college
+*@                                                    </td>
+
+
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">02</th>
+                                                    <td>Specialization:</td>
+                                                    <td>
+@*                                                        @Model.pg_degree
+*@                                                    </td>
+
+
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">03</th>
+                                                    <td>Other Details:</td>
+                                                    <td>
+@*                                                        @Model.pg_passyear
+*@                                                    </td>
+
+                                                </tr>
+                                               
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">06</th>
+                                                    <td><a href="#" class="text-dark">Marks scored:</a></td>
+                                                    <td>
+@*                                                        @Model.pg_score out of @Model.pg_scoreoutof
+*@                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">07</th>
+                                                    <td>12<sup>th</sup> Gap number:</td>
+                                                    <td>
+@*                                                        @Model.pg_gapno
+*@                                                    </td>
+
+
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">08</th>
+                                                    <td>12<sup>th</sup> Remarks:</td>
+                                                    <td>
+@*                                                        @Model.pg_gapyears
+*@                                                    </td>
+                                                    
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div><!-- end card -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
