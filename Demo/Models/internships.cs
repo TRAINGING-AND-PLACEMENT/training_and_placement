@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Demo.Models
 {
-    public class internships
+    public class Internships
     {
         [Key]
         [JsonProperty("id")]

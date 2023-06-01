@@ -75,10 +75,18 @@ namespace Demo.Controllers.Json
 
         [JsonProperty("internships")]
         [AllowNull]
-        public List<internships> internships { get; set; }
+        public List<Internships> internships { get; set; }
 
         [JsonProperty("internship")]
-        public internships[] internship { get; set; }
+        public Internships[] internship { get; set; }
+
+        [JsonProperty("additionalQualifications")]
+        [AllowNull]
+        public List<AdditionalQualif> additionalQualifications { get; set; }
+
+        [JsonProperty("additionalQualification")]
+        public AdditionalQualif[] additionalQualification { get; set; }
+
 
     }
     public partial class JsonDecode

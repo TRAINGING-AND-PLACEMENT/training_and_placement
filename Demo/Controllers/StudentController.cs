@@ -412,7 +412,7 @@ namespace Demo.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddInternship(internships model)
+        public IActionResult AddInternship(Internships model)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
@@ -440,7 +440,7 @@ namespace Demo.Controllers
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
-                internships model = new internships();
+                Internships model = new Internships();
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getinternship&id=" + id).Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -477,6 +477,34 @@ namespace Demo.Controllers
         }
 
         public IActionResult ViewAQData()
+        {
+            //if (@context.HttpContext.Session.GetInt32("role") == 1)
+            //{
+            //    List<AdditionalQualif> model = new List<AdditionalQualif>();
+
+            //    HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getadditionalqualification&id=" + @context.HttpContext.Session.GetInt32("studentid")).Result;
+            //    if (response.IsSuccessStatusCode)
+            //    {
+            //        String data = response.Content.ReadAsStringAsync().Result;
+            //        Debug.WriteLine(data);
+            //        var additionalQualifications = JsonDecode.FromJson(data);
+            //        foreach (var addQ in additionalQualifications.additionalQualifications)
+            //        {
+            //            model.Add(addQ);
+            //        }
+            //    }
+            //    return View(model);
+            //}
+            //else
+            //{
+            //    TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+            //    DestorySession();
+            //    return RedirectToAction("Login", "User");
+            //}
+            return View();
+    }
+
+        public IActionResult AddAQData()
         {
             return View();
         }

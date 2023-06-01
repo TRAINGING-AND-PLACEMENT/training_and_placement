@@ -1,89 +1,69 @@
-﻿@model Student
-@{
-    Layout = "_StudentLayout";
-}
-<div class="main-content" style="width:100%;margin-left:10%;">
-
+﻿@model List<AdditionalQualif>
+<div class="main-content" style="width:100%;margin-left:10%">
     <div class="page-content">
         <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card card-body">
-                                <div>
-                                    <a asp-controller="Student" style="float:right" asp-action="EditAQData" class="btn btn-primary waves-effect waves-light mb-2">Edit Your Results</a>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <a asp-controller="Student" asp-action="AddAQData" style="float:right" class="btn btn-primary waves-effect waves-light mb-2">Add New Data</a>
 
-                                    <h5 class="font-size-16 mb-4" style="padding-right:70%">Additional Qualifications</h5>
+                            <h4 class="card-title">Additional Qualification</h4>
+                            <p class="card-title-desc">
 
+                            </p>
+                            <table class="table table-striped table-bordered dt-responsive" id="company-table" style="width:100%;">
+                              @*  @if (Model == null)
+                                {
+                                    <p>There is no data to be displayed</p>
+                                }
+                                else
+                                {*@
+                                    <thead>
+                                        <tr class="table-primary">
+                                            <th>title</th>
+                                            <th>specialization</th>
+                                            <th>other</th>
+                                            <th>score</th>
+                                            <th>remarks</th>
+                                            <th>Actions</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      @*  @foreach (var item in Model)
+                                        {*@
+                                            <tr>
+                                                <td>@*@item.*@title</td>
+                                                <td>@*@item.*@specialization</td>
+                                                <td>@*@item.*@other</td>
+                                                <td>@*@item.*@scored __ out of total __</td>
+                                                <td>@*@item.*@remarks</td>
+                                                <td>
+                                                    <a class="btn btn-outline-primary" asp-action="EditAQData">Edit</a>
+                                                </td>
+                                            </tr>
+                                       @* }*@
 
-                                    <div class="table-responsive">
-                                        <table class="table table-nowrap table-hover mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Field</th>
-                                                    <th scope="col">Value</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th scope="row">01</th>
-                                                    <td>Title:</td>
-                                                    <td>
-@*                                                        @Model.pg_college
-*@                                                    </td>
-
-
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">02</th>
-                                                    <td>Specialization:</td>
-                                                    <td>
-@*                                                        @Model.pg_degree
-*@                                                    </td>
-
-
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">03</th>
-                                                    <td>Other Details:</td>
-                                                    <td>
-@*                                                        @Model.pg_passyear
-*@                                                    </td>
-
-                                                </tr>
-                                               
-                                                </tr>
-                                                <tr>
-                                                    <th scope="row">06</th>
-                                                    <td><a href="#" class="text-dark">Marks scored:</a></td>
-                                                    <td>
-@*                                                        @Model.pg_score out of @Model.pg_scoreoutof
-*@                                                    </td>
-
-                                                </tr>
-
-                                                <tr>
-                                                    <th scope="row">08</th>
-                                                    <td>Remarks:</td>
-                                                    <td>
-@*                                                        @Model.pg_gapyears
-*@                                                    </td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div><!-- end card -->
-
+                                    </tbody>
+                                    
+                            </table>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div> <!-- end col -->
+            </div> <!-- end row -->
         </div>
     </div>
 </div>
+@section Scripts{
 
+    <script>
+        $(document).ready(function () {
+            var table = $("#intern-table").DataTable({
+                "scrollX": true,
+                pageLength: 5,
+                lengthMenu: [5, 10, 20]
+            })
+        });
+    </script>
+}
