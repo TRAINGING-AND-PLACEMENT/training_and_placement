@@ -96,7 +96,7 @@ namespace Demo.Controllers
                                     context.HttpContext.Session.SetInt32("sessionid", sessionid);
                                     context.HttpContext.Session.SetInt32("studentid", studentid);
                                     context.HttpContext.Session.SetString("studentemail", studentemailid);
-                                    context.HttpContext.Session.SetString("studentName", studentName);
+                                    //context.HttpContext.Session.SetString("studentName", studentName);
                                     return RedirectToAction("Index", "Home");
                                 }
                                 else if (role == 2)
@@ -144,6 +144,7 @@ namespace Demo.Controllers
             context.HttpContext.Session.Remove("userid");
             context.HttpContext.Session.Remove("sessionid");
             context.HttpContext.Session.Remove("studentid");
+            context.HttpContext.Session.Remove("studentemail");
             return RedirectToAction("Login");
         }
         public IActionResult ChangePassword()

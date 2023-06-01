@@ -104,18 +104,19 @@ namespace Demo.Controllers
             Response.Body.Flush();
         }
 
-        public IActionResult ExporDataToFile()
+        public IActionResult ExporDataToFile(String Export)
         {
-            var dictioneryexportType = Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
-            var exportType = dictioneryexportType["Export"];
-            var products = GetStudentDetails();
+            //var dictioneryexportType = Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
+            //var exportType = dictioneryexportType["Export"];
+            var exportType = Export;
+            var students = GetStudentDetails();
             switch (exportType)
             {
                 /*case "Excel":
                     ExportToExcel(products);
                     break;*/
                 case "Csv":
-                    ExportToCsv(products);
+                    ExportToCsv(students);
                     break;
                 /*case "Pdf":
                     ExportToPdf(products);
