@@ -30,7 +30,9 @@
                                             <th>Interview Mode</th>
                                             <th>Interview Location</th>
                                             <th>Action</th>
+                                             @if(@context.HttpContext.Session.GetInt32("role") == 1){
                                             <th>Status</th>
+                                             }
                                         </tr>
                                     </thead>
                                     <tbody>

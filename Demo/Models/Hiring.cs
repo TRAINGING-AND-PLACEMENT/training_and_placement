@@ -77,15 +77,18 @@ namespace Demo.Models
 
         [Required(ErrorMessage = "You must provide a joindate")]
         [JsonProperty("joindate")]
-        public DateOnly joindate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd-mm-yyy}",ApplyFormatInEditMode =true)]
+        public string joindate { get; set; }
 
         [Required(ErrorMessage = "You must provide a startdate")]
         [JsonProperty("startdate")]
-        public DateOnly startdate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd-mm-yyy}", ApplyFormatInEditMode = true)]
+        public string startdate { get; set; }
 
         [Required(ErrorMessage = "You must provide a enddate")]
         [JsonProperty("enddate")]
-        public DateOnly enddate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd-mm-yyy}", ApplyFormatInEditMode = true)]
+        public string enddate { get; set; }
 
         [Required(ErrorMessage = "You must provide a interview mode")]
         [JsonProperty("interview_mode")]

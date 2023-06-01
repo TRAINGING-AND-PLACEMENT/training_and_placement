@@ -122,8 +122,9 @@ namespace Demo.Controllers
                         String result = response.Content.ReadAsStringAsync().Result;
                         Debug.Write(result);
                         TempData["success"] = "Hiring successfully added.";
-                        return RedirectToAction("HiringCompanies");
+                        
                     }
+                    return RedirectToAction("HiringCompanies");
                 }
 
                 return View(model);
@@ -236,6 +237,7 @@ namespace Demo.Controllers
                     Debug.WriteLine(data);
                     var hirings = JsonDecode.FromJson(data);
                     model = hirings.Hiring[0];
+                   
                 }
                 HttpResponseMessage response1 = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
                 if (response1.IsSuccessStatusCode)
@@ -322,7 +324,36 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
+        [HttpPost]
+        public IActionResult EditingHiring(ViewCompnaySession model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                Debug.WriteLine(model.Hiring.id);
+                if (ModelState.IsValid)
+                {
+                    String data = JsonConvert.SerializeObject(model);
+                    Debug.WriteLine(data);
+                    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
 
+                    HttpResponseMessage response = client.PutAsync(client.BaseAddress + "updatehiringdetails&id=" + model.Hiring.id, content).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        String result = response.Content.ReadAsStringAsync().Result;
+                        Debug.WriteLine(result);
+                        TempData["success"] = "Hiring successfully Updated.";
+                        return RedirectToAction("HiringCompanies");
+                    }
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
         public IActionResult DeleteHiring(int id)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)

@@ -24,7 +24,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form asp-controller="Hiring" asp-action="CreateHiring" method="post">
+                            <form asp-controller="Hiring" asp-action="EditingHiring" method="post">
                                 <input type="hidden" asp-for="@Model.Hiring.id" />
                                 <input type="hidden" asp-for="@Model.Hiring.session_id" value="@context.HttpContext.Session.GetInt32("sessionid")" />
                                 <div class="row">
@@ -55,6 +55,7 @@
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Department</label>
                                         <select asp-for="@Model.Hiring.department_id" class="form-select js-example-basic-multiple" multiple="multiple">
+                                            
                                             @foreach (var department in Model.Departments)
                                             {
                                                 @foreach (var hiringdepartment in Model.Hiring_Departments)
@@ -62,6 +63,7 @@
                                                     if (department.id == hiringdepartment.department_id)
                                                     {
                                                         <option value="@department.id" selected>@department.department</option>
+
                                                     }
                                                     else
                                                     {
@@ -82,13 +84,12 @@
                                                 {
                                                     if (sectors.id == hiringsectors.sector_id)
                                                     {
-                                                        var select = "selected";   
+                                                        <option value="@sectors.id" selected>@sectors.sector</option>
                                                     }
                                                     else
                                                     {
-                                                        var select = "";
+                                                        <option value="@sectors.id">@sectors.sector</option>
                                                     }
-                                                    <option value="@sectors.id" selected >@sectors.sector</option>
                                                 }
                                             }
                                         </select>
@@ -113,7 +114,7 @@
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Maximum Package</label>
-                                        <input asp-for="@Model.Hiring.maximum_package" class="form-control" type="text" id="total_salary">
+                                        <input asp-for="@Model.Hiring.maximum_package" class="form-control d1" type="text" id="total_salary">
                                         <span asp-validation-for="@Model.Hiring.maximum_package" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
@@ -123,17 +124,17 @@
                                     </div>
                                     <div class="col-md-6 col-md-2 ">
                                         <label for="example-number-input" class="col col-form-label">Joining Date</label>
-                                        <input asp-for="@Model.Hiring.joindate" class="form-control" type="date" id="joindate">
+                                        <input asp-for="@Model.Hiring.joindate" class="form-control " type="date" id="joindate">
                                         <span asp-validation-for="@Model.Hiring.joindate" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2 ">
                                         <label for="example-number-input" class="col col-form-label">Start Date</label>
-                                        <input asp-for="@Model.Hiring.startdate" class="form-control" type="date" id="startdate">
+                                        <input asp-for="@Model.Hiring.startdate" class="form-control " type="date" id="startdate">
                                         <span asp-validation-for="@Model.Hiring.startdate" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">End Date</label>
-                                        <input asp-for="@Model.Hiring.enddate" class="form-control" type="date" id="enddate">
+                                        <input asp-for="@Model.Hiring.enddate" class="form-control " type="date" id="enddate">
                                         <span asp-validation-for="@Model.Hiring.enddate" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
@@ -194,23 +195,19 @@
             // alert('ready');
             // var rVal = $("#bond:checked").val();
             //alert(rVal);
-            $('#bond_condition_div').hide();
-            $('#job_location_div').hide();
 
             $('.bond').change(function () {
                 if ($(this).val() === "Yes") {
                     $('#bond_condition_div').show();
-                    $('#job_location_div').show();
-
-                    $('#bondcondition').val("");
-                    $('#joblocation').val("");
+                    
                 } else if ($(this).val() === "No") {
+
                     $('#bond_condition_div').hide();
-                    $('#job_location_div').hide();
+                    
                 }
             });
             $('.js-example-basic-multiple').select2();
-
+            
         })
 
     </script>

@@ -117,7 +117,7 @@ namespace Demo.Controllers
                         String result = response.Content.ReadAsStringAsync().Result;
                     }
                 // }
-                return RedirectToAction("AppliedCompanies");
+                return RedirectToAction("HiringCompanies","Hiring");
             }
             else
             {
