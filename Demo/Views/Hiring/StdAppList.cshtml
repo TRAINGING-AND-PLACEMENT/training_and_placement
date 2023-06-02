@@ -1,5 +1,6 @@
 ﻿@model List<pendingshortlist>
 @inject IHttpContextAccessor context;
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 <!--Total Companies page-->
 <div class="main-content" style="margin-left:4%;width:115%;">
     <div class="page-content">
@@ -101,7 +102,7 @@
 </div>
 
 @section Scripts{
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    
     <script>
         $(document).ready(function () {
             var table = $("#company-table").DataTable({

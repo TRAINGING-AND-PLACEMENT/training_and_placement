@@ -382,30 +382,37 @@ namespace Demo.Controllers
 
         public IActionResult ViewInternships()
         {
-            /* if (@context.HttpContext.Session.GetInt32("role") == 1)
-             {
-                 List<internships> model = new List<internships>();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                List<Internships> model = new List<Internships>();
 
-                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getinternship&sid="+id).Result;
-                 if (response.IsSuccessStatusCode)
-                 {
-                     String data = response.Content.ReadAsStringAsync().Result;
-                     Debug.WriteLine(data);
-                     var internships = JsonDecode.FromJson(data);
-                     foreach (var internship in internships.internships)
-                     {
-                         model.Add(internship);
-                     }
-                 }
-                 return View(model);
-             }
-             else
-             {
-                 TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
-                 DestorySession();
-                 return RedirectToAction("Login", "User");
-             }*/
-            return View();
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getinternship&sid="+ @context.HttpContext.Session.GetInt32("studentid")).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var internships = JsonDecode.FromJson(data);
+                    if (internships.internships != null)
+                    {
+                        foreach (var internship in internships.internships)
+                        {
+                            model.Add(internship);
+                        }
+                    }
+                    else
+                    {
+                        return View(model);
+                    }
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        return View();
         }
         public IActionResult AddInternship()
         {
@@ -460,7 +467,31 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
+        [HttpPost]
+        public IActionResult EditInternship(Internships model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+            
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
 
+                HttpResponseMessage response = client.PutAsync(client.BaseAddress + "updateinternship&id=" + model.id, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("ViewInternships");
+                }
+                return View();
+                
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
         public IActionResult ViewWorkExp()
         {
             return View();
