@@ -18,6 +18,14 @@ namespace Demo.Controllers.Json
         [AllowNull]
         public bool Success { get; set; }
 
+        [JsonProperty("id")]
+        [AllowNull]
+        public String Jid { get; set; }
+
+        [JsonProperty("status")]
+        [AllowNull]
+        public String status { get; set; }
+
         [JsonProperty("user")]
         [AllowNull]
         public Dictionary<string, string>[] User { get; set; }
@@ -45,6 +53,9 @@ namespace Demo.Controllers.Json
 
         [JsonProperty("studentInfo")]
         public Student[] studentInfo { get; set; }
+
+        [JsonProperty("appliedstudent")]
+        public List<pendingshortlist> appliedstudent { get; set; }
 
         [JsonProperty("companies")]
         [AllowNull]
@@ -75,10 +86,18 @@ namespace Demo.Controllers.Json
 
         [JsonProperty("internships")]
         [AllowNull]
-        public List<internships> internships { get; set; }
+        public List<Internships> internships { get; set; }
 
         [JsonProperty("internship")]
-        public internships[] internship { get; set; }
+        public Internships[] internship { get; set; }
+
+        [JsonProperty("additionalQualifications")]
+        [AllowNull]
+        public List<AdditionalQualif> additionalQualifications { get; set; }
+
+        [JsonProperty("additionalQualification")]
+        public AdditionalQualif[] additionalQualification { get; set; }
+
 
     }
     public partial class JsonDecode

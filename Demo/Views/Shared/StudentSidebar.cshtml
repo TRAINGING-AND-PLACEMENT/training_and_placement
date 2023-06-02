@@ -79,24 +79,6 @@
                     </ul>
                 </li>
 
-                <li class="menu-title">Work History</li>
-
-                <li>
-                    <a asp-controller="Student" asp-action="ViewInternships" class="waves-effect" >
-                        <i class="fas fa-clipboard"></i>
-                        <span>Past Internships</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a asp-controller="Student" asp-action="ViewWorkExp" class="waves-effect">
-                        <i class="fas fa-mail-bulk"></i>
-                        <span>Work Experience</span>
-                    </a>
-                </li>
-
-
-
                 <li class="menu-title">Profile</li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
@@ -120,6 +102,18 @@
                                 <li><a asp-controller="Student" asp-action="View12thData">Class 12<sup>th</sup> details</a></li>
                                 <li><a asp-controller="Student" asp-action="ViewUGData">Under graduation</a></li>
                                 <li><a asp-controller="Student" asp-action="ViewPGData">Post graduation</a></li>
+                                <li><a asp-controller="Student" asp-action="ViewAQData">Additional Qualifications</a></li>
+
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript: void(0);" class="has-arrow">
+                                <i class="fas fa-mail-bulk"></i>
+                                <span>Job History</span>
+                            </a>
+                            <ul class="sub-menu" aria-expanded="true">
+                                <li><a asp-controller="Student" asp-action="ViewInternships" class="waves-effect">Past Internships</a> </li>
+                                <li><a asp-controller="Student" asp-action="ViewWorkExp" class="waves-effect">Job Experience</a> </li>
                             </ul>
                         </li>
                         <li>

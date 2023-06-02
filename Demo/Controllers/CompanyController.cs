@@ -29,13 +29,13 @@ namespace Demo.Controllers
         public void DestorySession()
         {
             context.HttpContext.Session.Remove("role");
-            context.HttpContext.Session.Remove("    ");
+            context.HttpContext.Session.Remove("userid");
             context.HttpContext.Session.Remove("sessionid");
             context.HttpContext.Session.Remove("studentid");
         }
         public IActionResult Index()
-        {   
-            if(@context.HttpContext.Session.GetInt32("role") == 2)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
                 List<Company> model = new List<Company>();
 
@@ -45,7 +45,7 @@ namespace Demo.Controllers
                     String data = response.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
                     var companies = JsonDecode.FromJson(data);
-                    foreach(var company in companies.Companies)
+                    foreach (var company in companies.Companies)
                     {
                         model.Add(company);
                     }
@@ -102,33 +102,11 @@ namespace Demo.Controllers
             }
         }
 
-        public IActionResult ApplyCompany(StudentApplication model,int id)
-        {
-            if (@context.HttpContext.Session.GetInt32("role") == 1)
-            {
-                //if (ModelState.IsValid)
-                //{
-                    String data = JsonConvert.SerializeObject(model);
-                    Debug.WriteLine(data);
-                    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "studentapply&hiring_id=" + id +"&student_id="+ @context.HttpContext.Session.GetInt32("studentid"), content).Result;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        String result = response.Content.ReadAsStringAsync().Result;
-                    }
-                // }
-                return RedirectToAction("HiringCompanies","Hiring");
-            }
-            else
-            {
-                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
-                DestorySession();
-                return RedirectToAction("Login", "User");
-            }
-        }
+
         public IActionResult Edit_Company(int id)
         {
-            if (@context.HttpContext.Session.GetInt32("role") == 2){
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
                 Company model = new Company();
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails&id=" + id).Result;
                 if (response.IsSuccessStatusCode)
@@ -148,10 +126,10 @@ namespace Demo.Controllers
                 DestorySession();
                 return RedirectToAction("Login", "User");
             }
-            
+
         }
         [HttpPost]
-        public IActionResult Update_Company(Company model) 
+        public IActionResult Update_Company(Company model)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
@@ -182,7 +160,7 @@ namespace Demo.Controllers
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
-                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "deletecompanydetails&id=" +id).Result;
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "deletecompanydetails&id=" + id).Result;
                 return RedirectToAction("Index");
             }
             else
@@ -204,7 +182,7 @@ namespace Demo.Controllers
                     String data = response.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
                     var companies = JsonDecode.FromJson(data);
-                    foreach(var company in companies.Companies)
+                    foreach (var company in companies.Companies)
                     {
                         model.Add(company);
                     }
@@ -214,6 +192,31 @@ namespace Demo.Controllers
             else
             {
                 TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        public IActionResult ApplyCompany(StudentApplication model, int id)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                //if (ModelState.IsValid)
+                //{
+                String data = JsonConvert.SerializeObject(model);
+                Debug.WriteLine(data);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "studentapply&hiring_id=" + id + "&student_id=" + @context.HttpContext.Session.GetInt32("studentid"), content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                }
+                // }
+                return RedirectToAction("HiringCompanies", "Hiring");
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
                 DestorySession();
                 return RedirectToAction("Login", "User");
             }
@@ -232,16 +235,19 @@ namespace Demo.Controllers
                     String data = response.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
                     var student_applications = JsonDecode.FromJson(data);
-                    foreach (var student in student_applications.applications)
+                    if (student_applications.Success)
                     {
-                        var Student = new StudentApplication
+                        foreach (var student in student_applications.applications)
                         {
-                            student_id = student.student_id,
-                            hiring_id = student.hiring_id,
-                            created_at = student.created_at,
-                            status = student.status
-                        };
-                        studentApplicationModel.Add(Student);
+                            var Student = new StudentApplication
+                            {
+                                student_id = student.student_id,
+                                hiring_id = student.hiring_id,
+                                created_at = student.created_at,
+                                status = student.status
+                            };
+                            studentApplicationModel.Add(Student);
+                        }
                     }
                 }
                 HttpResponseMessage response1 = client.GetAsync(client.BaseAddress + "gethiringdetails").Result;
@@ -305,40 +311,28 @@ namespace Demo.Controllers
             }
         }
 
-        public IActionResult CompanyDetails(int cid,int hid)
+        public IActionResult CompanyDetails(int cid, int hid)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
-                //Debug.WriteLine(ids);
-                //string[] idArray = ids.Split(',');
-                //int cid = 0;
-                //int hid = 0;
-                //for (int i = 0; i < idArray.Length; i++)
-                //{ 
-                //    cid = int.Parse(idArray[0]);
-                //    hid = int.Parse(idArray[1]);
-                //}
-                
-                //Debug.WriteLine(cid);
-                //Debug.WriteLine(hid);
                 var hiringmodel = new List<Hiring>();
                 var companymodel = new List<Company>();
                 var studentApplicationModel = new List<StudentApplication>();
-                
-                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails&id="+cid).Result;
+
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails&id=" + cid).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
                     var companies = JsonDecode.FromJson(data);
                     foreach (var company in companies.Company)
-                    { 
+                    {
                         companymodel.Add(company);
                     }
                     Debug.WriteLine(companymodel);
                 }
 
-                HttpResponseMessage response1 = client.GetAsync(client.BaseAddress + "gethiringdetails&id="+hid).Result;
+                HttpResponseMessage response1 = client.GetAsync(client.BaseAddress + "gethiringdetails&id=" + hid).Result;
                 if (response1.IsSuccessStatusCode)
                 {
                     String data = response1.Content.ReadAsStringAsync().Result;
@@ -355,22 +349,25 @@ namespace Demo.Controllers
                     String data = response2.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
                     var student_applications = JsonDecode.FromJson(data);
-                    foreach (var student in student_applications.applications)
+                    if (student_applications.Success)
                     {
-                        var Student = new StudentApplication
+                        foreach (var student in student_applications.applications)
                         {
-                            student_id = student.student_id,
-                            hiring_id = student.hiring_id
-                        };
-                        studentApplicationModel.Add(Student);
+                            var Student = new StudentApplication
+                            {
+                                student_id = student.student_id,
+                                hiring_id = student.hiring_id
+                            };
+                            studentApplicationModel.Add(Student);
+                        }
                     }
                 }
-                
+
                 ViewHiring viewStudentHiring = new ViewHiring();
                 viewStudentHiring.Companies = companymodel;
                 viewStudentHiring.Hirings = hiringmodel;
                 viewStudentHiring.applications = studentApplicationModel;
-                
+
                 return View(viewStudentHiring);
             }
             else
