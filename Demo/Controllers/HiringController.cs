@@ -153,9 +153,12 @@ namespace Demo.Controllers
                     String data = response.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
                     var res = JsonDecode.FromJson(data);
-                    foreach (var hiring in res.hirings)
+                    if (res.Success)
                     {
-                        hiringmodel.Add(hiring);
+                        foreach (var hiring in res.hirings)
+                        {
+                            hiringmodel.Add(hiring);
+                        }
                     }
                 }
                 HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
@@ -334,22 +337,21 @@ namespace Demo.Controllers
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
-                Debug.WriteLine(model.Hiring.id);
-                if (ModelState.IsValid)
-                {
+                /*if (ModelState.IsValid)
+                {*/
                     String data = JsonConvert.SerializeObject(model);
                     Debug.WriteLine(data);
                     StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
 
-                    HttpResponseMessage response = client.PutAsync(client.BaseAddress + "updatehiringdetails&id=" + model.Hiring.id, content).Result;
-                    if (response.IsSuccessStatusCode)
+                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "updatehiringdetails&id=" + model.Hiring.id, content).Result;
+                if (response.IsSuccessStatusCode)
                     {
                         String result = response.Content.ReadAsStringAsync().Result;
                         Debug.WriteLine(result);
                         TempData["success"] = "Hiring successfully Updated.";
                         return RedirectToAction("HiringCompanies");
                     }
-                }
+                /*}*/
                 return View(model);
             }
             else
