@@ -206,7 +206,8 @@ namespace Demo.Controllers
                             var Student = new StudentApplication
                             {
                                 student_id = student.student_id,
-                                hiring_id = student.hiring_id
+                                hiring_id = student.hiring_id,
+                                status = student.status
                             };
                             studentApplicationModel.Add(Student);
                         }

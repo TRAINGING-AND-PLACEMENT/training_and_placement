@@ -1,4 +1,6 @@
-﻿@model Student
+﻿@model AdditionalQualif
+@using Microsoft.AspNetCore.Mvc;
+@inject IHttpContextAccessor context;
 <div class="main-content" style="width:100%;margin-left:10%;">
 
     <div class="page-content">
@@ -9,67 +11,59 @@
                         <div class="card-body">
                             <h4 class="card-title">Add new - Student Additional Qualification</h4>
                             <p class="card-title-desc">Verify all information again before insertion.</p>
-                            <form asp-controller="Student" method="post" asp-action="edit_twelve_data" class="needs-validation custom-validation" novalidate>
-                                <input type="hidden" asp-for="id" />
-                                <input type="hidden" asp-for="session_id" />
-                                <input type="hidden" asp-for="user_id" />
-                                <input type="hidden" asp-for="department_id" />
+                            <form asp-controller="Student" method="post" asp-action="AddAQData" class="needs-validation custom-validation" novalidate>
+                                <input type="hidden" asp-for="student_id" value="@context.HttpContext.Session.GetInt32("studentid")" />
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="twelve_school">Title</label>
-                                            <input asp-for="twelve_school" class="form-control" placeholder="enter title here" type="text" name="twelve_school" id="twelve_school">
-                                            <span asp-validation-for="twelve_school" class="text-danger"></span>
+                                            <label class="form-label" for="title">Title</label>
+                                            <input asp-for="title" class="form-control" placeholder="enter title here" type="text" name="title" id="title">
+                                            <span asp-validation-for="title" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="twelve_passyear">Specialization</label>
-                                            <input asp-for="twelve_passyear" class="form-control" id="first_name" placeholder="enter your specialization" type="text" name="twelve_passyear" id="twelve_passyear">
-                                            <span asp-validation-for="twelve_passyear" class="text-danger"></span>
+                                            <label class="form-label" for="specialization">Specialization</label>
+                                            <input asp-for="specialization" class="form-control" id="specialization" placeholder="enter your specialization" type="text" name="specialization" >
+                                            <span asp-validation-for="specialization" class="text-danger"></span>
                                         </div>
                                     </div>
 
                                 </div>
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="other">Other</label>
+                                            <input asp-for="other" class="form-control" placeholder="enter other information" type="text" name="other" id="other">
+                                            <span asp-validation-for="other" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="other">Remarks</label>
+                                            <input asp-for="remarks" class="form-control" placeholder="enter remarks" type="text" name="remarks" id="remarks">
+                                            <span asp-validation-for="remarks" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
 
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="twelve_schoolpincode">Total Score</label>
-                                            <input asp-for="enrollment" class="form-control" id="twelve_schoolpincode" placeholder="total marks here" type="text" name="twelve_schoolpincode" id="twelve_schoolpincode">
-                                            <span asp-validation-for="twelve_schoolpincode" class="text-danger"></span>
+                                            <label class="form-label" for="score">Marks scored out of total</label>
+                                            <input asp-for="score" class="form-control" placeholder="enter marks scored" type="text" name="score" id="score">
+                                            <span asp-validation-for="score" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <label class="form-label" for="twelve_schoolcity">Marks scored out of total</label>
-                                            <input asp-for="twelve_schoolcity" class="form-control" placeholder="enter marks scored" type="text" name="twelve_schoolcity" id="twelve_schoolcity">
-                                            <span asp-validation-for="twelve_schoolcity" class="text-danger"></span>
+                                            <label class="form-label" for="scoreoutof">Total Score</label>
+                                            <input asp-for="scoreoutof" class="form-control" id="scoreoutof" placeholder="total marks here" type="text" name="scoreoutof">
+                                            <span asp-validation-for="scoreoutof" class="text-danger"></span>
+                                            
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="twelve_score">Remarks</label>
-                                            <input asp-for="twelve_board" class="form-control" placeholder="enter remarks here" type="text" name="twelve_board" id="twelve_board">
-                                            <span asp-validation-for="twelve_board" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="twelve_schooladdress	">Other Details</label>
-                                            <input asp-for="twelve_schooladdress" class="form-control" placeholder="enter additional details" type="text" name="twelve_schooladdress" id="twelve_schooladdress">
-                                            <span asp-validation-for="last_name" class="text-danger"></span>
-                                        </div>
-                                    </div>
-
-                                </div>
-
                                 <button class="btn btn-primary" type="submit">Submit form</button>
                             </form>
                         </div>

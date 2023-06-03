@@ -44,7 +44,7 @@
                                             <td>@item.specialization</td>
                                             <td>@item.remarks</td>
                                             <td>
-                                                <a class="btn btn-outline-primary" asp-action="EditInternship" asp-route-id="@item.id">Edit</a>
+                                                    <a class="btn btn-outline-primary" asp-controller="Student" asp-action="EditInternship" asp-route-id="@item.id">Edit</a>
                                             </td>
                                         </tr>
                                     }

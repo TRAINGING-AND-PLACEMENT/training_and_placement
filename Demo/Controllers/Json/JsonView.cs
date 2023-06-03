@@ -98,6 +98,13 @@ namespace Demo.Controllers.Json
         [JsonProperty("additionalQualification")]
         public AdditionalQualif[] additionalQualification { get; set; }
 
+        [JsonProperty("workExperiances")]
+        [AllowNull]
+        public List<work_experiences> workExperiances { get; set; }
+
+        [JsonProperty("workExperiance")]
+        public work_experiences[] workExperiance { get; set; }
+
 
     }
     public partial class JsonDecode
