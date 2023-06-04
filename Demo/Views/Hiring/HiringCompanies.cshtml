@@ -64,16 +64,29 @@
                                                             Info
                                                         </a>
                                                     </td>
-                                                    <td style="color:green">
+                                                    <td>
                                                     @foreach (var student in Model.applications)
                                                     {
                                                         if (@context.HttpContext.Session.GetInt32("studentid") == student.student_id)
                                                         {
-                                                            if (item.id == student.hiring_id)
-                                                            {
-                                                                    <i class="fas fa-check"></i>
-                                                                    <i>Applied</i>
-                                                            }
+                                                                if (item.id == student.hiring_id)
+                                                                {
+                                                                    if (student.status == 0)
+                                                                    {
+                                                                        <p type="button" class="btn btn-primary btn-sm waves-effect waves-light">Applied</p>
+                                                                    }
+                                                                    else if (student.status == 1)
+                                                                    {
+                                                                        <p type="button" class="btn btn-success btn-sm waves-effect waves-light">Selected</p>
+                                                                    }
+                                                                    else if (student.status == 2)
+                                                                    {
+                                                                        <p type="button" class="btn btn-danger btn-sm waves-effect waves-light">Rejected</p>
+
+                                                                    }
+                                                                }
+                                                                
+                                                                       
                                                         }
                                                     }
                                                     </td>
