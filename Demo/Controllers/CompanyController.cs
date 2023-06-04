@@ -161,6 +161,8 @@ namespace Demo.Controllers
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "deletecompanydetails&id=" + id).Result;
+                String data = response.Content.ReadAsStringAsync().Result;
+                Debug.WriteLine(data);
                 return RedirectToAction("Index");
             }
             else

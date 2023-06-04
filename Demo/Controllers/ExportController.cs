@@ -136,5 +136,9 @@ namespace Demo.Controllers
             }
             return null;
         }
+        public IActionResult ReportView()
+        {
+            return View();
+        }
     }
 }
