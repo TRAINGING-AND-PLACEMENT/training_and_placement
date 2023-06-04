@@ -97,7 +97,7 @@
                                                         <a asp-controller="Hiring" asp-action="EditHiring" class="btn btn-outline-primary" asp-route-id="@item.id">
                                                             Edit
                                                         </a>
-                                                        <a asp-controller="Hiring" asp-action="DeleteHiring" class="btn btn-outline-danger" asp-route-id="@item.id">
+                                                        <a asp-controller="Hiring" asp-action="DeleteHiring" class="btn btn-outline-danger" onclick="if(!confirm('Are you sure that you want to permanently delete the selected element?'))return false" asp-route-id="@item.id">
                                                             Delete
                                                         </a>
                                                     </td>
