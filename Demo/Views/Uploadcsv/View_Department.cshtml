@@ -44,7 +44,7 @@
                                                 <td>@item.department</td>
                                                 <td>
                                                     <a class="btn btn-outline-primary" asp-action="Edit_Department" asp-route-id="@item.id">Edit</a>
-                                                    <a class="btn btn-outline-danger" asp-action="Delete_Department" asp-route-id="@item.id">Delete</a>
+                                                    <a class="btn btn-outline-danger" asp-action="Delete_Department" onclick="if(!confirm('Are you sure that you want to permanently delete the selected element?'))return false" asp-route-id="@item.id">Delete</a>
                                                 </td>
                                             </tr>
                                         }

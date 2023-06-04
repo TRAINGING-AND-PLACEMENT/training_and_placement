@@ -486,5 +486,69 @@ namespace Demo.Controllers
 
             return Index();
         }
+        public IActionResult insert_user()
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                
+                var departmentmodel = new List<Department>();
+                
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_department").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    var department = JsonDecode.FromJson(data);
+                    foreach (var departments in department.departments)
+                    {
+                        var Department = new Department
+                        {
+                            id = departments.id,
+                            department = departments.department
+                        };
+                        departmentmodel.Add(Department);
+                    }
+                }
+                
+                Insert_User insert_user = new Insert_User();
+                insert_user.Departments = departmentmodel;
+                return View(insert_user);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult insert_user(Insert_User model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                if (ModelState.IsValid)
+                {
+                    String data = JsonConvert.SerializeObject(model);
+                    Debug.WriteLine(data);
+                    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "insert_user", content).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        String result = response.Content.ReadAsStringAsync().Result;
+                        Debug.Write(result);
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+
     }
 }

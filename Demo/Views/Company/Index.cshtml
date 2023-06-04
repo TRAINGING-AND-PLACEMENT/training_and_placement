@@ -44,7 +44,7 @@
                                                 <td>@item.alt_email</td>
                                                 <td>
                                                     <a class="btn btn-outline-primary"asp-action="Edit_Company" asp-route-id="@item.id">Edit</a>
-                                                    <a class="btn btn-outline-danger" asp-action="Delete_Company" asp-route-id="@item.id">Delete</a>
+                                                    <a class="btn btn-outline-danger" asp-action="Delete_Company" onclick="if(!confirm('Are you sure that you want to permanently delete the selected element?'))return false" asp-route-id="@item.id">Delete</a>
                                                 </td>
                                             </tr>
                                         }
@@ -70,6 +70,7 @@
                 lengthMenu:[5, 10, 20]
             })
         });
+
     </script>
 }
 

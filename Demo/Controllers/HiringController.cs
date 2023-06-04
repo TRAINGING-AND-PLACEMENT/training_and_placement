@@ -420,7 +420,7 @@ namespace Demo.Controllers
                     String data = response.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
                     var appliedstudent = JsonDecode.FromJson(data);
-                    if (appliedstudent.appliedstudent != null)
+                    if (appliedstudent.Success)
                     {
                         foreach (var student in appliedstudent.appliedstudent)
                         {
