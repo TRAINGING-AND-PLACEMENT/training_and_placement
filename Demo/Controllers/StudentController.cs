@@ -399,10 +399,7 @@ namespace Demo.Controllers
                             model.Add(internship);
                         }
                     }
-                    else
-                    {
-                        return View(model);
-                    }
+                    
                 }
                 return View(model);
             }
@@ -416,7 +413,16 @@ namespace Demo.Controllers
         }
         public IActionResult AddInternship()
         {
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
         }
         [HttpPost]
         public IActionResult AddInternship(Internships model)
@@ -494,54 +500,245 @@ namespace Demo.Controllers
         }
         public IActionResult ViewWorkExp()
         {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                List<work_experiences> model = new List<work_experiences>();
+
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getWorkExperiances&sid=" + @context.HttpContext.Session.GetInt32("studentid")).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var workExpe = JsonDecode.FromJson(data);
+                    if (workExpe.workExperiances != null)
+                    {
+                        foreach (var experiance in workExpe.workExperiances)
+                        {
+                            model.Add(experiance);
+                        }
+                    }
+
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
             return View();
         }
 
         public IActionResult AddWorkExp()
         {
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
         }
 
-        public IActionResult EditWorkExp()
+        [HttpPost]
+        public IActionResult AddWorkExp(work_experiences model)
         {
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                String data = JsonConvert.SerializeObject(model);
+                Debug.WriteLine(data);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "addWorkExperiance", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    Debug.Write(result);
+                    return RedirectToAction("ViewWorkExp");
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+        public IActionResult EditWorkExp(int id)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                work_experiences model = new work_experiences();
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getWorkExperiances&id=" + id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var work_expe = JsonDecode.FromJson(data);
+                    Debug.WriteLine(work_expe);
+                    model = work_expe.workExperiances[0];
+                    Debug.WriteLine(model);
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
         }
 
+        [HttpPost]
+        public IActionResult EditWorkExp(work_experiences model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PutAsync(client.BaseAddress + "updateWorkExperiance&id=" + model.id, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("ViewWorkExp");
+
+                }
+                return View();
+
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
         public IActionResult ViewAQData()
         {
-            //if (@context.HttpContext.Session.GetInt32("role") == 1)
-            //{
-            //    List<AdditionalQualif> model = new List<AdditionalQualif>();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                List<AdditionalQualif> model = new List<AdditionalQualif>();
 
-            //    HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getadditionalqualification&id=" + @context.HttpContext.Session.GetInt32("studentid")).Result;
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        String data = response.Content.ReadAsStringAsync().Result;
-            //        Debug.WriteLine(data);
-            //        var additionalQualifications = JsonDecode.FromJson(data);
-            //        foreach (var addQ in additionalQualifications.additionalQualifications)
-            //        {
-            //            model.Add(addQ);
-            //        }
-            //    }
-            //    return View(model);
-            //}
-            //else
-            //{
-            //    TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
-            //    DestorySession();
-            //    return RedirectToAction("Login", "User");
-            //}
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getAddQulification&sid=" + @context.HttpContext.Session.GetInt32("studentid")).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var addQuali = JsonDecode.FromJson(data);
+                    if (addQuali.additionalQualifications != null)
+                    {
+                        foreach (var qualification in addQuali.additionalQualifications)
+                        {
+                            model.Add(qualification);
+                        }
+                    }
+
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
             return View();
-    }
+        }
 
         public IActionResult AddAQData()
         {
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                return View();
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
         }
-        public IActionResult EditAQData()
+
+        [HttpPost]
+        public IActionResult AddAQData(AdditionalQualif model)
         {
-            return View();
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                String data = JsonConvert.SerializeObject(model);
+                Debug.WriteLine(data);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "insertAddtionalQuali", content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    Debug.Write(result);
+                    return RedirectToAction("ViewAQData");
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
+        public IActionResult EditAQData(int id)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                AdditionalQualif model = new AdditionalQualif();
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getAddQulification&id=" + id).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var Aqdata = JsonDecode.FromJson(data);
+                    Debug.WriteLine(Aqdata);
+                    model = Aqdata.additionalQualifications[0];
+                    Debug.WriteLine(model);
+                }
+                return View(model);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+            
+        }
+
+        [HttpPost]
+        public IActionResult EditAQData(AdditionalQualif model)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
+            {
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = client.PutAsync(client.BaseAddress + "updateAddtionalQualification&id=" + model.id, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String result = response.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("ViewAQData");
+
+                }
+                return View();
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with student id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+
         }
     }
 }

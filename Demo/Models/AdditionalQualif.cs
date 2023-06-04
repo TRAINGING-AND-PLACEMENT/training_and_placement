@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Newtonsoft.Json;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;    
+using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Models
 {
@@ -43,19 +44,21 @@ namespace Demo.Models
         [JsonProperty("scoreoutof")]
         public string scoreoutof { get; set;}
 
-        [ValidateNever]
+        [AllowNull]
         public string status { get; set; }
 
         [DisplayName("remarks")]
-        [ValidateNever]
+        [AllowNull]
         [JsonProperty("remarks")]
         public string remarks { get; set; }
 
         [ValidateNever]
-        public string created_at { get; set; }
+        [JsonProperty("created_at")]
+        public string created_at { get; set; } = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
 
         [ValidateNever]
-        public string updated_at { get; set; }
+        [JsonProperty("updated_at")]
+        public string updated_at { get; set; } = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
 
     }
 }
