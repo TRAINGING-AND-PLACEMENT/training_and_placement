@@ -390,7 +390,6 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
-                    Debug.WriteLine(data);
                     var internships = JsonDecode.FromJson(data);
                     if (internships.internships != null)
                     {
@@ -436,7 +435,6 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
-                    Debug.Write(result);
                     return RedirectToAction("ViewInternships");
                 }
                 return View(model);
@@ -458,11 +456,8 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
-                    Debug.WriteLine(data);
                     var intership = JsonDecode.FromJson(data);
-                    Debug.WriteLine(intership);
                     model = intership.internships[0];
-                    Debug.WriteLine(model);
                 }
                 return View(model);
             }
@@ -508,7 +503,6 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
-                    Debug.WriteLine(data);
                     var workExpe = JsonDecode.FromJson(data);
                     if (workExpe.workExperiances != null)
                     {
@@ -577,11 +571,8 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
-                    Debug.WriteLine(data);
                     var work_expe = JsonDecode.FromJson(data);
-                    Debug.WriteLine(work_expe);
                     model = work_expe.workExperiances[0];
-                    Debug.WriteLine(model);
                 }
                 return View(model);
             }
@@ -629,7 +620,6 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
-                    Debug.WriteLine(data);
                     var addQuali = JsonDecode.FromJson(data);
                     if (addQuali.additionalQualifications != null)
                     {
@@ -671,13 +661,11 @@ namespace Demo.Controllers
             if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
                 String data = JsonConvert.SerializeObject(model);
-                Debug.WriteLine(data);
                 StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = client.PostAsync(client.BaseAddress + "insertAddtionalQuali", content).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
-                    Debug.Write(result);
                     return RedirectToAction("ViewAQData");
                 }
                 return View(model);
@@ -698,11 +686,8 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
-                    Debug.WriteLine(data);
                     var Aqdata = JsonDecode.FromJson(data);
-                    Debug.WriteLine(Aqdata);
                     model = Aqdata.additionalQualifications[0];
-                    Debug.WriteLine(model);
                 }
                 return View(model);
             }
