@@ -537,6 +537,7 @@ namespace Demo.Controllers
                     {
                         String result = response.Content.ReadAsStringAsync().Result;
                         Debug.Write(result);
+                        TempData["success"] = "User inserted.";
                         return RedirectToAction("Index", "Home");
                     }
                 }
