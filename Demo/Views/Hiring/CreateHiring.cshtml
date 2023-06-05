@@ -30,7 +30,7 @@
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Company Name</label>
                                         <select class="form-select" asp-for="@Model.Hiring.company_id">
-                                            <option value="-1" >Select</option>
+                                            <option value="" >Select Company</option>
                                             @foreach (var company in Model.Companies)
                                             {
                                                 <option value="@company.id">@company.name</option>

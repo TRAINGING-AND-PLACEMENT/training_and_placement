@@ -14,9 +14,9 @@ namespace Demo.Models
         public long id { get; set; }
 
         [DisplayName("Department Name")]
-        [Required(ErrorMessage = "You must provide a Department name!")]
+        [Required(ErrorMessage = "{0} is Required.")]
         [JsonProperty("department_id")]
-        public string department_id { get; set; }
+        public int department_id { get; set; }
 
         [DisplayName("Name")]
         [Required(ErrorMessage = "You must provide a User Name!")]

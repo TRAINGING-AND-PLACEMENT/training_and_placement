@@ -12,8 +12,8 @@ namespace Demo.Models
         [JsonProperty("id")]
         public long id { get; set; }
 
-        [DisplayName("Company Id")]
-        [Required(ErrorMessage = "You must provide a Company Name!")]
+        [DisplayName("Company Name")]
+        [Required(ErrorMessage = "{0} is Required.")]
         [JsonProperty("company_id")]
         public long company_id { get; set; }
 
