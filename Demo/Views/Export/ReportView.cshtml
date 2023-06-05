@@ -1,6 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+@{
+    ViewData["Title"] = "report";
+}
 <div class="main-content" style="width:105%;margin-left:10%;">
 
     <div class="page-content">
@@ -19,10 +20,21 @@
                             <!--dropdown start-->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Select --- as per your wish</label>
+                                    <label class="input-group-text" for="inputGroupSelect01">Select</label>
+                                </div>
+                                <select class="custom-select" id="sessionDropdown">
+                                    <option value="">Choose</option>
+                                    @foreach (var ss in ViewBag.sessiondd)
+                                    {
+                                        <option value="@ss.id">@ss.label</option>
+                                    }
+                                </select>
+                                &nbsp;&nbsp;
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Select</label>
                                 </div>
                                 <select class="custom-select" id="inputGroupSelect01">
-                                    <option selected>Choose any of the below options...</option>
+                                    <option value="0">Choose</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -30,42 +42,18 @@
                             </div>
                             <!--dropdown end-->
 
-                            <div class="input-group mb-3">
+                            @*<div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Select --- as per your wish</label>
+                                    <label class="input-group-text" for="inputGroupSelect01">Select</label>
                                 </div>
                                 <select class="custom-select" id="inputGroupSelect01">
-                                    <option selected>Choose any of the below options...</option>
+                                    <option value="0">Choose</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
                                 </select>
-                            </div>
-                            <!--NOTE :  Don't change src file links in header and footer and make sure number of th and td are identical else download or pagination may not work ~uday-->
-                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Company</th>
-                                        <th>Office</th>
-                                        <th>Age</th>
-                                        <th>Start date</th>
-                                        <th>Salary</th>
-                                    </tr>
-                                </thead>
-
-
-                                <tbody>
-                                    <tr>
-                                        <td>//data//</td>
-                                        <td>//data//</td>
-                                        <td>//data//</td>
-                                        <td>//data//</td>
-                                        <td>//data//</td>
-                                        <td>//data//</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            </div>*@
+                            <div id="studentTableContainer"></div>
                         </div>
                     </div>
                 </div> <!-- end col -->
@@ -73,3 +61,25 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    @*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>*@
+    <script>
+        $(document).ready(function () {
+            $('#sessionDropdown').change(function () {
+                var selectedSessionId = $(this).val();
+                filterStduent(selectedSessionId);
+            });
+        });
+
+        function filterStduent(sessionId) {
+            $.ajax({
+                url: '@Url.Action("FilterStudent", "Export")',
+                type: 'POST',
+                data: { sid: sessionId },
+                success: function (data) {
+                    $('#studentTableContainer').html(data);
+                }
+            });
+        }
+    </script>
+}

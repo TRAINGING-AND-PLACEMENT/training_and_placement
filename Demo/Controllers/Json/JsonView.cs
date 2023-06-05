@@ -47,10 +47,12 @@ namespace Demo.Controllers.Json
         [AllowNull]
         public Dictionary<string, string>[] Student { get; set; }
 
+        //list of data of students
         [JsonProperty("students")]
         [AllowNull]
         public List<Student> students { get; set; }
 
+        //specific stduent data based on id
         [JsonProperty("studentInfo")]
         public Student[] studentInfo { get; set; }
 

@@ -138,7 +138,46 @@ namespace Demo.Controllers
         }
         public IActionResult ReportView()
         {
+            List<Sessions> sessionmodel = new List<Sessions>();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getsession").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                String data = response.Content.ReadAsStringAsync().Result;
+                Debug.WriteLine(data);
+                var sessions = JsonDecode.FromJson(data);
+                foreach (var session in sessions.session)
+                {
+                    var Session = new Sessions
+                    {
+                        id = session.id,
+                        label = session.label
+                    };
+                    sessionmodel.Add(Session);
+                }
+            }
+            ViewBag.sessiondd = sessionmodel;
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult FilterStudent(int sid)
+        {
+            List<Student> students = new List<Student>();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "filterstudent&sid="+sid).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                String data = response.Content.ReadAsStringAsync().Result;
+                Debug.WriteLine(data);
+                var student = JsonDecode.FromJson(data);
+                if (student.Success)
+                { 
+                    foreach (var std in student.students)
+                    {
+                        students.Add(std);
+                    }
+                }
+            }
+            return PartialView("_StudentReport", students);
         }
     }
 }
