@@ -6,6 +6,7 @@ using Demo.Controllers.Json;
 using Demo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 //using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -39,16 +40,16 @@ namespace Demo.Controllers
             return View("~/Views/Uploadcsv/Department.cshtml");
         }
         [HttpPost]
-        public IActionResult Department(IFormFile file, [FromServices] IWebHostEnvironment webHostEnvironment)
+        public IActionResult Department(IFormFile CSV_File, [FromServices] IWebHostEnvironment webHostEnvironment)
         {
-            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{file.FileName}";
+            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{CSV_File.FileName}";
             using (FileStream fileStream = System.IO.File.Create(filename))
             {
-                file.CopyTo(fileStream);
+                CSV_File.CopyTo(fileStream);
             }
 
             List<Department> model = new List<Department>();
-            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + file.FileName;
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + CSV_File.FileName;
 
             var config = new CsvConfiguration(CultureInfo.CurrentCulture)
             {
@@ -78,7 +79,7 @@ namespace Demo.Controllers
                     String data2 = response.Content.ReadAsStringAsync().Result;
                     Debug.Write(data2);
                     TempData["success"] = "Department inserted.";
-                    return RedirectToAction("Department");
+                    return RedirectToAction("View_Department");
                 }
             }
             //TempData["error"] = "choose any role to sign in.";
@@ -263,16 +264,16 @@ namespace Demo.Controllers
             return View("~/Views/Uploadcsv/Sector.cshtml");
         }
         [HttpPost]
-        public IActionResult Sector(IFormFile file, [FromServices] IWebHostEnvironment webHostEnvironment)
+        public IActionResult Sector(IFormFile CSV_File, [FromServices] IWebHostEnvironment webHostEnvironment)
         {
-            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{file.FileName}";
+            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{CSV_File.FileName}";
             using (FileStream fileStream = System.IO.File.Create(filename))
             {
-                file.CopyTo(fileStream);
+                CSV_File.CopyTo(fileStream);
             }
 
             List<Sector> model = new List<Sector>();
-            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + file.FileName;
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + CSV_File.FileName;
 
             var config = new CsvConfiguration(CultureInfo.CurrentCulture)
             {
@@ -302,7 +303,7 @@ namespace Demo.Controllers
                     String data2 = response.Content.ReadAsStringAsync().Result;
                     Debug.Write(data2);
                     TempData["success"] = "Sector inserted.";
-                    return RedirectToAction("Sector");
+                    return RedirectToAction("View_Sector");
                 }
             }
 
@@ -424,7 +425,7 @@ namespace Demo.Controllers
                         departmentmodel.Add(Department);
                     }
                 }
-                ViewCompnaySession dv = new ViewCompnaySession();
+                UploadCsv dv = new UploadCsv();
                 dv.Departments = departmentmodel;
                 return View(dv);
             }
@@ -437,54 +438,53 @@ namespace Demo.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Import(ViewCompnaySession dp, IFormFile file, [FromServices] IWebHostEnvironment webHostEnvironment)
+        public IActionResult Import(UploadCsv dp,IFormFile CSV_File, [FromServices] IWebHostEnvironment webHostEnvironment)
         {
-            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{file.FileName}";
-            using (FileStream fileStream = System.IO.File.Create(filename))
-            {
-                file.CopyTo(fileStream);
-            }
-
-            List<User> model = new List<User>();
-
-            var did = dp.department.id;
-
-            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + file.FileName;
-
-            var config = new CsvConfiguration(CultureInfo.CurrentCulture)
-            {
-                Delimiter = ",",
-                Encoding = Encoding.UTF8,
-                MissingFieldFound = null
-            };
-            using (var reader = new StreamReader(path))
-            using (var csv = new CsvReader(reader, config))
-            {
-                csv.Read();
-                csv.ReadHeader();
-                while (csv.Read())
+           
+                string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{dp.CSV_File.FileName}";
+                using (FileStream fileStream = System.IO.File.Create(filename))
                 {
-                    var user = csv.GetRecord<User>();
-                    user.role = 1;
-                    user.status = "0";
-                    user.created_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
-                    user.updated_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
-                    model.Add(user);
+                    CSV_File.CopyTo(fileStream);
                 }
-                String data = JsonConvert.SerializeObject(model);
-                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "set_user&did="+did, content).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    String data2 = response.Content.ReadAsStringAsync().Result;
-                    Debug.Write(data2);
-                    TempData["success"] = "User inserted.";
-                    return RedirectToAction("Index");
-                }
-            }
-            
 
-            return Index();
+                List<User> model = new List<User>();
+
+                var did = dp.department_id;
+
+                var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + CSV_File.FileName;
+
+                var config = new CsvConfiguration(CultureInfo.CurrentCulture)
+                {
+                    Delimiter = ",",
+                    Encoding = Encoding.UTF8,
+                    MissingFieldFound = null
+                };
+                using (var reader = new StreamReader(path))
+                using (var csv = new CsvReader(reader, config))
+                {
+                    csv.Read();
+                    csv.ReadHeader();
+                    while (csv.Read())
+                    {
+                        var user = csv.GetRecord<User>();
+                        user.role = 1;
+                        user.status = "0";
+                        user.created_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
+                        user.updated_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
+                        model.Add(user);
+                    }
+                    String data = JsonConvert.SerializeObject(model);
+                    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "set_user&did=" + did, content).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        String data2 = response.Content.ReadAsStringAsync().Result;
+                        Debug.Write(data2);
+                        TempData["success"] = "User inserted.";
+                        return RedirectToAction("Index");
+                    }
+                } 
+            return View("Index",dp);
         }
         public IActionResult insert_user()
         {

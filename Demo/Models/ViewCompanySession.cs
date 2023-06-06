@@ -30,8 +30,6 @@ namespace Demo.Models
         public IEnumerable<Hiring_sectors> Hiring_sectors { get; set; }
 
         public Hiring Hiring { get; set; } 
-        
-        public UploadCsv UploadCsv { get; set; }
 
     }
 }
