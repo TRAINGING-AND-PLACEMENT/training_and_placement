@@ -1,4 +1,6 @@
 ﻿
+@model DepartmentSectorCsv
+
 @{
     ViewData["Title"] = "Sector Csv";
 }
@@ -28,4 +30,10 @@
             </div>
         </div>
     </div>
+
+    @section Scripts{
+        @{
+            <partial name="_ValidationScriptsPartial" />
+        }
+    }
 
