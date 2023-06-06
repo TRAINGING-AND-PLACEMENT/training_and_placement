@@ -15,19 +15,19 @@
                             <form asp-controller="Uploadcsv" asp-action="Import" method="post" enctype="multipart/form-data">
                                 <div class="col-md-6 col-md-2">
                                     <label for="example-number-input" class="col col-form-label" col-form-label">Department</label>
-                                    <select asp-for=@Model.department_id class="form-select">
+                                    <select asp-for=department_id class="form-select">
                                         <option value="">Select Department</option>
                                         @foreach (var department in Model.Departments)
                                         {
                                             <option value="@department.id">@department.department</option>
                                         }
                                     </select>
-                                    <span class="text-danger"></span>
+                                    <span asp-validation-for="department_id" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Upload CSV</label>
-                                    <input asp-for="@Model.CSV_File" type="file" name="CSV_File" class="form-control " />
-                                    <span asp-validation-for="@Model.CSV_File" class="text-danger"></span>
+                                    <input asp-for="CSV_File" type="file" name="CSV_File" class="form-control " />
+                                    <span asp-validation-for="CSV_File" class="text-danger"></span>
                                 </div>
                                 <br>
                                 <div class="form-group">
@@ -41,3 +41,8 @@
         </div>
     </div>
 </div>
+    @section Scripts{
+        @{
+            <partial name="_ValidationScriptsPartial" />
+        }
+    }
