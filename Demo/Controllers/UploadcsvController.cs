@@ -6,6 +6,7 @@ using Demo.Controllers.Json;
 using Demo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 //using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -263,7 +264,7 @@ namespace Demo.Controllers
             return View("~/Views/Uploadcsv/Sector.cshtml");
         }
         [HttpPost]
-        public IActionResult Sector( IFormFile CSV_File, [FromServices] IWebHostEnvironment webHostEnvironment)
+        public IActionResult Sector(IFormFile CSV_File, [FromServices] IWebHostEnvironment webHostEnvironment)
         {
             string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{CSV_File.FileName}";
             using (FileStream fileStream = System.IO.File.Create(filename))
@@ -437,19 +438,19 @@ namespace Demo.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Import(IFormFile CSV_File, UploadCsv dp, [FromServices] IWebHostEnvironment webHostEnvironment)
+        public IActionResult Import(ViewCompnaySession dp, IFormFile file, [FromServices] IWebHostEnvironment webHostEnvironment)
         {
-            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{dp.CSV_File.FileName}";
+            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{file.FileName}";
             using (FileStream fileStream = System.IO.File.Create(filename))
             {
-                CSV_File.CopyTo(fileStream);
+                file.CopyTo(fileStream);
             }
 
-            List<User> model = new List<User>();
+                List<User> model = new List<User>();
 
-            var did = dp.department_id;
+            var did = dp.department.id;
 
-            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + dp.CSV_File.FileName;
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + file.FileName;
 
             var config = new CsvConfiguration(CultureInfo.CurrentCulture)
             {
@@ -482,6 +483,8 @@ namespace Demo.Controllers
                     return RedirectToAction("Index");
                 }
             }
+            
+
             return Index();
         }
         public IActionResult insert_user()
