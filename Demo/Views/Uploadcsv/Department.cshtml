@@ -15,8 +15,8 @@
                             <form asp-controller="Uploadcsv" asp-action="Department" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label>Upload Department CSV</label>
-                                    <input type="file" asp-for="@Model.CSV_File" name="CSV_File" class="form-control " />
-                                    <span class="text-danger" asp-validation-for="@Model.CSV_File"></span>
+                                    <input type="file" asp-for="CSV_File" name="CSV_File" class="form-control " />
+                                    <span class="text-danger" asp-validation-for="CSV_File"></span>
                                 </div>
                                 <br>
                                 <div class="form-group">
