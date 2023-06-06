@@ -31,7 +31,6 @@ namespace Demo.Models
 
         public Hiring Hiring { get; set; } 
         
-        public UploadCsv UploadCsv { get; set; }
 
     }
 }

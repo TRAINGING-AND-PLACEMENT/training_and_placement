@@ -39,16 +39,16 @@ namespace Demo.Controllers
             return View("~/Views/Uploadcsv/Department.cshtml");
         }
         [HttpPost]
-        public IActionResult Department(IFormFile file, [FromServices] IWebHostEnvironment webHostEnvironment)
+        public IActionResult Department(IFormFile CSV_File, [FromServices] IWebHostEnvironment webHostEnvironment)
         {
-            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{file.FileName}";
+            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{CSV_File.FileName}";
             using (FileStream fileStream = System.IO.File.Create(filename))
             {
-                file.CopyTo(fileStream);
+                CSV_File.CopyTo(fileStream);
             }
 
             List<Department> model = new List<Department>();
-            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + file.FileName;
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + CSV_File.FileName;
 
             var config = new CsvConfiguration(CultureInfo.CurrentCulture)
             {
@@ -78,7 +78,7 @@ namespace Demo.Controllers
                     String data2 = response.Content.ReadAsStringAsync().Result;
                     Debug.Write(data2);
                     TempData["success"] = "Department inserted.";
-                    return RedirectToAction("Department");
+                    return RedirectToAction("View_Department");
                 }
             }
             //TempData["error"] = "choose any role to sign in.";
@@ -263,16 +263,16 @@ namespace Demo.Controllers
             return View("~/Views/Uploadcsv/Sector.cshtml");
         }
         [HttpPost]
-        public IActionResult Sector(IFormFile file, [FromServices] IWebHostEnvironment webHostEnvironment)
+        public IActionResult Sector( IFormFile CSV_File, [FromServices] IWebHostEnvironment webHostEnvironment)
         {
-            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{file.FileName}";
+            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{CSV_File.FileName}";
             using (FileStream fileStream = System.IO.File.Create(filename))
             {
-                file.CopyTo(fileStream);
+                CSV_File.CopyTo(fileStream);
             }
 
             List<Sector> model = new List<Sector>();
-            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + file.FileName;
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + CSV_File.FileName;
 
             var config = new CsvConfiguration(CultureInfo.CurrentCulture)
             {
@@ -302,7 +302,7 @@ namespace Demo.Controllers
                     String data2 = response.Content.ReadAsStringAsync().Result;
                     Debug.Write(data2);
                     TempData["success"] = "Sector inserted.";
-                    return RedirectToAction("Sector");
+                    return RedirectToAction("View_Sector");
                 }
             }
 
@@ -424,7 +424,7 @@ namespace Demo.Controllers
                         departmentmodel.Add(Department);
                     }
                 }
-                ViewCompnaySession dv = new ViewCompnaySession();
+                UploadCsv dv = new UploadCsv();
                 dv.Departments = departmentmodel;
                 return View(dv);
             }
@@ -437,19 +437,19 @@ namespace Demo.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Import(ViewCompnaySession dp, IFormFile file, [FromServices] IWebHostEnvironment webHostEnvironment)
+        public IActionResult Import(IFormFile CSV_File, UploadCsv dp, [FromServices] IWebHostEnvironment webHostEnvironment)
         {
-            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{file.FileName}";
+            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{dp.CSV_File.FileName}";
             using (FileStream fileStream = System.IO.File.Create(filename))
             {
-                file.CopyTo(fileStream);
+                CSV_File.CopyTo(fileStream);
             }
 
             List<User> model = new List<User>();
 
-            var did = dp.department.id;
+            var did = dp.department_id;
 
-            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + file.FileName;
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + dp.CSV_File.FileName;
 
             var config = new CsvConfiguration(CultureInfo.CurrentCulture)
             {
@@ -482,8 +482,6 @@ namespace Demo.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            
-
             return Index();
         }
         public IActionResult insert_user()

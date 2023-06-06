@@ -20,24 +20,36 @@
                             <!--dropdown start-->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Select</label>
+                                    <label class="input-group-text" for="sessionDropdown">session</label>
                                 </div>
                                 <select class="custom-select" id="sessionDropdown">
                                     <option value="">Choose</option>
-                                    @foreach (var ss in ViewBag.sessiondd)
+                                    @foreach (var dd in ViewBag.sessiondd)
                                     {
-                                        <option value="@ss.id">@ss.label</option>
+                                        <option value="@dd.id">@dd.label</option>
                                     }
                                 </select>
                                 &nbsp;&nbsp;
                                 <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Select</label>
+                                    <label class="input-group-text" for="deptDropdown">department</label>
                                 </div>
-                                <select class="custom-select" id="inputGroupSelect01">
-                                    <option value="0">Choose</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                <select class="custom-select" id="deptDropdown">
+                                    <option value="">Choose</option>
+                                    @foreach (var dd in ViewBag.deptdd)
+                                    {
+                                        <option value="@dd.id">@dd.department</option>
+                                    }
+                                </select>
+                                &nbsp;&nbsp;
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="compDropdown">company</label>
+                                </div>
+                                <select class="custom-select" id="compDropdown">
+                                    <option value="">Choose</option>
+                                    @foreach (var dd in ViewBag.compdd)
+                                    {
+                                        <option value="@dd.id">@dd.name</option>
+                                    }
                                 </select>
                             </div>
                             <!--dropdown end-->
@@ -67,15 +79,17 @@
         $(document).ready(function () {
             $('#sessionDropdown').change(function () {
                 var selectedSessionId = $(this).val();
-                filterStduent(selectedSessionId);
+                var selectedDeptId = $("#deptDropdown").val();
+                var selectedCompId = $("#compDropdown").val();
+                filterStduent(selectedSessionId,selectedDeptId,selectedCompId);
             });
         });
 
-        function filterStduent(sessionId) {
+        function filterStduent(sessionId, deptId, compId) {
             $.ajax({
                 url: '@Url.Action("FilterStudent", "Export")',
                 type: 'POST',
-                data: { sid: sessionId },
+                data: { sid: sessionId, did: deptId, cid: compId},
                 success: function (data) {
                     $('#studentTableContainer').html(data);
                 }
