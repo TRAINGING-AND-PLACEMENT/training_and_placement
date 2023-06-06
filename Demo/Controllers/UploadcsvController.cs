@@ -438,53 +438,54 @@ namespace Demo.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Import(UploadCsv dp,IFormFile CSV_File, [FromServices] IWebHostEnvironment webHostEnvironment)
+        public IActionResult Import(ViewCompnaySession dp, IFormFile file, [FromServices] IWebHostEnvironment webHostEnvironment)
         {
-           
-                string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{dp.CSV_File.FileName}";
-                using (FileStream fileStream = System.IO.File.Create(filename))
-                {
-                    CSV_File.CopyTo(fileStream);
-                }
+            string filename = $"{webHostEnvironment.WebRootPath}\\files\\user_csv\\{file.FileName}";
+            using (FileStream fileStream = System.IO.File.Create(filename))
+            {
+                file.CopyTo(fileStream);
+            }
 
                 List<User> model = new List<User>();
 
-                var did = dp.department_id;
+            var did = dp.department.id;
 
-                var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + CSV_File.FileName;
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\user_csv"}" + "\\" + file.FileName;
 
-                var config = new CsvConfiguration(CultureInfo.CurrentCulture)
+            var config = new CsvConfiguration(CultureInfo.CurrentCulture)
+            {
+                Delimiter = ",",
+                Encoding = Encoding.UTF8,
+                MissingFieldFound = null
+            };
+            using (var reader = new StreamReader(path))
+            using (var csv = new CsvReader(reader, config))
+            {
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
                 {
-                    Delimiter = ",",
-                    Encoding = Encoding.UTF8,
-                    MissingFieldFound = null
-                };
-                using (var reader = new StreamReader(path))
-                using (var csv = new CsvReader(reader, config))
+                    var user = csv.GetRecord<User>();
+                    user.role = 1;
+                    user.status = "0";
+                    user.created_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
+                    user.updated_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
+                    model.Add(user);
+                }
+                String data = JsonConvert.SerializeObject(model);
+                StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "set_user&did="+did, content).Result;
+                if (response.IsSuccessStatusCode)
                 {
-                    csv.Read();
-                    csv.ReadHeader();
-                    while (csv.Read())
-                    {
-                        var user = csv.GetRecord<User>();
-                        user.role = 1;
-                        user.status = "0";
-                        user.created_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
-                        user.updated_at = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
-                        model.Add(user);
-                    }
-                    String data = JsonConvert.SerializeObject(model);
-                    StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "set_user&did=" + did, content).Result;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        String data2 = response.Content.ReadAsStringAsync().Result;
-                        Debug.Write(data2);
-                        TempData["success"] = "User inserted.";
-                        return RedirectToAction("Index");
-                    }
-                } 
-            return View("Index",dp);
+                    String data2 = response.Content.ReadAsStringAsync().Result;
+                    Debug.Write(data2);
+                    TempData["success"] = "User inserted.";
+                    return RedirectToAction("Index");
+                }
+            }
+            
+
+            return Index();
         }
         public IActionResult insert_user()
         {

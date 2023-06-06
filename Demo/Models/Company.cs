@@ -27,8 +27,8 @@ namespace Demo.Models
         [JsonProperty("contact")]
         public string contact { get; set; }
 
-        [Required(ErrorMessage = "You must provide a contact number!")]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
+        [ValidateNever]
+        [AllowNull]
         [JsonProperty("alt_contact")]
         public string alt_contact { get; set; }
 
@@ -37,7 +37,8 @@ namespace Demo.Models
         [JsonProperty("email")]
         public string email { get; set; }
 
-        [Required(ErrorMessage = "You must provide a emailaddress!")]
+        [ValidateNever]
+        [AllowNull]
         [JsonProperty("alt_email")]
         public string alt_email { get; set; }
 

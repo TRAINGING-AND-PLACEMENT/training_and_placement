@@ -138,32 +138,66 @@ namespace Demo.Controllers
         }
         public IActionResult ReportView()
         {
-            List<Sessions> sessionmodel = new List<Sessions>();
+            List<Sessions> sessions = new List<Sessions>();
             HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getsession").Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
                 Debug.WriteLine(data);
-                var sessions = JsonDecode.FromJson(data);
-                foreach (var session in sessions.session)
+                var session = JsonDecode.FromJson(data);
+                foreach (var ss in session.session)
                 {
-                    var Session = new Sessions
+                    sessions.Add(new Sessions
                     {
-                        id = session.id,
-                        label = session.label
-                    };
-                    sessionmodel.Add(Session);
+                        id = ss.id,
+                        label = ss.label
+                    });
                 }
             }
-            ViewBag.sessiondd = sessionmodel;
+
+            List<Department> departments = new List<Department>();
+            HttpResponseMessage response1 = client.GetAsync(client.BaseAddress + "get_department").Result;
+            if (response1.IsSuccessStatusCode)
+            {
+                String data = response1.Content.ReadAsStringAsync().Result;
+                var department = JsonDecode.FromJson(data);
+                foreach (var dept in department.departments)
+                {
+                    departments.Add(new Department
+                    {
+                        id = dept.id,
+                        department = dept.department
+                    });
+                }
+            }
+
+            List<Company> companies = new List<Company>();
+            HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
+            if (response2.IsSuccessStatusCode)
+            {
+                String data = response2.Content.ReadAsStringAsync().Result;
+                var company = JsonDecode.FromJson(data);
+                foreach (var cm in company.Companies)
+                {
+                    companies.Add(new Company
+                    {
+                        id = cm.id,
+                        name = cm.name
+                    });
+                }
+            }
+
+            ViewBag.sessiondd = sessions;
+            ViewBag.deptdd = departments;
+            ViewBag.compdd = companies;
             return View();
         }
 
         [HttpPost]
-        public IActionResult FilterStudent(int sid)
+        public IActionResult FilterStudent(int sid, int did, int cid)
         {
             List<Student> students = new List<Student>();
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "filterstudent&sid="+sid).Result;
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "filterstudent&sid="+sid+"&did="+did+"&cid="+cid).Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
