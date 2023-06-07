@@ -145,7 +145,8 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
-                    return RedirectToAction("ViewTenthData");
+					TempData["success"] = "Tenth result successfully updated.";
+					return RedirectToAction("ViewTenthData");
                 }
                 return View();
             }
@@ -190,7 +191,8 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
-                    return RedirectToAction("View12thData");
+					TempData["success"] = "Twelfth result successfully updated.";
+					return RedirectToAction("View12thData");
                 }
                 return View();
             }
@@ -235,7 +237,8 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
-                    return RedirectToAction("ViewUGData");
+					TempData["success"] = "Under-graduation result successfully updated.";
+					return RedirectToAction("ViewUGData");
                 }
                 return View();
             }
@@ -282,7 +285,8 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
-                    return RedirectToAction("ViewPGData");
+					TempData["success"] = "Post-graduation successfully updated.";
+					return RedirectToAction("ViewPGData");
                 }
                 return View();
             }
