@@ -207,7 +207,8 @@ namespace Demo.Controllers
                             {
                                 student_id = student.student_id,
                                 hiring_id = student.hiring_id,
-                                status = student.status
+                                status = student.status,
+                                created_at = student.created_at
                             };
                             studentApplicationModel.Add(Student);
                         }

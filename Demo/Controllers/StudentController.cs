@@ -99,6 +99,7 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
+                    TempData["success"] = "Profile successfully updated.";
                     return RedirectToAction("StudentProfile");
                 }
                 return View();
@@ -481,6 +482,7 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
+                    TempData["success"] = "Data successfully updated.";
                     return RedirectToAction("ViewInternships");
                 }
                 return View();
@@ -597,6 +599,7 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
+                    TempData["success"] = "Data successfully updated.";
                     return RedirectToAction("ViewWorkExp");
 
                 }
@@ -712,6 +715,7 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
+                    TempData["success"] = "Result successfully updated.";
                     return RedirectToAction("ViewAQData");
 
                 }
