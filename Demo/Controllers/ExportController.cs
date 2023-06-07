@@ -82,15 +82,52 @@ namespace Demo.Controllers
 
             return dtstudent;
         }
-        private void ExportToCsv(DataTable students)
+        private DataTable GetStudentUser()
+        {
+            List<User> model = new List<User>();
+
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_student_user").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                String data = response.Content.ReadAsStringAsync().Result;
+                Debug.WriteLine(data);
+                var users = JsonDecode.FromJson(data);
+                foreach (var user in users.user)
+                {
+                    model.Add(user);
+                }
+            }
+
+            var ustd = model.ToList();
+
+            DataTable userdtstudent = new DataTable("StudentUser");
+            userdtstudent.Columns.AddRange(new DataColumn[] {   new DataColumn("Name"),
+                                                            new DataColumn("Email"),
+                                                            new DataColumn("Password"),
+                                                            new DataColumn("Role"),
+                                                        });
+            string role = "";
+            foreach (var users in ustd)
+            {
+                if (users.role == 1)
+                {
+                    role = "Student";
+                }
+                userdtstudent.Rows.Add(users.name , users.email , users.password, role);
+                                    
+            }
+
+            return userdtstudent;
+        }
+        private void ExportToCsv(DataTable getanydata)
         {
             StringBuilder sb = new StringBuilder();
 
-            IEnumerable<string> columnNames = students.Columns.Cast<DataColumn>().
+            IEnumerable<string> columnNames = getanydata.Columns.Cast<DataColumn>().
                                               Select(column => column.ColumnName);
             sb.AppendLine(string.Join(",", columnNames));
 
-            foreach (DataRow row in students.Rows)
+            foreach (DataRow row in getanydata.Rows)
             {
                 IEnumerable<string> fields = row.ItemArray.Select(field =>
                   string.Concat("\"", field.ToString().Replace("\"", "\"\""), "\""));
@@ -98,7 +135,7 @@ namespace Demo.Controllers
             }
             byte[] byteArray = ASCIIEncoding.ASCII.GetBytes(sb.ToString());
             Response.Clear();
-            Response.Headers.Add("content-disposition", "attachment;filename=Studentdetails.csv");
+            Response.Headers.Add("content-disposition", "attachment;filename=ExportFile.csv");
             Response.ContentType = "application/text";
             Response.Body.WriteAsync(byteArray);
             Response.Body.Flush();
@@ -109,30 +146,35 @@ namespace Demo.Controllers
             //var dictioneryexportType = Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
             //var exportType = dictioneryexportType["Export"];
             var exportType = Export;
-            var students = GetStudentDetails();
+            var getanydata = new DataTable();
             switch (exportType)
             {
                 /*case "Excel":
                     ExportToExcel(products);
                     break;*/
                 case "Csv":
-                    ExportToCsv(students);
+                    getanydata = GetStudentDetails();
+                    ExportToCsv(getanydata);
                     break;
-                /*case "Pdf":
-                    ExportToPdf(products);
+                case "Csv1":
+                    getanydata = GetStudentUser();
+                    ExportToCsv(getanydata);
                     break;
-                case "Word":
-                    ExportToWord(products);
-                    break;
-                case "Json":
-                    ExportToJson(products);
-                    break;
-                case "Xml":
-                    ExportToXML(products);
-                    break;
-                case "Text":
-                    ExportToText(products);
-                    break;*/
+                    /*case "Pdf":
+                        ExportToPdf(products);
+                        break;
+                    case "Word":
+                        ExportToWord(products);
+                        break;
+                    case "Json":
+                        ExportToJson(products);
+                        break;
+                    case "Xml":
+                        ExportToXML(products);
+                        break;
+                    case "Text":
+                        ExportToText(products);
+                        break;*/
             }
             return null;
         }
