@@ -34,6 +34,7 @@
                                             <th>Action</th>
                                              @if(@context.HttpContext.Session.GetInt32("role") == 1){
                                             <th>Status</th>
+                                            <th> Application Date</th>
                                              }
                                         </tr>
                                     </thead>
@@ -66,11 +67,12 @@
                                                             Info
                                                         </a>
                                                     </td>
+
                                                     <td>
-                                                    @foreach (var student in Model.applications)
-                                                    {
-                                                        if (@context.HttpContext.Session.GetInt32("studentid") == student.student_id)
+                                                        @foreach (var student in Model.applications)
                                                         {
+                                                            if (@context.HttpContext.Session.GetInt32("studentid") == student.student_id)
+                                                            {
                                                                 if (item.id == student.hiring_id)
                                                                 {
                                                                     if (student.status == 0)
@@ -87,10 +89,29 @@
 
                                                                     }
                                                                 }
-                                                                
-                                                                       
+                                                            }
                                                         }
-                                                    }
+                                                    </td>
+                                                    <td>
+                                                        @foreach (var student in Model.applications)
+                                                        {
+                                                            if (@context.HttpContext.Session.GetInt32("studentid") == student.student_id)
+                                                            {
+                                                                if (item.id == student.hiring_id)
+                                                                {
+                                                                    if (student.status == 0 || student.status == 1 || student.status == 2)
+                                                                    {
+                                                                        string dateString = @student.created_at;
+                                                                        DateTime date = DateTime.Parse(dateString);
+
+                                                                        string convertedDate = date.ToString("dd MMMM, yyyy");
+                                                                        Console.WriteLine(convertedDate);
+                                                                        <p>@convertedDate</p>
+                                                                    }
+                                                                   
+                                                                }
+                                                            }
+                                                        }
                                                     </td>
                                                 }
                                                 else if (@context.HttpContext.Session.GetInt32("role") == 2)
