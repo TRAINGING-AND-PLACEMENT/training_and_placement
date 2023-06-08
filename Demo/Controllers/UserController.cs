@@ -96,16 +96,17 @@ namespace Demo.Controllers
                                     context.HttpContext.Session.SetInt32("sessionid", sessionid);
                                     context.HttpContext.Session.SetInt32("studentid", studentid);
                                     context.HttpContext.Session.SetString("studentemail", studentemailid);
-                                    //context.HttpContext.Session.SetString("studentName", studentName);
                                     return RedirectToAction("Index", "Home");
                                 }
                                 else if (role == 2)
                                 {
                                     int userid = Convert.ToInt32(logindetails.User[0]["id"]);
                                     int sessionid = Convert.ToInt32(logindetails.Sessions[0]["id"]);
+                                    string coordinatormailid = logindetails.User[0]["email"];
                                     context.HttpContext.Session.SetInt32("role", role);
                                     context.HttpContext.Session.SetInt32("userid", userid);
                                     context.HttpContext.Session.SetInt32("sessionid", sessionid);
+                                    context.HttpContext.Session.SetString("coordinatormail", coordinatormailid);
                                     return RedirectToAction("Index", "Home");
                                 }
                             }
