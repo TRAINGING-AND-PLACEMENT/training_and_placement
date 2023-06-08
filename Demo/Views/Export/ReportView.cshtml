@@ -51,20 +51,23 @@
                                         <option value="@dd.id">@dd.name</option>
                                     }
                                 </select>
+                                &nbsp;&nbsp;
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="statusDropdown">Status</label>
+                                </div>
+                                <select class="custom-select" id="statusDropdown">
+                                    <option value="3">Choose</option>
+                                    <option value="0">Pending</option>
+                                    <option value="1">Selected</option>
+                                    <option value="2">Rejected</option>
+                                </select>
                             </div>
                             <!--dropdown end-->
-
-                            @*<div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Select</label>
-                                </div>
-                                <select class="custom-select" id="inputGroupSelect01">
-                                    <option value="0">Choose</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>*@
+                            <a asp-controller="Export" asp-action="ExportDataToFile" asp-route-Export="Csv">
+                                <button id="Exportapplication" type="button" class="read_more_btn">
+                                    Export
+                                </button>
+                            </a>
                             <div id="studentTableContainer"></div>
                         </div>
                     </div>
@@ -77,19 +80,46 @@
     @*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>*@
     <script>
         $(document).ready(function () {
+            var selectedSessionId = $("#sessionDropdown").val();
+            var selectedDeptId = $("#deptDropdown").val();
+            var selectedCompId = $("#compDropdown").val();
+            var selectedStatusId = $("#statusDropdown").val();
             $('#sessionDropdown').change(function () {
                 var selectedSessionId = $(this).val();
                 var selectedDeptId = $("#deptDropdown").val();
                 var selectedCompId = $("#compDropdown").val();
-                filterStduent(selectedSessionId,selectedDeptId,selectedCompId);
+                var selectedStatusId = $("#statusDropdown").val();
+                filterStduent(selectedSessionId, selectedDeptId, selectedCompId, selectedStatusId);
+            });
+            $('#deptDropdown').change(function () {
+                var selectedSessionId = $("#sessionDropdown").val();
+                var selectedDeptId = $(this).val();
+                var selectedCompId = $("#compDropdown").val();
+                var selectedStatusId = $("#statusDropdown").val();
+                filterStduent(selectedSessionId, selectedDeptId, selectedCompId, selectedStatusId);
+            });
+            $('#compDropdown').change(function () {
+                var selectedSessionId = $("#sessionDropdown").val();
+                var selectedDeptId = $("#deptDropdown").val();
+                var selectedCompId = $(this).val();
+                var selectedStatusId = $("#statusDropdown").val();
+                filterStduent(selectedSessionId, selectedDeptId, selectedCompId, selectedStatusId);
+            });
+            $('#statusDropdown').change(function () {
+                var selectedSessionId = $("#sessionDropdown").val();
+                var selectedDeptId = $("#deptDropdown").val();
+                var selectedCompId = $("#compDropdown").val();
+                var selectedStatusId = $(this).val();
+                filterStduent(selectedSessionId, selectedDeptId, selectedCompId, selectedStatusId);
             });
         });
 
-        function filterStduent(sessionId, deptId, compId) {
+
+        function filterStduent(sessionId, deptId, compId, statusId) {
             $.ajax({
                 url: '@Url.Action("FilterStudent", "Export")',
                 type: 'POST',
-                data: { sid: sessionId, did: deptId, cid: compId},
+                data: { sid: sessionId, did: deptId, cid: compId, stid: statusId},
                 success: function (data) {
                     $('#studentTableContainer').html(data);
                 }

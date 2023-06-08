@@ -66,6 +66,10 @@ namespace Demo.Controllers.Json
         [JsonProperty("appliedstudent")]
         public List<pendingshortlist> appliedstudent { get; set; }
 
+        [JsonProperty("studentReport")]
+        [AllowNull]
+        public List<StudentReport> studentReport { get; set; }
+
         [JsonProperty("companies")]
         [AllowNull]
         public List<Company> Companies { get; set; }
