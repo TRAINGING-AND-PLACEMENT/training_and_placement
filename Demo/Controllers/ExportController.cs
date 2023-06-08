@@ -287,7 +287,7 @@ namespace Demo.Controllers
                 var student = JsonDecode.FromJson(data);
                 if (student.Success)
                 { 
-                    foreach (var std in student.students)
+                    foreach (var std in student.studentReport)
                     {
                         students.Add(std);
                     }
