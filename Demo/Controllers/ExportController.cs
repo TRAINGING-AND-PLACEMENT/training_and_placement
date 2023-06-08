@@ -31,11 +31,11 @@ namespace Demo.Controllers
         {
             return View();
         }
-        private DataTable GetStudentDetails()
+        private DataTable GetStudentDetails(int cid)
         {
             List<Student> model = new List<Student>();
 
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstudentdetail").Result;
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstudentdetail&cid="+cid).Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
@@ -53,31 +53,71 @@ namespace Demo.Controllers
             dtstudent.Columns.AddRange(new DataColumn[] {   new DataColumn("Name"),
                                                             new DataColumn("Enrollment"),
                                                             new DataColumn("Gender"),
+                                                            new DataColumn("Date Of Birth"),
                                                             new DataColumn("Contact"),
-                                                            new DataColumn("Address"), 
-                                                            new DataColumn("Pincode"), 
-                                                            new DataColumn("Adhaar"), 
+                                                            new DataColumn("Parent Contact"),
+                                                            new DataColumn("Address"),
+                                                            new DataColumn("Pincode"),
+                                                            new DataColumn("Permament Address"),
+                                                            new DataColumn("Permament Pincode"),
+                                                            new DataColumn("Blood Group"),
+                                                            new DataColumn("Adhaar"),
                                                             new DataColumn("Pan"),
                                                             new DataColumn("DL"),
+                                                            new DataColumn("English language"),
+                                                            new DataColumn("Hindi language"),
+                                                            new DataColumn("Gujarati language"),
+                                                            new DataColumn("Marathi language"),
+                                                            new DataColumn("Other language"),
+                                                            new DataColumn("Tenth School"),
+                                                            new DataColumn("Tenth School Address"),
+                                                            new DataColumn("Tenth School Pincode"),
+                                                            new DataColumn("Tenth School board"),
                                                             new DataColumn("Tenth Passyear"),
                                                             new DataColumn("Tenth Score"),
+                                                            new DataColumn("Tenth Gap Number"),
+                                                            new DataColumn("Tenth Gap Years"),
+                                                            new DataColumn("Tenth Admission Quota"),
+                                                            new DataColumn("Twelve School"),
+                                                            new DataColumn("Twelve School Address"),
+                                                            new DataColumn("Twelve School Pincode"),
+                                                            new DataColumn("Twelve School board"),
                                                             new DataColumn("Twelve Passyear"),
                                                             new DataColumn("Twelve Score"),
+                                                            new DataColumn("Twelve Gap Number"),
+                                                            new DataColumn("Twelve Gap Years"),
+                                                            new DataColumn("Twelve Admission Quota"),
+                                                            new DataColumn("Twelve Specialization"),
+                                                            new DataColumn("Ug Degree"),
+                                                            new DataColumn("Ug College"),
+                                                            new DataColumn("Ug Address"),
+                                                            new DataColumn("Ug Pincode"),
+                                                            new DataColumn("Ug University"),
                                                             new DataColumn("Ug Passyear"),
                                                             new DataColumn("Ug Score"),
+                                                            new DataColumn("Ug Gap Number"),
+                                                            new DataColumn("Ug Gap Years"),
+                                                            new DataColumn("Pg Degree"),
+                                                            new DataColumn("Pg College"),
+                                                            new DataColumn("Pg Address"),
+                                                            new DataColumn("Pg Pincode"),
+                                                            new DataColumn("Pg University"),
                                                             new DataColumn("Pg Passyear"),
-                                                            new DataColumn("Pg Score")
+                                                            new DataColumn("Pg Score"),
+                                                            new DataColumn("Pg Gap Number"),
+                                                            new DataColumn("Pg Gap Years")
                                                         });
             foreach (var student in std)
             {
-                dtstudent.Rows.Add( student.surname + student.first_name + student.last_name,
-                                    student.enrollment, student.gender, student.contact,
-                                    student.address+","+student.city+","+student.state,
-                                    student.pincode,student.adhaar,student.pan,student.driving,
-                                    student.ten_passyear,student.ten_score+" out of "+student.ten_scoreoutof,
-                                    student.twelve_passyear, student.twelve_score + " out of " + student.twelve_scoreoutof,
-                                    student.ug_passyear, student.ug_score + " out of " + student.ug_scoreoutof,
-                                    student.pg_passyear, student.pg_score + " out of " + student.pg_scoreoutof);
+                dtstudent.Rows.Add(student.surname + student.first_name + student.last_name,
+                                    student.enrollment, student.gender, student.dob, student.contact, student.parent_contact,
+                                    student.address + "," + student.city + "," + student.state,
+                                    student.pincode, student.permanent_address + "," + student.permanent_city + "," + student.permanent_state, student.permanent_pincode,
+                                    student.blood_group, student.adhaar, student.pan, student.driving, student.lang_eng, student.lang_hindi, student.lang_guj, student.lang_marathi, student.lang_other,
+                                    student.ten_school, student.ten_schooladdress + "," + student.ten_schoolcity, student.ten_schoolpincode, student.ten_board, student.ten_passyear, student.ten_score + " out of " + student.ten_scoreoutof, student.ten_gapno, student.ten_gapyears, student.ten_admissionquota,
+                                    student.twelve_school, student.twelve_schooladdress + "," + student.twelve_schoolcity, student.twelve_schoolpincode, student.twelve_board, student.twelve_passyear, student.twelve_score + " out of " + student.twelve_scoreoutof, student.twelve_gapno, student.twelve_gapyears, student.twelve_admissionquota, student.twelve_specialization,
+                                    student.ug_degree, student.ug_college, student.ug_collegeaddress + "," + student.ug_collegecity, student.ug_collegepincode, student.ug_university, student.ug_passyear, student.ug_score + " out of " + student.ug_scoreoutof, student.ug_gapno, student.ug_gapyears,
+                                    student.pg_degree, student.pg_college, student.pg_collegeaddress + "," + student.pg_collegecity, student.pg_collegepincode, student.pg_university, student.pg_passyear, student.pg_score + " out of " + student.pg_scoreoutof, student.pg_gapno, student.pg_gapyears);
             }
 
             return dtstudent;
@@ -113,8 +153,8 @@ namespace Demo.Controllers
                 {
                     role = "Student";
                 }
-                userdtstudent.Rows.Add(users.name , users.email , users.password, role);
-                                    
+                userdtstudent.Rows.Add(users.name, users.email, users.password, role);
+
             }
 
             return userdtstudent;
@@ -141,7 +181,7 @@ namespace Demo.Controllers
             Response.Body.Flush();
         }
 
-        public IActionResult ExportDataToFile(String Export)
+        public IActionResult ExportDataToFile(String Export,int cid)
         {
             //var dictioneryexportType = Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
             //var exportType = dictioneryexportType["Export"];
@@ -153,7 +193,7 @@ namespace Demo.Controllers
                     ExportToExcel(products);
                     break;*/
                 case "Csv":
-                    getanydata = GetStudentDetails();
+                    getanydata = GetStudentDetails(cid);
                     ExportToCsv(getanydata);
                     break;
                 case "Csv1":
@@ -239,14 +279,14 @@ namespace Demo.Controllers
         public IActionResult FilterStudent(int sid, int did, int cid)
         {
             List<Student> students = new List<Student>();
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "filterstudent&sid="+sid+"&did="+did+"&cid="+cid).Result;
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "filterstudent&sid=" + sid + "&did=" + did + "&cid=" + cid).Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
                 Debug.WriteLine(data);
                 var student = JsonDecode.FromJson(data);
                 if (student.Success)
-                { 
+                {
                     foreach (var std in student.students)
                     {
                         students.Add(std);
