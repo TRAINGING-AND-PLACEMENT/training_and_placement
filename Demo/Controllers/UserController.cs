@@ -100,9 +100,11 @@ namespace Demo.Controllers
                                 {
                                     int userid = Convert.ToInt32(logindetails.User[0]["id"]);
                                     int sessionid = Convert.ToInt32(logindetails.Sessions[0]["id"]);
+                                    string coordinatormailid = logindetails.User[0]["email"];
                                     context.HttpContext.Session.SetInt32("role", role);
                                     context.HttpContext.Session.SetInt32("userid", userid);
                                     context.HttpContext.Session.SetInt32("sessionid", sessionid);
+                                    context.HttpContext.Session.SetString("coordinatormail", coordinatormailid);
                                     return RedirectToAction("Index", "Home");
                                 }
                             }
