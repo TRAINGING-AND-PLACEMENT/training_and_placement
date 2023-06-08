@@ -75,26 +75,38 @@
                                                         </div>
                                                     </div>
 
-                                                    isAlreadyApplied = false;
-                                                        foreach (var student_application in Model.applications)
+                                                        @foreach (var stud in Model.students)
                                                         {
-                                                            if (@context.HttpContext.Session.GetInt32("studentid") == student_application.student_id && hiring.id == student_application.hiring_id)
+                                                            if (stud.surname == null || stud.ten_school == null || stud.twelve_school == null || stud.ug_degree == null || stud.pg_degree == null)
                                                             {
-                                                                isAlreadyApplied = true;
-                                                                break;
-                                                            }
-                                                        }
-
-                                                        <a asp-controller="Company" asp-action="ApplyCompany" asp-route-id="@hiring.id">
-                                                            @if (isAlreadyApplied)
-                                                            {
-                                                                <button class="btn btn-primary w-xs waves-effect waves-light" style="float:right" disabled>Already Applied</button>
+                                                                <button class="btn btn-danger" style="float:right" disabled>Please Fill The Education Details And Your Profile For Apply the Company</button>
                                                             }
                                                             else
                                                             {
-                                                                <button class="btn btn-primary w-xs waves-effect waves-light" style="float:right">Apply Now</button>
+                                                                isAlreadyApplied = false;
+                                                                foreach (var student_application in Model.applications)
+                                                                {
+                                                                    if (@context.HttpContext.Session.GetInt32("studentid") == student_application.student_id && hiring.id == student_application.hiring_id)
+                                                                    {
+                                                                        isAlreadyApplied = true;
+                                                                        break;
+                                                                    }
+                                                                }
+
+                                                                <a asp-controller="Company" asp-action="ApplyCompany" asp-route-id="@hiring.id">
+                                                                    @if (isAlreadyApplied)
+                                                                    {
+                                                                        <button class="btn btn-primary w-xs waves-effect waves-light" style="float:right" disabled>Already Applied</button>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <button class="btn btn-primary w-xs waves-effect waves-light" style="float:right">Apply Now</button>
+                                                                    }
+                                                                </a>
                                                             }
-                                                        </a>
+                                                        }
+                                                        
+                                                        
 
                                                     <div class="mt-4">
                                                         <h5 class="font-size-14 mb-4">Company Info: </h5>
