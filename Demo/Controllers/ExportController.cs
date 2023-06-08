@@ -196,7 +196,7 @@ namespace Demo.Controllers
         [HttpPost]
         public IActionResult FilterStudent(int sid, int did, int cid)
         {
-            List<Student> students = new List<Student>();
+            List<StudentReport> students = new List<StudentReport>();
             HttpResponseMessage response = client.GetAsync(client.BaseAddress + "filterstudent&sid="+sid+"&did="+did+"&cid="+cid).Result;
             if (response.IsSuccessStatusCode)
             {
@@ -205,7 +205,7 @@ namespace Demo.Controllers
                 var student = JsonDecode.FromJson(data);
                 if (student.Success)
                 { 
-                    foreach (var std in student.students)
+                    foreach (var std in student.studentReport)
                     {
                         students.Add(std);
                     }
