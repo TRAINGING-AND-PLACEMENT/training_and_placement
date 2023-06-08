@@ -163,7 +163,6 @@ namespace Demo.Models
         [Index(30)]
         [RegularExpression(@"^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$", ErrorMessage = "Please enter a valid Driving License card (format of HR-0619850034761) number")] 
         [JsonProperty("driving")]
-
         public string driving { get; set; }
 
         [Index(31)]
