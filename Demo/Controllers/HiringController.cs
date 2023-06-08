@@ -146,6 +146,8 @@ namespace Demo.Controllers
                 var companymodel = new List<Company>();
                 var sessionmodel = new List<Sessions>();
                 var studentApplicationModel = new List<StudentApplication>();
+                var studentModel = new List<Student>();
+                var hiringDepartmentModel = new List<Hiring_Departments>();
 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "gethiringdetails").Result;
                 if (response.IsSuccessStatusCode)
@@ -214,11 +216,53 @@ namespace Demo.Controllers
                         }
                     }
                 }
+                HttpResponseMessage response5 = client.GetAsync(client.BaseAddress + "getstudentdetail&id="+ @context.HttpContext.Session.GetInt32("studentid")).Result;
+                if (response5.IsSuccessStatusCode)
+                {
+                    String data = response5.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var Students = JsonDecode.FromJson(data);
+                    if (Students.Success)
+                    {
+                        foreach (var student in Students.studentInfo)
+                        {
+                            var Student = new Student
+                            {
+                                department_id = student.department_id
+                            };
+                            studentModel.Add(Student);
+                        }
+                    }
+                }
+                HttpResponseMessage response6 = client.GetAsync(client.BaseAddress + "gethiringdepartments").Result;
+                if (response5.IsSuccessStatusCode)
+                {
+                    String data = response6.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var hDepart = JsonDecode.FromJson(data);
+                    if (hDepart.Success)
+                    {
+                        foreach (var departments in hDepart.Hiring_Departments)
+                        {
+                            var hdepart = new Hiring_Departments
+                            {
+                                hiring_id = departments.hiring_id,
+                                department_id = departments.department_id
+
+                            };
+                            hiringDepartmentModel.Add(hdepart);
+                        }
+                    }
+                }
+
                 ViewHiring viewHiring = new ViewHiring();
                 viewHiring.Companies = companymodel;
                 viewHiring.Hirings = hiringmodel;
                 viewHiring.Session = sessionmodel;
                 viewHiring.applications = studentApplicationModel;
+                viewHiring.students = studentModel;
+                viewHiring.hiring_Departments = hiringDepartmentModel;
+
                 return View(viewHiring);
             }
             else
@@ -229,6 +273,76 @@ namespace Demo.Controllers
             }
         }
 
+
+        public IActionResult CordHiringCompanies()
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 1 || @context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                var hiringmodel = new List<Hiring>();
+                var companymodel = new List<Company>();
+                var sessionmodel = new List<Sessions>();
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "gethiringdetails").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var res = JsonDecode.FromJson(data);
+                    if (res.Success)
+                    {
+                        foreach (var hiring in res.hirings)
+                        {
+                            hiringmodel.Add(hiring);
+                        }
+                    }
+                }
+                HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
+                if (response2.IsSuccessStatusCode)
+                {
+                    String data = response2.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var companies = JsonDecode.FromJson(data);
+                    foreach (var company in companies.Companies)
+                    {
+                        var Company = new Company
+                        {
+                            id = company.id,
+                            name = company.name
+                        };
+                        companymodel.Add(Company);
+                    }
+                }
+                HttpResponseMessage response3 = client.GetAsync(client.BaseAddress + "getsession").Result;
+                if (response3.IsSuccessStatusCode)
+                {
+                    String data = response3.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var sessions = JsonDecode.FromJson(data);
+                    foreach (var session in sessions.session)
+                    {
+                        var Session = new Sessions
+                        {
+                            id = session.id,
+                            label = session.label
+                        };
+                        sessionmodel.Add(Session);
+                    }
+                }
+               
+                ViewHiring viewHiring = new ViewHiring();
+                viewHiring.Companies = companymodel;
+                viewHiring.Hirings = hiringmodel;
+                viewHiring.Session = sessionmodel;
+               
+                
+                return View(viewHiring);
+            }
+            else
+            {
+                TempData["serror"] = "You have to login to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+        }
         public IActionResult EditHiring(int id)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1 || @context.HttpContext.Session.GetInt32("role") == 2)

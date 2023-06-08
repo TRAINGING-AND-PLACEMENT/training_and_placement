@@ -205,6 +205,7 @@ namespace Demo.Controllers
             {
                 //if (ModelState.IsValid)
                 //{
+                
                 String data = JsonConvert.SerializeObject(model);
                 Debug.WriteLine(data);
                 StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
@@ -321,6 +322,7 @@ namespace Demo.Controllers
                 var hiringmodel = new List<Hiring>();
                 var companymodel = new List<Company>();
                 var studentApplicationModel = new List<StudentApplication>();
+                var studentmodel = new List<Student>();
 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails&id=" + cid).Result;
                 if (response.IsSuccessStatusCode)
@@ -365,11 +367,34 @@ namespace Demo.Controllers
                         }
                     }
                 }
+                HttpResponseMessage response3 = client.GetAsync(client.BaseAddress + "getstudentdetail&id=" + @context.HttpContext.Session.GetInt32("studentid")).Result;
+                if (response3.IsSuccessStatusCode)
+                {
+                    String data = response3.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var StudentDetails = JsonDecode.FromJson(data);
+                    if (StudentDetails.Success)
+                    {
+                        foreach (var Stud in StudentDetails.studentInfo)
+                        {
+                            var student = new Student
+                            {
+                                surname = Stud.surname,
+                                ten_school = Stud.ten_school,
+                                twelve_school = Stud.twelve_school,
+                                ug_degree = Stud.ug_degree,
+                                pg_degree = Stud.pg_degree
+                            };
+                            studentmodel.Add(student);
+                        }
+                    }
+                }
 
                 ViewHiring viewStudentHiring = new ViewHiring();
                 viewStudentHiring.Companies = companymodel;
                 viewStudentHiring.Hirings = hiringmodel;
                 viewStudentHiring.applications = studentApplicationModel;
+                viewStudentHiring.students = studentmodel;
 
                 return View(viewStudentHiring);
             }

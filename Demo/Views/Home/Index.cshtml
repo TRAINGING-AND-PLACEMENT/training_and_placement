@@ -73,16 +73,32 @@
                                     <div class="solu_title">
                                         <h3>View Hiring Companies</h3>
                                     </div>
-                                    <div class="solu_description">
+                                    @if(@context.HttpContext.Session.GetInt32("role") == 1)
+                                    {
+                                        <div class="solu_description">
 
-                                        <a asp-controller="Hiring" asp-action="HiringCompanies">
-                                            <button type="button" class="read_more_btn">
-                                                See More
-                                            </button>
-                                        </a>
+                                            <a asp-controller="Hiring" asp-action="HiringCompanies">
+                                                <button type="button" class="read_more_btn">
+                                                    See More
+                                                </button>
+                                            </a>
 
 
-                                    </div>
+                                        </div>
+                                    }
+                                    else if(@context.HttpContext.Session.GetInt32("role") == 2)
+                                    {
+                                        <div class="solu_description">
+
+                                            <a asp-controller="Hiring" asp-action="CordHiringCompanies">
+                                                <button type="button" class="read_more_btn">
+                                                    See More
+                                                </button>
+                                            </a>
+
+
+                                        </div>
+                                    }
                                 </div>
                                 <div class="solution_card">
                                     <div class="hover_color_bubble"></div>
@@ -131,17 +147,35 @@
                                             </g>
                                         </svg>
                                     </div>
-                                    <div class="solu_title">
-                                        <h3>View Applied Companies</h3>
-                                    </div>
-                                    <div class="solu_description">
+                                    @if (@context.HttpContext.Session.GetInt32("role") == 1)
+                                    {
+                                        <div class="solu_title">
+                                        <h3>View Work Experiance</h3>
+                                        </div>
+                                        <div class="solu_description">
 
-                                        <a asp-controller="Company" asp-action="AppliedCompanies">
-                                            <button type="button" class="read_more_btn">
-                                                See More
-                                            </button>
-                                        </a>
-                                    </div>
+                                            <a asp-controller="Student" asp-action="ViewWorkExp">
+                                                <button type="button" class="read_more_btn">
+                                                    See More
+                                                </button>
+                                            </a>
+                                        </div>
+                                    }
+                                    else if(@context.HttpContext.Session.GetInt32("role") == 2)
+                                    {
+                                        <div class="solu_title">
+                                            <h3>View Company Details</h3>
+                                        </div>
+                                        <div class="solu_description">
+
+                                            <a asp-controller="Company" asp-action="index"> 
+                                                <button type="button" class="read_more_btn">
+                                                    See More
+                                                </button>
+                                            </a>
+                                        </div>
+                                    }
+
                                 </div>
 
 
