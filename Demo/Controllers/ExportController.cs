@@ -153,8 +153,8 @@ namespace Demo.Controllers
                 {
                     role = "Student";
                 }
-                userdtstudent.Rows.Add(users.name, users.email, users.password, role);
-
+                userdtstudent.Rows.Add(users.name , users.email , users.password, role);
+                                    
             }
 
             return userdtstudent;
@@ -276,10 +276,10 @@ namespace Demo.Controllers
         }
 
         [HttpPost]
-        public IActionResult FilterStudent(int sid, int did, int cid)
+        public IActionResult FilterStudent(int sid, int did, int cid, int stid)
         {
             List<StudentReport> students = new List<StudentReport>();
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "filterstudent&sid="+sid+"&did="+did+"&cid="+cid).Result;
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "filterstudent&sid="+sid+"&did="+did+"&cid="+cid+"&stid="+stid).Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;

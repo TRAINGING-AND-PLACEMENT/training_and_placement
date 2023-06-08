@@ -438,6 +438,7 @@ namespace Demo.Controllers
                 DestorySession();
                 return RedirectToAction("Login", "User");
             }
+            return View();
         }
 
         public IActionResult pendingshortlisted(int id, int sid, int hid, IFormCollection collection)
