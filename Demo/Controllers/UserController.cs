@@ -1,13 +1,10 @@
 ﻿using Demo.api;
 using Demo.Controllers.Json;
 using Demo.Models;
-using MailKit;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using NuGet.Protocol.Plugins;
 using System.Diagnostics;
 using System.Text;
-using static System.Net.WebRequestMethods;
 
 namespace Demo.Controllers
 {
@@ -32,11 +29,11 @@ namespace Demo.Controllers
         [HttpPost]
         public IActionResult Role(int id)
         {
-            if(id == 1)
+            if (id == 1)
             {
                 return RedirectToAction("Login", new { id = 1 });
             }
-            else if(id == 2)
+            else if (id == 2)
             {
                 return RedirectToAction("Login", new { id = 2 });
             }
@@ -65,7 +62,7 @@ namespace Demo.Controllers
             }
         }
         [HttpPost]
-        public IActionResult Login(User model,int id)
+        public IActionResult Login(User model, int id)
         {
             if (id == 1 || id == 2)
             {
@@ -92,7 +89,7 @@ namespace Demo.Controllers
                                     string studentemailid = logindetails.User[0]["email"];
                                     String studentName = logindetails.Student[0]["first_name"];
                                     context.HttpContext.Session.SetInt32("role", role);
-                                    context.HttpContext.Session.SetInt32("userid", userid); 
+                                    context.HttpContext.Session.SetInt32("userid", userid);
                                     context.HttpContext.Session.SetInt32("sessionid", sessionid);
                                     context.HttpContext.Session.SetInt32("studentid", studentid);
                                     context.HttpContext.Session.SetString("studentemail", studentemailid);
@@ -137,7 +134,7 @@ namespace Demo.Controllers
                 return View(model);
             }
             else { TempData["error"] = "Please select role to sign in!"; return RedirectToAction("Role"); }
-            
+
         }
         public IActionResult Logout()
         {
@@ -161,7 +158,7 @@ namespace Demo.Controllers
                 var otp = rnd.Next(11111, 99999);
                 String data = JsonConvert.SerializeObject(model);
                 StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "check_user&otp="+otp, content).Result;
+                HttpResponseMessage response = client.PostAsync(client.BaseAddress + "check_user&otp=" + otp, content).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
@@ -189,7 +186,7 @@ namespace Demo.Controllers
                         return View(model);
                     }
                 }
-                
+
             }
             return View(model);
         }
