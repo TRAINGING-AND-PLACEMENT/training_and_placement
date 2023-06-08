@@ -212,6 +212,7 @@ namespace Demo.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     String result = response.Content.ReadAsStringAsync().Result;
+                    TempData["success"] = "Your application has been successfully registered.";
                 }
                 // }
                 return RedirectToAction("HiringCompanies", "Hiring");

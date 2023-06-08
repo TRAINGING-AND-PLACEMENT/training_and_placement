@@ -29,21 +29,25 @@ namespace Demo.Models
         [Index(4)]
         [Required(ErrorMessage = "You must provide a surname!")]
         [JsonProperty("surname")]
-        public string surname { get; set; }
+		[RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters allowed in name")]
+		public string surname { get; set; }
 
         [Index(5)]
         [Required(ErrorMessage = "You must provide a first_name!")]
         [JsonProperty("first_name")]
-        public string first_name { get; set; }
+		[RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters allowed in name")]
+		public string first_name { get; set; }
 
         [Index(6)]
         [Required(ErrorMessage = "You must provide a last_name!")]
         [JsonProperty("last_name")]
-        public string last_name { get; set; }
+		[RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters allowed in name")]
+		public string last_name { get; set; }
 
         [Index(7)]
         [Required(ErrorMessage = "You must provide a grand_father_name!")]
-        [JsonProperty("grand_father_name")]
+		[RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters allowed in name")]
+		[JsonProperty("grand_father_name")]
         public string grand_father_name { get; set; }
 
         [Index(8)]
@@ -57,7 +61,7 @@ namespace Demo.Models
 
         [Index(10)]
         [Required(ErrorMessage = "You must provide a contact number!")]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid contact number")]
+        [RegularExpression(@"^[6-9]\d{9}$", ErrorMessage = "Please enter a valid Indian phone number.")]
         [JsonProperty("contact")]
         public string contact { get; set; }
 
@@ -106,16 +110,20 @@ namespace Demo.Models
         [Index(20)]
         [Required(ErrorMessage = "You must provide a pincode!")]
         [JsonProperty("pincode")]
-        public string pincode { get; set; }
+		[RegularExpression(@"^\d{6}$", ErrorMessage = "Please enter a valid pincode")]
+		public string pincode { get; set; }
 
         [Index(21)]
         [Required(ErrorMessage = "You must provide a city!")]
         [JsonProperty("city")]
-        public string city { get; set; }
+		[RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters are allowed in city name")]
+
+		public string city { get; set; }
 
         [Index(22)]
         [JsonProperty("state")]
-        public string state { get; set; }
+		[RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters are allowed in state name")]
+		public string state { get; set; }
 
         [Index(23)]
         [JsonProperty("permanent_address")]
@@ -123,31 +131,38 @@ namespace Demo.Models
 
         [Index(24)]
         [JsonProperty("permanent_pincode")]
-        public string permanent_pincode { get; set; }
+		[RegularExpression(@"^\d{6}$", ErrorMessage = "Please enter a valid pincode")]
+		public string permanent_pincode { get; set; }
 
         [Index(25)]
         [JsonProperty("permanent_city")]
-        public string permanent_city { get; set; }
+		[RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters are allowed in city name")]
+		public string permanent_city { get; set; }
 
         [Index(26)]
         [JsonProperty("permanent_state")]
-        public string permanent_state { get; set; }
+		[RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters are allowed in state name")]
+		public string permanent_state { get; set; }
 
         [Index(27)]
         [JsonProperty("blood_group")]
-        public string blood_group { get; set; }
+		[RegularExpression(@"^(A|B|AB|O)[+-]?$", ErrorMessage = "Please enter a valid bloog group name")]
+		public string blood_group { get; set; }
 
         [Index(28)]
         [JsonProperty("adhaar")]
-        [Required(ErrorMessage ="Please enter your 14 digit AADHAR number")]
+		[RegularExpression(@"^\d{12}$", ErrorMessage = "Please enter a valid Aadhaar card number")]
+		[Required(ErrorMessage ="Please enter your 14 digit AADHAR number")]
         public string adhaar { get; set; }
 
         [Index(29)]
-        [JsonProperty("pan")]
+		[RegularExpression(@"^[A-Z]{5}[0-9]{4}[A-Z]{1}$", ErrorMessage = "Please enter a valid PAN card (format of ABCTY1234D) number")]
+		[JsonProperty("pan")]
         public string pan { get; set; }
 
         [Index(30)]
         [JsonProperty("driving")]
+
         public string driving { get; set; }
 
         [Index(31)]
@@ -156,31 +171,40 @@ namespace Demo.Models
 
         [Index(32)]
         [JsonProperty("ten_passyear")]
-        public string ten_passyear { get; set; }
+		[RegularExpression(@"^\d{4}$", ErrorMessage = "Passing year can only be of 4 digits")]
+
+		public string ten_passyear { get; set; }
 
         [Index(33)]
         [JsonProperty("ten_schooladdress")]
         public string ten_schooladdress { get; set; }
 
         [Index(34)]
-        [JsonProperty("ten_schoolpincode")]
+		[RegularExpression(@"^\d{6}$", ErrorMessage = "Please enter a valid pincode")]
+		[JsonProperty("ten_schoolpincode")]
         public string ten_schoolpincode { get; set; }
 
         [Index(35)]
         [JsonProperty("ten_schoolcity")]
-        public string ten_schoolcity { get; set; }
+		[RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters are allowed in city name")]
+
+		public string ten_schoolcity { get; set; }
 
         [Index(36)]
         [JsonProperty("ten_board")]
         public string ten_board { get; set; }
 
         [Index(37)]
-        [JsonProperty("ten_score")]
+		[RegularExpression(@"^\d+$", ErrorMessage = "only integer values allowed in marks")]
+
+		[JsonProperty("ten_score")]
         public string ten_score { get; set; }
 
         [Index(38)]
         [JsonProperty("ten_scoreoutof")]
-        public string ten_scoreoutof { get; set; }
+		[RegularExpression(@"^\d+$", ErrorMessage = "only integer values allowed in marks")]
+
+		public string ten_scoreoutof { get; set; }
 
         [Index(39)]
         [JsonProperty("ten_gapno")]
@@ -200,7 +224,9 @@ namespace Demo.Models
 
         [Index(43)]
         [JsonProperty("twelve_passyear")]
-        public string twelve_passyear { get; set; }
+		[RegularExpression(@"^\d{4}$", ErrorMessage = "Passing year can only be of 4 digits")]
+
+		public string twelve_passyear { get; set; }
 
         [Index(44)]
         [JsonProperty("twelve_schooladdress")]
@@ -208,11 +234,15 @@ namespace Demo.Models
 
         [Index(45)]
         [JsonProperty("twelve_schoolpincode")]
-        public string twelve_schoolpincode { get; set; }
+		[RegularExpression(@"^\d{6}$", ErrorMessage = "Please enter a valid pincode")]
+
+		public string twelve_schoolpincode { get; set; }
 
         [Index(46)]
         [JsonProperty("twelve_schoolcity")]
-        public string twelve_schoolcity { get; set; }
+		[RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters allowed in city name")]
+
+		public string twelve_schoolcity { get; set; }
 
         [Index(47)]
         [JsonProperty("twelve_board")]
@@ -220,11 +250,15 @@ namespace Demo.Models
 
         [Index(48)]
         [JsonProperty("twelve_score")]
-        public string twelve_score { get; set; }
+		[RegularExpression(@"^\d+$", ErrorMessage = "only integer values allowed in marks")]
+
+		public string twelve_score { get; set; }
 
         [Index(49)]
         [JsonProperty("twelve_scoreoutof")]
-        public string twelve_scoreoutof { get; set; }
+		[RegularExpression(@"^\d+$", ErrorMessage = "only integer values allowed in marks")]
+
+		public string twelve_scoreoutof { get; set; }
 
         [Index(50)]
         [JsonProperty("twelve_gapno")]
@@ -252,7 +286,10 @@ namespace Demo.Models
 
         [Index(56)]
         [JsonProperty("ug_passyear")]
-        public string ug_passyear { get; set; }
+		[RegularExpression(@"^\d{4}$", ErrorMessage = "Passing year can only be of 4 digits")]
+
+
+		public string ug_passyear { get; set; }
 
         [Index(57)]
         [JsonProperty("ug_collegeaddress")]
@@ -260,11 +297,15 @@ namespace Demo.Models
 
         [Index(58)]
         [JsonProperty("ug_collegecity")]
-        public string ug_collegecity { get; set; }
+		[RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters allowed in city name")]
+
+		public string ug_collegecity { get; set; }
 
         [Index(59)]
         [JsonProperty("ug_collegepincode")]
-        public string ug_collegepincode { get; set; }
+		[RegularExpression(@"^\d{6}$", ErrorMessage = "Please enter a valid pincode")]
+
+		public string ug_collegepincode { get; set; }
 
         [Index(60)]
         [JsonProperty("ug_university")]
@@ -272,11 +313,15 @@ namespace Demo.Models
 
         [Index(61)]
         [JsonProperty("ug_score")]
-        public string ug_score { get; set; }
+		[RegularExpression(@"^\d+$", ErrorMessage = "only integer values allowed in marks")]
+
+		public string ug_score { get; set; }
 
         [Index(62)]
         [JsonProperty("ug_scoreoutof")]
-        public string ug_scoreoutof { get; set; }
+		[RegularExpression(@"^\d+$", ErrorMessage = "only integer values allowed in marks")]
+
+		public string ug_scoreoutof { get; set; }
 
         [Index(63)]
         [JsonProperty("ug_gapno")]
@@ -300,7 +345,8 @@ namespace Demo.Models
 
         [Index(68)]
         [JsonProperty("pg_passyear")]
-        public string pg_passyear { get; set; }
+
+		public string pg_passyear { get; set; }
 
         [Index(69)]
         [JsonProperty("pg_collegeaddress")]
@@ -308,11 +354,15 @@ namespace Demo.Models
 
         [Index(70)]
         [JsonProperty("pg_collegecity")]
-        public string pg_collegecity { get; set; }
+		[RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters allowed in city name")]
+
+		public string pg_collegecity { get; set; }
 
         [Index(71)]
         [JsonProperty("pg_collegepincode")]
-        public string pg_collegepincode { get; set; }
+		[RegularExpression(@"^\d{6}$", ErrorMessage = "Please enter a valid pincode")]
+
+		public string pg_collegepincode { get; set; }
 
         [Index(72)]
         [JsonProperty("pg_university")]
@@ -320,11 +370,15 @@ namespace Demo.Models
 
         [Index(73)]
         [JsonProperty("pg_score")]
-        public string pg_score { get; set; }
+		[RegularExpression(@"^\d+$", ErrorMessage = "only integer values allowed in marks")]
+
+		public string pg_score { get; set; }
 
         [Index(74)]
         [JsonProperty("pg_scoreoutof")]
-        public string pg_scoreoutof { get; set; }
+		[RegularExpression(@"^\d+$", ErrorMessage = "only integer values allowed in marks")]
+
+		public string pg_scoreoutof { get; set; }
 
         [Index(75)]
         [JsonProperty("pg_gapno")]

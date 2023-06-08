@@ -25,6 +25,13 @@
 						<p><strong>DOB:</strong> @Model.dob<p>
 						<p><strong>Ph:</strong> @Model.contact, @Model.alt_contact<br/></p>
 						<p><strong>Gender:</strong> @Model.gender<br/></p>
+						<p><strong>Languages:</strong>
+							@if(Model.lang_eng=="yes"){ <span>English,</span>}
+							@if(Model.lang_hindi=="yes"){ <span>Hindi,</span>}
+							@if(Model.lang_guj=="yes"){ <span>Gujarati,</span>}
+							@if(Model.lang_marathi=="yes"){ <span>Marathi</span>}
+							<br/>
+						</p>
 						<hr>
 					</div>
 
@@ -38,7 +45,11 @@
 						<p><strong>AADHAR:</strong> @Model.adhaar<br/></p>
 						<p><strong>PAN:</strong> @Model.pan<br/></p>
 						<p><strong>Driving Lisc.:</strong> @Model.driving<br/></p>
-
+						<p><strong>Other Languages:</strong>
+							@if(Model.lang_eng!="none" || Model.lang_other!=null){ <span>@Model.lang_other</span>}
+							else{<span>none</span>}
+							<br/>
+						</p>
 					</div>
 					</div>
 				</div>

@@ -30,6 +30,13 @@ namespace Demo.Controllers.Json
         [AllowNull]
         public Dictionary<string, string>[] User { get; set; }
 
+
+        [JsonProperty("Users")]
+        public List<User> user { get; set; }
+
+        [JsonProperty("usersinfo")]
+        public User[] users { get; set; }
+
         [JsonProperty("sessions")]
         [AllowNull]
         public Dictionary<string, string>[] Sessions { get; set; }
