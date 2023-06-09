@@ -47,24 +47,25 @@
                                     </div>
                                 </div>
                                 <div class="row">
-
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="score">Marks scored out of total</label>
-                                            <input asp-for="score" class="form-control" placeholder="enter marks scored" type="text" name="score" id="score">
-                                            <span asp-validation-for="score" class="text-danger"></span>
-                                        </div>
-                                    </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" for="scoreoutof">Total Score</label>
-                                            <input asp-for="scoreoutof" class="form-control" id="scoreoutof" placeholder="total marks here" type="text" name="scoreoutof">
+                                            <input asp-for="scoreoutof" class="form-control" id="scoreoutof" placeholder="total marks here" type="text" name="scoreoutof" onkeyup="check();">
                                             <span asp-validation-for="scoreoutof" class="text-danger"></span>
-                                            
+
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="score">Marks scored out of total</label>
+                                            <input asp-for="score" class="form-control" placeholder="enter marks scored" type="text" name="score" id="score" onkeyup="check();">
+                                            <span asp-validation-for="score" class="text-danger"></span>
+                                            <span id="message"></span>
+                                        </div>
+                                    </div>
+                                  
                                 </div>
-                                <button class="btn btn-primary" type="submit">Submit form</button>
+                                <button class="btn btn-primary" id="btnSubmit" type="submit">Submit form</button>
                             </form>
                         </div>
                     </div>
@@ -79,3 +80,23 @@
         <partial name="_ValidationScriptsPartial" />
     }
 }
+
+<script>
+    var check = function () {
+        var total = Number(document.getElementById("scoreoutof").value);
+        var obtained = Number(document.getElementById("score").value);
+
+        if (total >= obtained) {
+            document.getElementById("btnSubmit").disabled = false;
+            document.getElementById("message").innerHTML = "";
+
+        } else {
+            document.getElementById("btnSubmit").disabled = true;
+
+            document.getElementById("message").style.color = "red";
+            document.getElementById("message").innerHTML = "Scored marks must be less than or equal to total marks.";
+
+        }
+
+    }
+</script>

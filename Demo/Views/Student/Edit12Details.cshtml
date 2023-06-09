@@ -71,7 +71,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="twelve_score">Total marks in twelfth</label>
                                             <div>
-                                                <input asp-for="twelve_scoreoutof" class="form-control" id="alt_contact" placeholder="total marks" type="text" name="twelve_scoreoutof" id="twelve_scoreoutof" />
+                                                <input asp-for="twelve_scoreoutof" class="form-control" placeholder="total marks" type="text" name="twelve_scoreoutof" id="twelve_scoreoutof" onkeyup="check();"    />
 
                                             </div>
                                             <span asp-validation-for="twelve_scoreoutof" class="text-danger"></span>
@@ -80,8 +80,9 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="twelve_score">Marks scored in twelfth</label>
-                                            <input asp-for="twelve_score" class="form-control" placeholder="scored marks" type="text" name="twelve_score" id="twelve_score">
+                                            <input asp-for="twelve_score" class="form-control" placeholder="scored marks" type="text" name="twelve_score" id="twelve_score" onkeyup="check();">
                                             <span asp-validation-for="twelve_score" class="text-danger"></span>
+                                            <span id="message"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +122,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-primary" type="submit" onclick="if(!confirm('Are you sure that you want to update the specified details?'))return false">Submit form</button>
+                                <button class="btn btn-primary" id="btnSubmit" type="submit" onclick="if(!confirm('Are you sure that you want to update the specified details?'))return false">Submit form</button>
                             </form>
                         </div>
                     </div>
@@ -137,3 +138,23 @@
         <partial name="_ValidationScriptsPartial" />
     }
 }
+
+<script>
+    var check = function () {
+        var total = Number(document.getElementById("twelve_scoreoutof").value);
+        var obtained = Number(document.getElementById("twelve_score").value);
+
+        if (total >= obtained) {
+            document.getElementById("btnSubmit").disabled = false;
+            document.getElementById("message").innerHTML = "";
+
+        } else {
+            document.getElementById("btnSubmit").disabled = true;
+
+            document.getElementById("message").style.color = "red";
+            document.getElementById("message").innerHTML = "Scored marks must be less than or equal to total marks.";
+
+        }
+
+    }
+</script>

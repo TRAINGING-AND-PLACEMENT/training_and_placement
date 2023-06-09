@@ -71,7 +71,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="pg_scoreoutof">Total marks in post-graduation</label>
                                             <div>
-                                                <input asp-for="pg_scoreoutof" class="form-control" id="alt_contact" placeholder="total marks" type="text" name="pg_scoreoutof" id="pg_scoreoutof" />
+                                                <input asp-for="pg_scoreoutof" class="form-control" placeholder="total marks" type="text" name="pg_scoreoutof" id="pg_scoreoutof" onkeyup="check();" />
 
                                             </div>
                                             <span asp-validation-for="pg_scoreoutof" class="text-danger"></span>
@@ -80,9 +80,9 @@
                                     <div class="col-md-4">
                                         <div class="mb-3">
                                             <label class="form-label" for="pg_score">Marks scored in post-graduation</label>
-                                            <input asp-for="pg_score" class="form-control" placeholder="scored marks" type="text" name="pg_score" id="pg_score">
+                                            <input asp-for="pg_score" class="form-control" placeholder="scored marks" type="text" name="pg_score" id="pg_score" onkeyup="check();">
                                             <span asp-validation-for="pg_score" class="text-danger"></span>
-
+                                            <span id="message"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -127,7 +127,7 @@
                                 </div>
 
 
-                                <button class="btn btn-primary" type="submit" onclick="if(!confirm('Are you sure that you want to update the specified details?'))return false">Submit form</button>
+                                <button class="btn btn-primary" type="submit" id="btnSubmit" onclick="if(!confirm('Are you sure that you want to update the specified details?'))return false">Submit form</button>
                             </form>
                         </div>
                     </div>
@@ -143,3 +143,23 @@
         <partial name="_ValidationScriptsPartial" />
     }
 }
+
+<script>
+    var check = function () {
+        var total = Number(document.getElementById("pg_scoreoutof").value);
+        var obtained = Number(document.getElementById("pg_score").value);
+
+        if (total >= obtained) {
+            document.getElementById("btnSubmit").disabled = false;
+            document.getElementById("message").innerHTML = "";
+
+        } else {
+            document.getElementById("btnSubmit").disabled = true;
+
+            document.getElementById("message").style.color = "red";
+            document.getElementById("message").innerHTML = "Scored marks must be less than or equal to total marks.";
+
+        }
+
+    }
+</script>

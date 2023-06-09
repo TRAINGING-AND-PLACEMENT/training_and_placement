@@ -34,11 +34,13 @@ namespace Demo.Models
 
         [DisplayName("Pincode")]
         [Required(ErrorMessage = "You must provide a Pincode!")]
+        [RegularExpression(@"^\d{6}$", ErrorMessage = "Please enter a valid pincode")]
         [JsonProperty("pincode")]
         public string pincode { get; set; }
 
         [DisplayName("City")]
         [Required(ErrorMessage = "You must provide a City!")]
+        [RegularExpression(@"^[A-Za-z ]+$", ErrorMessage = "Only letters are allowed in city name")]
         [JsonProperty("city")]
         public string city { get; set; }
 
