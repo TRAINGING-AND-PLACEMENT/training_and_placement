@@ -137,11 +137,11 @@
                             }                            
                             @if (@context.HttpContext.Session.GetInt32("role") == null)
                             {
-                            <a class="dropdown-item" asp-controller="User" asp-action="Login"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Login</span></a>
+                                <a class="dropdown-item" asp-controller="User" asp-action="Login"><i class="fas fa-sign-in-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Login</span></a>
                             }
                             else
                             {
-                            <a class="dropdown-item" asp-controller="User" asp-action="Logout"><i class="uil uil-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
+                                <a class="dropdown-item" asp-controller="User" asp-action="Logout"><i class="fas fa-sign-out-alt font-size-18 align-middle me-1 text-muted"></i> <span class="align-middle">Sign out</span></a>
                             }
                         </div>
                     </div>

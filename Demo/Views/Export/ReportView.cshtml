@@ -13,9 +13,9 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h4 class="card-title">Report</h4>
+                            <h4 class="card-title">Student Application Report</h4>
                             <p class="card-title-desc">
-                                View dynamically generated reports from here
+                                Select the value from below to view dynamically generated reports
                             </p>
                             <!--dropdown start-->
                             <div class="input-group mb-3">
@@ -61,6 +61,11 @@
                                     <option value="1">Selected</option>
                                     <option value="2">Rejected</option>
                                 </select>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="button" id="reportExport" class="read_more_btn">
+                                    Export
+                                </button>
+                                <div id="fexport"></div>
                             </div>
                             <div id="studentTableContainer"></div>
                         </div>
@@ -74,6 +79,7 @@
     @*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>*@
     <script>
         $(document).ready(function () {
+            $('#reportExport').hide();
             var selectedSessionId = $("#sessionDropdown").val();
             var selectedDeptId = $("#deptDropdown").val();
             var selectedCompId = $("#compDropdown").val();
@@ -83,6 +89,11 @@
                 var selectedDeptId = $("#deptDropdown").val();
                 var selectedCompId = $("#compDropdown").val();
                 var selectedStatusId = $("#statusDropdown").val();
+                if(selectedSessionId == 0 && selectedDeptId == 0 && selectedCompId == 0 && selectedStatusId == 3){
+                    $('#reportExport').hide();
+                }else{
+                    $('#reportExport').show();
+                }
                 filterStduent(selectedSessionId, selectedDeptId, selectedCompId, selectedStatusId);
             });
             $('#deptDropdown').change(function () {
@@ -90,6 +101,11 @@
                 var selectedDeptId = $(this).val();
                 var selectedCompId = $("#compDropdown").val();
                 var selectedStatusId = $("#statusDropdown").val();
+                if (selectedSessionId == 0 && selectedDeptId == 0 && selectedCompId == 0 && selectedStatusId == 3) {
+                    $('#reportExport').hide();
+                } else {
+                    $('#reportExport').show();
+                }
                 filterStduent(selectedSessionId, selectedDeptId, selectedCompId, selectedStatusId);
             });
             $('#compDropdown').change(function () {
@@ -97,6 +113,11 @@
                 var selectedDeptId = $("#deptDropdown").val();
                 var selectedCompId = $(this).val();
                 var selectedStatusId = $("#statusDropdown").val();
+                if (selectedSessionId == 0 && selectedDeptId == 0 && selectedCompId == 0 && selectedStatusId == 3) {
+                    $('#reportExport').hide();
+                } else {
+                    $('#reportExport').show();
+                }
                 filterStduent(selectedSessionId, selectedDeptId, selectedCompId, selectedStatusId);
             });
             $('#statusDropdown').change(function () {
@@ -104,7 +125,23 @@
                 var selectedDeptId = $("#deptDropdown").val();
                 var selectedCompId = $("#compDropdown").val();
                 var selectedStatusId = $(this).val();
+                if (selectedSessionId == 0 && selectedDeptId == 0 && selectedCompId == 0 && selectedStatusId == 3) {
+                    $('#reportExport').hide();
+                } else {
+                    $('#reportExport').show();
+                }
                 filterStduent(selectedSessionId, selectedDeptId, selectedCompId, selectedStatusId);
+            });
+            $("#reportExport").on("click",function(){
+                var selectedSessionId = $("#sessionDropdown").val();
+                var selectedDeptId = $("#deptDropdown").val();
+                var selectedCompId = $("#compDropdown").val();
+                var selectedStatusId = $("#statusDropdown").val();
+                var form = '<a href="/Export/ExportDataToFile?Export=StdAppReport&sid='+selectedSessionId+'&did='+selectedDeptId+'&cid='+selectedCompId+'&stid='+selectedStatusId+'" > <button type="button" id = "frExport" class="read_more_btn" > '
+                        +'Export</button></a>';
+                $('#fexport').html(form);
+                $('#frExport').click();
+                $('#frExport').hide();
             });
         });
 

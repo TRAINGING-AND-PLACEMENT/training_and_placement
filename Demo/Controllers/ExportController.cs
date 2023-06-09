@@ -2,6 +2,7 @@
 using Demo.Controllers.Json;
 using Demo.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Differencing;
 using System.Data;
 using System.Diagnostics;
 using System.Text;
@@ -159,6 +160,58 @@ namespace Demo.Controllers
 
             return userdtstudent;
         }
+        private DataTable GetStudentApplicationReport(int sid, int did, int cid, int stid)
+        {
+            List<StudentReport> students = new List<StudentReport>();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "filterstudent&sid=" + sid + "&did=" + did + "&cid=" + cid + "&stid=" + stid).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                String data = response.Content.ReadAsStringAsync().Result;
+                var student = JsonDecode.FromJson(data);
+                if (student.Success)
+                {
+                    foreach (var std in student.studentReport)
+                    {
+                        students.Add(std);
+                    }
+                }
+            }
+            var report = students.ToList();
+            DataTable dtstdreport = new DataTable("StudentUser");
+            dtstdreport.Columns.AddRange(new DataColumn[] { new DataColumn("Batch"),
+                                                            new DataColumn("Department"),
+                                                            new DataColumn("Enrollment"),
+                                                            new DataColumn("Name"),
+                                                            new DataColumn("Email"),
+                                                            new DataColumn("Contact"),
+                                                            new DataColumn("Company"),
+                                                            new DataColumn("Stipend"),
+                                                            new DataColumn("Salary"),
+                                                            new DataColumn("Status")
+                                                        });
+
+            var status = "";
+            foreach (var r in report)
+            {
+                if (r.status == 0)
+                {
+                    status = "Pending";
+                }
+                else if (r.status == 1)
+                {
+                    status = "Selected";
+                }
+                else if (r.status == 2)
+                {
+                    status = "Rejected";
+                }
+                dtstdreport.Rows.Add(r.label, r.department_name, r.enrollment, r.student_surname + " " + r.student_firstname + " " + r.student_lastname, r.student_email, r.student_contact,
+                                        r.company_name, r.stipend, r.salary, status);
+
+            }
+
+            return dtstdreport;
+        }
         private void ExportToCsv(DataTable getanydata)
         {
             StringBuilder sb = new StringBuilder();
@@ -181,7 +234,7 @@ namespace Demo.Controllers
             Response.Body.Flush();
         }
 
-        public IActionResult ExportDataToFile(String Export,int cid)
+        public IActionResult ExportDataToFile(String Export, int sid, int did, int cid, int stid)
         {
             //var dictioneryexportType = Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
             //var exportType = dictioneryexportType["Export"];
@@ -189,9 +242,6 @@ namespace Demo.Controllers
             var getanydata = new DataTable();
             switch (exportType)
             {
-                /*case "Excel":
-                    ExportToExcel(products);
-                    break;*/
                 case "Csv":
                     getanydata = GetStudentDetails(cid);
                     ExportToCsv(getanydata);
@@ -200,21 +250,10 @@ namespace Demo.Controllers
                     getanydata = GetStudentUser();
                     ExportToCsv(getanydata);
                     break;
-                    /*case "Pdf":
-                        ExportToPdf(products);
-                        break;
-                    case "Word":
-                        ExportToWord(products);
-                        break;
-                    case "Json":
-                        ExportToJson(products);
-                        break;
-                    case "Xml":
-                        ExportToXML(products);
-                        break;
-                    case "Text":
-                        ExportToText(products);
-                        break;*/
+                case "StdAppReport":
+                    getanydata = GetStudentApplicationReport(sid, did, cid, stid);
+                    ExportToCsv(getanydata);
+                    break;
             }
             return null;
         }
@@ -283,7 +322,6 @@ namespace Demo.Controllers
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
-                Debug.WriteLine(data);
                 var student = JsonDecode.FromJson(data);
                 if (student.Success)
                 { 
@@ -295,5 +333,6 @@ namespace Demo.Controllers
             }
             return PartialView("_StudentReport", students);
         }
+        
     }
 }

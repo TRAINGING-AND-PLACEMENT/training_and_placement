@@ -39,94 +39,108 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var item in Model.Hirings)
-                                        {
-                                            <tr>
-                                                @foreach (var company in Model.Companies)
+                                       
+                                        @foreach (var stud in Model.students)
+                                            {
+                                                @foreach (var hd in Model.hiring_Departments)
                                                 {
-                                                    if(item.company_id == company.id)
+                                                    @foreach (var item in Model.Hirings)
                                                     {
-                                                        <td>@company.name</td>
-                                                    }
-                                                }
-                                                @foreach (var session in Model.Session)
-                                                {
-                                                    if (item.session_id == session.id)
-                                                    {
-                                                        <td>@session.label</td>
-                                                    }
-                                                }
-                                               
-                                                <td>@item.designation</td>
-                                                <td>@item.joblocation</td>
-                                                <td>@item.interview_mode</td>
-                                                <td>@item.interview_location</td>
-                                                @if(@context.HttpContext.Session.GetInt32("role") == 1){
-                                                    <td>
-                                                        <a asp-controller="Company" asp-action="CompanyDetails" class="btn btn-outline-info" asp-route-cid="@item.company_id" asp-route-hid="@item.id">
-                                                            Info
-                                                        </a>
-                                                    </td>
-
-                                                    <td>
-                                                        @foreach (var student in Model.applications)
+                                                        if (stud.department_id == hd.department_id && hd.hiring_id == item.id)
                                                         {
-                                                            if (@context.HttpContext.Session.GetInt32("studentid") == student.student_id)
-                                                            {
-                                                                if (item.id == student.hiring_id)
+                                                            <tr>
+                                                                @foreach (var company in Model.Companies)
                                                                 {
-                                                                    if (student.status == 0)
+                                                                    if (item.company_id == company.id)
                                                                     {
-                                                                        <p type="button" class="btn btn-primary btn-sm waves-effect waves-light">Applied</p>
-                                                                    }
-                                                                    else if (student.status == 1)
-                                                                    {
-                                                                        <p type="button" class="btn btn-success btn-sm waves-effect waves-light">Selected</p>
-                                                                    }
-                                                                    else if (student.status == 2)
-                                                                    {
-                                                                        <p type="button" class="btn btn-danger btn-sm waves-effect waves-light">Rejected</p>
-
+                                                                        <td>@company.name</td>
                                                                     }
                                                                 }
-                                                            }
-                                                        }
-                                                    </td>
-                                                    <td>
-                                                        @foreach (var student in Model.applications)
-                                                        {
-                                                            if (@context.HttpContext.Session.GetInt32("studentid") == student.student_id)
-                                                            {
-                                                                if (item.id == student.hiring_id)
+                                                                @foreach (var session in Model.Session)
                                                                 {
-                                                                    if (student.status == 0 || student.status == 1 || student.status == 2)
+                                                                    if (item.session_id == session.id)
                                                                     {
-                                                                        string dateString = @student.created_at;
-                                                                        DateTime date = DateTime.Parse(dateString);
-
-                                                                        string convertedDate = date.ToString("dd MMMM, yyyy");
-                                                                        Console.WriteLine(convertedDate);
-                                                                        <p>@convertedDate</p>
+                                                                        <td>@session.label</td>
                                                                     }
-                                                                   
                                                                 }
-                                                            }
+
+                                                                <td>@item.designation</td>
+                                                                <td>@item.joblocation</td>
+                                                                <td>@item.interview_mode</td>
+                                                                <td>@item.interview_location</td>
+                                                                @if (@context.HttpContext.Session.GetInt32("role") == 1)
+                                                                {
+                                                                    <td>
+                                                                        <a asp-controller="Company" asp-action="CompanyDetails" class="btn btn-outline-info" asp-route-cid="@item.company_id" asp-route-hid="@item.id">
+                                                                            Info
+                                                                        </a>
+                                                                    </td>
+
+                                                                    <td>
+                                                                        @foreach (var student in Model.applications)
+                                                                        {
+                                                                            if (@context.HttpContext.Session.GetInt32("studentid") == student.student_id)
+                                                                            {
+                                                                                if (item.id == student.hiring_id)
+                                                                                {
+                                                                                    if (student.status == 0)
+                                                                                    {
+                                                                                        <p type="button" class="btn btn-primary btn-sm waves-effect waves-light">Applied</p>
+                                                                                    }
+                                                                                    else if (student.status == 1)
+                                                                                    {
+                                                                                        <p type="button" class="btn btn-success btn-sm waves-effect waves-light">Selected</p>
+                                                                                    }
+                                                                                    else if (student.status == 2)
+                                                                                    {
+                                                                                        <p type="button" class="btn btn-danger btn-sm waves-effect waves-light">Rejected</p>
+
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </td>
+                                                                    <td>
+                                                                        @foreach (var student in Model.applications)
+                                                                        {
+                                                                            if (@context.HttpContext.Session.GetInt32("studentid") == student.student_id)
+                                                                            {
+                                                                                if (item.id == student.hiring_id)
+                                                                                {
+                                                                                    if (student.status == 0 || student.status == 1 || student.status == 2)
+                                                                                    {
+                                                                                        string dateString = @student.created_at;
+                                                                                        DateTime date = DateTime.Parse(dateString);
+
+                                                                                        string convertedDate = date.ToString("dd MMMM, yyyy");
+                                                                                        Console.WriteLine(convertedDate);
+                                                                                        <p>@convertedDate</p>
+                                                                                    }
+
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </td>
+                                                                }
+                                                                else if (@context.HttpContext.Session.GetInt32("role") == 2)
+                                                                {
+                                                                    <td>
+                                                                        <a asp-controller="Hiring" asp-action="EditHiring" class="btn btn-outline-primary" asp-route-id="@item.id">
+                                                                            Edit
+                                                                        </a>
+                                                                        <a asp-controller="Hiring" asp-action="DeleteHiring" class="btn btn-outline-danger" onclick="if(!confirm('Are you sure that you want to permanently delete the selected element?'))return false" asp-route-id="@item.id">
+                                                                            Delete
+                                                                        </a>
+                                                                    </td>
+                                                                }
+                                                            </tr>
                                                         }
-                                                    </td>
+                                                    }
                                                 }
-                                                else if (@context.HttpContext.Session.GetInt32("role") == 2)
-                                                {
-                                                    <td>
-                                                        <a asp-controller="Hiring" asp-action="EditHiring" class="btn btn-outline-primary" asp-route-id="@item.id">
-                                                            Edit
-                                                        </a>
-                                                        <a asp-controller="Hiring" asp-action="DeleteHiring" class="btn btn-outline-danger" onclick="if(!confirm('Are you sure that you want to permanently delete the selected element?'))return false" asp-route-id="@item.id">
-                                                            Delete
-                                                        </a>
-                                                    </td>
-                                                }
-                                            </tr>
-                                        }
+                                            }
+                                        
+                                       
+                                        
                                     </tbody>
                                 }
                             </table>
