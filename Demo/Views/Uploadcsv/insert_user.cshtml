@@ -25,6 +25,17 @@
                             <form asp-controller="Uploadcsv" asp-action="insert_user" method="post">
                                 <div class="row">
                                     <div class="col-md-6 col-md-2">
+                                        <label for="example-number-input" class=" col-form-label">Department</label>
+                                        <select class="form-select" asp-for="department_id" id="department_id">
+                                            <option value="">Select Department</option>
+                                            @foreach (var department in Model.Departments)
+                                            {
+                                                <option value="@department.id">@department.department</option>
+                                            }
+                                        </select>
+                                        <span asp-validation-for="department_id" id="department_validate" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">User Name</label>
                                         <input asp-for="name" class="form-control" type="text" name="name" id="name">
                                         <span asp-validation-for="name" class="text-danger"></span>
@@ -39,17 +50,7 @@
                                         <input asp-for="password" class="form-control" type="text" name="password" id="password">
                                         <span asp-validation-for="password" class="text-danger"></span>
                                     </div>
-                                    <div class="col-md-6 col-md-2">
-                                        <label for="example-number-input" class=" col-form-label">Department</label>
-                                        <select class="form-select" asp-for="department_id" id="department_id">
-                                            <option value="">Select Department</option>
-                                            @foreach (var department in Model.Departments)
-                                            {
-                                                <option value="@department.id">@department.department</option>
-                                            }
-                                        </select>
-                                        <span asp-validation-for="department_id" id="department_validate" class="text-danger"></span>
-                                    </div>
+                                    
                                 </div>
                                 <div class="form-group mt-3">
                                     <input type="submit" value="Save" class="btn btn-primary" id="btnSubmit"/>

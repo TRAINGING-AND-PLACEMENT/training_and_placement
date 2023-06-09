@@ -63,12 +63,10 @@
                                                     if (department.id == hiringdepartment.department_id)
                                                     {
                                                         <option value="@department.id" selected>@department.department</option>
-                                                    }
-                                                    else
-                                                    {
-                                                        <option value="@department.id">@department.department</option>
+                                                        break;
                                                     }
                                                 }
+                                                <option value="@department.id">@department.department</option>
                                             }
                                                 
                                         </select>
@@ -85,11 +83,9 @@
                                                     {
                                                         <option value="@sectors.id" selected>@sectors.sector</option>
                                                     }
-                                                    else
-                                                    {
-                                                        <option value="@sectors.id">@sectors.sector</option>
-                                                    }
+
                                                 }
+                                                <option value="@sectors.id">@sectors.sector</option>
                                             }
                                         </select>
                                         <span asp-validation-for="@Model.Hiring.sector_id" class="text-danger"></span>
