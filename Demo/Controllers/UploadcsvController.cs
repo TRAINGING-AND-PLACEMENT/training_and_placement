@@ -409,7 +409,19 @@ namespace Demo.Controllers
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
                 var departmentmodel = new List<Department>();
+                List<User> usermodel = new List<User>();
 
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_student_user").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response.Content.ReadAsStringAsync().Result;
+                    Debug.WriteLine(data);
+                    var users = JsonDecode.FromJson(data);
+                    foreach (var user in users.user)
+                    {
+                        usermodel.Add(user);
+                    }
+                }
                 HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "get_department").Result;
                 if (response2.IsSuccessStatusCode)
                 {
@@ -427,7 +439,8 @@ namespace Demo.Controllers
                 }
                 UploadCsv dv = new UploadCsv();
                 dv.Departments = departmentmodel;
-                return View(dv);
+                ViewBag.StudentUsers = usermodel;
+                return View();
             }
             else
             {

@@ -25,8 +25,17 @@
                     <div class="card">
                         <div class="card-body">
                             <form asp-controller="Hiring" asp-action="CreateHiring" method="post">
-                                <input type="hidden" asp-for="@Model.Hiring.session_id" value="@context.HttpContext.Session.GetInt32("sessionid")" />
                                 <div class="row">
+                                    <div class="col-md-6 col-md-2">
+                                        <label for="example-number-input" class="col col-form-label" col-form-label">Session</label>
+                                        <select asp-for="@Model.multisession" class="form-select js-example-basic-multiple" multiple="multiple">
+                                            @foreach (var session in Model.Sessions)
+                                            {
+                                                <option value="@session.id">@session.label</option>
+                                            }
+                                        </select>
+                                        <span asp-validation-for="@Model.multisession" class="text-danger"></span>
+                                    </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Company Name</label>
                                         <select class="form-select" asp-for="@Model.Hiring.company_id">

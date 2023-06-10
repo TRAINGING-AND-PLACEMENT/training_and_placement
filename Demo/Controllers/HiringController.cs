@@ -45,6 +45,8 @@ namespace Demo.Controllers
                 var companymodel = new List<Company>();
                 var departmentmodel = new List<Department>();
                 var sectormodel = new List<Sector>();
+                var sessionmodel = new List<Sessions>();
+
 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
                 if (response.IsSuccessStatusCode)
@@ -91,10 +93,21 @@ namespace Demo.Controllers
                         sectormodel.Add(Sector);
                     }
                 }
+                HttpResponseMessage response4 = client.GetAsync(client.BaseAddress + "getsessiondetails").Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    String data = response4.Content.ReadAsStringAsync().Result;
+                    var sessions = JsonDecode.FromJson(data);
+                    foreach (var session in sessions.session)
+                    {
+                        sessionmodel.Add(session);
+                    }
+                }
                 ViewCompnaySession viewCompanaySession = new ViewCompnaySession();
                 viewCompanaySession.Companies = companymodel;
                 viewCompanaySession.Departments = departmentmodel;
                 viewCompanaySession.Sectors = sectormodel;
+                viewCompanaySession.Sessions = sessionmodel;
                 return View(viewCompanaySession);
             }
             else

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Newtonsoft.Json;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Models
 {
@@ -17,8 +18,8 @@ namespace Demo.Models
         [JsonProperty("company_id")]
         public long company_id { get; set; }
 
-        [DisplayName("Session Id")]
-        [Required(ErrorMessage = "You must provide a Session Id!")]
+        [DisplayName("Session Name")]
+        [Required(ErrorMessage = "{0} is Required.")]
         [JsonProperty("session_id")]
         public long session_id { get;set; }
 
