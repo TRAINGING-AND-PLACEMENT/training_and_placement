@@ -190,5 +190,93 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
+        public IActionResult StudentSession()
+        {
+            List<Sessions> sessions = new List<Sessions>();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getsessiondetails").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                String data = response.Content.ReadAsStringAsync().Result;
+                Debug.WriteLine(data);
+                var session = JsonDecode.FromJson(data);
+                foreach (var ss in session.session)
+                {
+                    sessions.Add(new Sessions
+                    {
+                        id = ss.id,
+                        label = ss.label,
+                        default_year = ss.default_year
+                    });
+                }
+            }
+
+            List<Department> departments = new List<Department>();
+            HttpResponseMessage response1 = client.GetAsync(client.BaseAddress + "get_department").Result;
+            if (response1.IsSuccessStatusCode)
+            {
+                String data = response1.Content.ReadAsStringAsync().Result;
+                var department = JsonDecode.FromJson(data);
+                foreach (var dept in department.departments)
+                {
+                    departments.Add(new Department
+                    {
+                        id = dept.id,
+                        department = dept.department
+                    });
+                }
+            }
+            List<Student> students = new List<Student>();
+            HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "getstudentdetail").Result;
+            if (response2.IsSuccessStatusCode)
+            {
+                String data = response2.Content.ReadAsStringAsync().Result;
+                Debug.WriteLine(data);
+                var std = JsonDecode.FromJson(data);
+                if (std.Success)
+                {
+                    foreach (var student in std.students)   
+                    {
+                        students.Add(new Student 
+                        {
+                            id = student.id, department_id=student.department_id, session_id=student.session_id, 
+                            surname = student.surname, first_name = student.first_name, last_name = student.last_name,
+                            enrollment = student.enrollment, gender= student.gender, contact = student.contact,
+                            address = student.address, pincode = student.pincode, city = student.city, state = student.state
+                        });
+                    }
+                }
+            }
+
+            ViewBag.sessions = sessions;
+            ViewBag.department = departments;
+            ViewBag.students = students;
+            return View();
+        }
+        public IActionResult StudentDeafultSession(int id, IFormCollection collection)
+        {
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
+            {
+                var session = collection["session"];
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "updatestudentsession&id=" + id +"&sid=" + session).Result;
+                String result = response.Content.ReadAsStringAsync().Result;
+                var msg = JsonDecode.FromJson(result);
+                if (msg.Success)
+                {
+                    TempData["success"] = msg.message;
+                }
+                else
+                {
+                    TempData["error"] = msg.message;
+                }
+                return RedirectToAction("StudentSession");
+            }
+            else
+            {
+                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
+                DestorySession();
+                return RedirectToAction("Login", "User");
+            }
+            return View();
+        }
     }
 }
