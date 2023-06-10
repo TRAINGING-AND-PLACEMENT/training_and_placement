@@ -125,7 +125,7 @@ namespace Demo.Controllers
                         TempData["success"] = "Hiring successfully added.";
 
                     }
-                    return RedirectToAction("HiringCompanies");
+                    return RedirectToAction("CordHiringCompanies");
                 }
 
                 return View(model);
@@ -311,7 +311,7 @@ namespace Demo.Controllers
                         companymodel.Add(Company);
                     }
                 }
-                HttpResponseMessage response3 = client.GetAsync(client.BaseAddress + "getsession").Result;
+                HttpResponseMessage response3 = client.GetAsync(client.BaseAddress + "getsessiondetails").Result;
                 if (response3.IsSuccessStatusCode)
                 {
                     String data = response3.Content.ReadAsStringAsync().Result;
@@ -465,7 +465,7 @@ namespace Demo.Controllers
                         String result = response.Content.ReadAsStringAsync().Result;
                         Debug.WriteLine(result);
                         TempData["success"] = "Hiring successfully Updated.";
-                        return RedirectToAction("HiringCompanies");
+                        return RedirectToAction("CordHiringCompanies");
                     }
                 /*}*/
                 return View(model);
@@ -483,7 +483,7 @@ namespace Demo.Controllers
             {
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "deletehiringdetails&id=" + id).Result;
                 TempData["success"] = "Hiring successfully deleted.";
-                return RedirectToAction("HiringCompanies");
+                return RedirectToAction("CordHiringCompanies");
             }
             else
             {
