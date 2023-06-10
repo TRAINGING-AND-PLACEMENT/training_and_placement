@@ -260,7 +260,7 @@ namespace Demo.Controllers
         public IActionResult ReportView()
         {
             List<Sessions> sessions = new List<Sessions>();
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getsession").Result;
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getsessiondetails").Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;

@@ -18,6 +18,10 @@ namespace Demo.Controllers.Json
         [AllowNull]
         public bool Success { get; set; }
 
+        [JsonProperty("message")]
+        [AllowNull]
+        public string message { get; set; }
+
         [JsonProperty("id")]
         [AllowNull]
         public String Jid { get; set; }
@@ -43,6 +47,9 @@ namespace Demo.Controllers.Json
 
         [JsonProperty("session")]
         public List<Sessions> session { get; set; }
+
+        [JsonProperty("validsession")]
+        public List<Session_insert> validsession { get; set; }
 
         [JsonProperty("departments")]
         public List<Department> departments { get; set; }
