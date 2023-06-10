@@ -18,30 +18,34 @@ namespace Demo.Models
         [JsonProperty("cif")]
         public string cif { get; set; }
 
+        [DisplayName("Company Name")]
         [Required(ErrorMessage = "You must provide a name!")]
         [JsonProperty("name")]
         public string name { get; set; }
 
+        [DisplayName("Company Contact No.")]
         [Required(ErrorMessage = "You must provide a contact number!")]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid contact number")]
         [JsonProperty("contact")]
         public string contact { get; set; }
 
+        [DisplayName("Company Alternate No.")]
         [ValidateNever]
-        [AllowNull]
         [JsonProperty("alt_contact")]
         public string alt_contact { get; set; }
 
+        [DisplayName("Company Email Address")]
         [Required(ErrorMessage = "You must provide a emailaddress!")]
         [DataType(DataType.EmailAddress)]
         [JsonProperty("email")]
         public string email { get; set; }
 
+        [DisplayName("Company Alternate Email Address")]
         [ValidateNever]
-        [AllowNull]
         [JsonProperty("alt_email")]
         public string alt_email { get; set; }
 
+        [DisplayName("Company About")]
         [Required]
         [JsonProperty("about")]
         public string about { get; set; }
