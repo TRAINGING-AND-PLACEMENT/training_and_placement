@@ -493,7 +493,7 @@ namespace Demo.Controllers
             {
                 
                 var departmentmodel = new List<Department>();
-                
+                var sessionmodel = new List<Sessions>();
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_department").Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -509,9 +509,26 @@ namespace Demo.Controllers
                         departmentmodel.Add(Department);
                     }
                 }
-                
+
+                HttpResponseMessage response1 = client.GetAsync(client.BaseAddress + "getsession").Result;
+                if (response1.IsSuccessStatusCode)
+                {
+                    String data = response1.Content.ReadAsStringAsync().Result;
+                    var session = JsonDecode.FromJson(data);
+                    foreach (var sessions in session.session)
+                    {
+                        var Session = new Sessions
+                        {
+                            id = sessions.id,
+                            label = sessions.label,
+                        };
+                        sessionmodel.Add(Session);
+                    }
+                }
+
                 Insert_User insert_user = new Insert_User();
                 insert_user.Departments = departmentmodel;
+                insert_user.Sessions = sessionmodel;
                 return View(insert_user);
             }
             else
@@ -538,7 +555,7 @@ namespace Demo.Controllers
                     {
                         String result = response.Content.ReadAsStringAsync().Result;
                         Debug.Write(result);
-                        TempData["success"] = "User inserted.";
+                        TempData["success"] = "User inserted";
                         return RedirectToAction("Index", "Home");
                     }
                 }

@@ -18,6 +18,11 @@ namespace Demo.Models
         [JsonProperty("department_id")]
         public int department_id { get; set; }
 
+        [DisplayName("Session Name")]
+        [Required(ErrorMessage = "{0} is Required.")]
+        [JsonProperty("session_id")]
+        public int session_id { get; set; }
+
         [DisplayName("Name")]
         [Required(ErrorMessage = "You must provide a User Name!")]
         [JsonProperty("name")]
@@ -40,6 +45,10 @@ namespace Demo.Models
         [AllowNull]
         [ValidateNever]
         public IEnumerable<Department> Departments { get; set; }
+
+        [AllowNull]
+        [ValidateNever]
+        public IEnumerable<Sessions> Sessions { get; set; }
 
     }
 }

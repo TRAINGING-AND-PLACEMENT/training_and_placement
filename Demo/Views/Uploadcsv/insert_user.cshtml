@@ -25,6 +25,17 @@
                             <form asp-controller="Uploadcsv" asp-action="insert_user" method="post">
                                 <div class="row">
                                     <div class="col-md-6 col-md-2">
+                                        <label for="example-number-input" class=" col-form-label">Session</label>
+                                        <select class="form-select" asp-for="session_id" id="session_id">
+                                            <option value="">Select Session</option>
+                                            @foreach (var session in Model.Sessions)
+                                            {
+                                                <option value="@session.id">@session.label</option>
+                                            }
+                                        </select>
+                                        <span asp-validation-for="session_id" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Department</label>
                                         <select class="form-select" asp-for="department_id" id="department_id">
                                             <option value="">Select Department</option>
@@ -33,7 +44,7 @@
                                                 <option value="@department.id">@department.department</option>
                                             }
                                         </select>
-                                        <span asp-validation-for="department_id" id="department_validate" class="text-danger"></span>
+                                        <span asp-validation-for="department_id"  class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">User Name</label>
