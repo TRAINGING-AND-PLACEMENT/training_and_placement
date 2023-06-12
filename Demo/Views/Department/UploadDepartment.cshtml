@@ -1,0 +1,34 @@
+﻿@model DepartmentSectorCsv
+@{
+    ViewData["Title"] = "UploadDepartment";
+}
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-body">
+                            <form asp-controller="Department" asp-action="UploadDepartment" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label>Upload Department CSV</label>
+                                    <input type="file" asp-for="CSV_File" name="CSV_File" class="form-control " />
+                                    <span class="text-danger" asp-validation-for="CSV_File"></span>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <input type="submit" value="Import" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @section Scripts{
+        @{
+            <partial name="_ValidationScriptsPartial" />
+        }
+    }

@@ -1,9 +1,6 @@
 ﻿@model Sector
 @{
-    ViewData["Title"] = "Sector";
-}
-@{
-    Layout = "_CoOrdLayout";
+    ViewData["Title"] = "Edit_Sector";
 }
 <div class="main-content" style="margin-left:5%;width:112%;">
     <div class="page-content">
@@ -12,7 +9,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">Add Sector Details</h4>
+                        <h4 class="mb-0">Edit Sector Details</h4>
                     </div>
                 </div>
             </div>
@@ -22,17 +19,13 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form asp-controller="Uploadcsv" asp-action="Insert_sect" method="post">
+                            <form asp-controller="Sector" asp-action="Update_Sector" method="post">
+                                <input type="hidden" asp-for="id" />
                                 <div class="row">
                                     <div class="col-md-6 col-md-2">
-                                        <label for="example-number-input" class=" col-form-label">Sector Name</label>
+                                        <label for="example-number-input" class=" col-form-label">Sector</label>
                                         <input asp-for="sector" class="form-control" type="text" name="sector" id="sector">
                                         <span asp-validation-for="sector" class="text-danger"></span>
-                                    </div>
-                                    <div class="col-md-6 col-md-2">
-                                        <label for="example-number-input" class=" col-form-label">Remarks</label>
-                                        <input asp-for="remarks" class="form-control" type="text" name="remarks" id="remarks">
-                                        <span asp-validation-for="remarks" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="form-group mt-3">
@@ -51,3 +44,4 @@
         <partial name="_ValidationScriptsPartial" />
     }
 }
+

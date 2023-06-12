@@ -1,10 +1,8 @@
-﻿
-@model DepartmentSectorCsv
+﻿@model DepartmentSectorCsv
 
 @{
     ViewData["Title"] = "Sector Csv";
 }
-
 
 <div class="main-content">
     <div class="page-content">
@@ -13,10 +11,10 @@
                 <div class="col-md-10">
                     <div class="card">
                         <div class="card-body">
-                            <form asp-controller="Uploadcsv" asp-action="Sector" method="post" enctype="multipart/form-data">
+                            <form asp-controller="Sector" asp-action="UploadSector" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label>Upload Sector CSV</label>
-                                    <input asp-for="CSV_File"type="file" name="CSV_File" class="form-control " />
+                                    <input asp-for="CSV_File" type="file" name="CSV_File" class="form-control " />
                                     <span asp-validation-for="CSV_File" class="text-danger"></span>
                                 </div>
                                 <br>
