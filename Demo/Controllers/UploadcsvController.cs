@@ -44,7 +44,7 @@ namespace Demo.Controllers
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
                 var departmentmodel = new List<Department>();
-                List<User> usermodel = new List<User>();
+                List<StudentUser> usermodel = new List<StudentUser>();
 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_student_user").Result;
                 if (response.IsSuccessStatusCode)
@@ -52,7 +52,7 @@ namespace Demo.Controllers
                     String data = response.Content.ReadAsStringAsync().Result;
                     Debug.WriteLine(data);
                     var users = JsonDecode.FromJson(data);
-                    foreach (var user in users.user)
+                    foreach (var user in users.StudentUsers)
                     {
                         usermodel.Add(user);
                     }
@@ -337,6 +337,7 @@ namespace Demo.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         String result = response.Content.ReadAsStringAsync().Result;
+                        TempData["success"] = "User Updated.";
                         return RedirectToAction("Index");
                     }
                     return View();

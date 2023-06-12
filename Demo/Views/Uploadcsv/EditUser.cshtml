@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
-                        <h4 class="mb-0">Add User Details</h4>
+                        <h4 class="mb-0">Update User Details</h4>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,11 @@
                                                 {
                                                     <option value="@session.id" selected>@session.label</option>
                                                 }
-                                                <option value="@session.id">@session.label</option>
+                                                else
+                                                {
+                                                    <option value="@session.id">@session.label</option>
+                                                }
+                                                
                                             }
                                         </select>
                                         <span asp-validation-for="session_id" class="text-danger"></span>
@@ -50,7 +54,11 @@
                                                 {
                                                     <option value="@department.id" selected>@department.department</option>
                                                 }
-                                                <option value="@department.id">@department.department</option>
+                                                else
+                                                {
+                                                    <option value="@department.id">@department.department</option>
+                                                }
+                                                
                                             }
                                         </select>
                                         <span asp-validation-for="department_id" class="text-danger"></span>
@@ -62,7 +70,7 @@
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">User Email</label>
-                                        <input asp-for="email" class="form-control" type="text" name="email" id="email">
+                                        <input asp-for="email" class="form-control" type="text" name="email" id="email" readonly>
                                         <span asp-validation-for="email" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">

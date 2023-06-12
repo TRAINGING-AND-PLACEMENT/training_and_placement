@@ -38,6 +38,9 @@ namespace Demo.Controllers.Json
         [JsonProperty("Users")]
         public List<User> user { get; set; }
 
+        [JsonProperty("StudentUsers")]
+        public List<StudentUser> StudentUsers { get; set; }
+
         [JsonProperty("usersinfo")]
         public User[] users { get; set; }
 

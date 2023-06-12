@@ -125,7 +125,7 @@ namespace Demo.Controllers
         }
         private DataTable GetStudentUser()
         {
-            List<User> model = new List<User>();
+            List<StudentUser> model = new List<StudentUser>();
 
             HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_student_user").Result;
             if (response.IsSuccessStatusCode)
@@ -133,7 +133,7 @@ namespace Demo.Controllers
                 String data = response.Content.ReadAsStringAsync().Result;
                 Debug.WriteLine(data);
                 var users = JsonDecode.FromJson(data);
-                foreach (var user in users.user)
+                foreach (var user in users.StudentUsers)
                 {
                     model.Add(user);
                 }
@@ -142,7 +142,9 @@ namespace Demo.Controllers
             var ustd = model.ToList();
 
             DataTable userdtstudent = new DataTable("StudentUser");
-            userdtstudent.Columns.AddRange(new DataColumn[] {   new DataColumn("Name"),
+            userdtstudent.Columns.AddRange(new DataColumn[] {new DataColumn("Batch"),
+                                                            new DataColumn("Department"),      
+                                                            new DataColumn("Name"),
                                                             new DataColumn("Email"),
                                                             new DataColumn("Password"),
                                                             new DataColumn("Role"),
@@ -154,8 +156,8 @@ namespace Demo.Controllers
                 {
                     role = "Student";
                 }
-                userdtstudent.Rows.Add(users.name , users.email , users.password, role);
-                                    
+                userdtstudent.Rows.Add(users.label, users.department, users.name, users.email, users.password, role);
+
             }
 
             return userdtstudent;
@@ -242,11 +244,11 @@ namespace Demo.Controllers
             var getanydata = new DataTable();
             switch (exportType)
             {
-                case "Csv":
+                case "appliedcompanystudent":
                     getanydata = GetStudentDetails(cid);
                     ExportToCsv(getanydata);
                     break;
-                case "Csv1":
+                case "studentuser":
                     getanydata = GetStudentUser();
                     ExportToCsv(getanydata);
                     break;
