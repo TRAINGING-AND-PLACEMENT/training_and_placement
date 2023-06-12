@@ -1,4 +1,4 @@
-﻿@model ViewCompnaySession;
+﻿@model ViewCompanySession;
 @using Microsoft.AspNetCore.Mvc;
 @inject IHttpContextAccessor context;
 @{
@@ -26,8 +26,27 @@
                         <div class="card-body">
                             <form asp-controller="Hiring" asp-action="EditingHiring" method="post">
                                 <input type="hidden" asp-for="@Model.Hiring.id" />
-                                <input type="hidden" asp-for="@Model.Hiring.session_id" value="@context.HttpContext.Session.GetInt32("sessionid")" />
                                 <div class="row">
+                                    <div class="col-md-6 col-md-2">
+                                        <label for="example-number-input" class=" col-form-label">Department</label>
+                                        <select asp-for="@Model.Hiring.department_id" class="form-select js-example-basic-multiple" multiple="multiple">
+
+                                            @foreach (var department in Model.Departments)
+                                            {
+                                                @foreach (var hiringdepartment in Model.Hiring_Departments)
+                                                {
+                                                    if (department.id == hiringdepartment.department_id)
+                                                    {
+                                                        <option value="@department.id" selected>@department.department</option>
+                                                        break;
+                                                    }
+                                                }
+                                                <option value="@department.id">@department.department</option>
+                                            }
+
+                                        </select>
+                                        <span asp-validation-for="@Model.Hiring.department_id" class="text-danger"></span>
+                                    </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Company Name</label>
                                         <select class="form-select" asp-for="@Model.Hiring.company_id">
@@ -36,7 +55,7 @@
                                             {
                                                 if (Model.Hiring.company_id == company.id)
                                                 {
-                                                    <option value="@company.id">@company.name</option>
+                                                    <option value="@company.id" selected>@company.name</option>
                                                 }
                                                 else
                                                 {

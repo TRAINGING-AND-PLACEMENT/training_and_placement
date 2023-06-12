@@ -41,6 +41,9 @@ namespace Demo.Controllers.Json
         [JsonProperty("usersinfo")]
         public User[] users { get; set; }
 
+        [JsonProperty("getuser")]
+        public List<Insert_User> getuser { get; set; }
+
         [JsonProperty("sessions")]
         [AllowNull]
         public Dictionary<string, string>[] Sessions { get; set; }

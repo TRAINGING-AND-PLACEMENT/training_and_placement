@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Models
 {
-    public class ViewCompnaySession
+    public class ViewCompanySession
     {
         [AllowNull]
         [ValidateNever]

@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewData["Title"] = "ImportUser";
+    Layout = "~/Views/Shared/_CoOrdLayout.cshtml";
+}
+
+@model UploadCsv
+
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-body">
+                            <form asp-controller="Uploadcsv" asp-action="Import" method="post" enctype="multipart/form-data">
+                                <div class="col-md-6 col-md-2">
+                                    <label for="example-number-input" class="col col-form-label" col-form-label">Batch</label>
+                                    <select asp-for=session_id class="form-select">
+                                        <option value="">Select Batch</option>
+                                        @foreach (var session in Model.Sessions)
+                                        {
+                                            <option value="@session.id">@session.label</option>
+                                        }
+                                    </select>
+                                    <span class="text-danger" asp-validation-for="@Model.session_id"></span>
+                                </div>
+                                <div class="col-md-6 col-md-2">
+                                    <label for="example-number-input" class="col col-form-label" col-form-label">Department</label>
+                                    <select asp-for=department_id class="form-select">
+                                        <option value="">Select Department</option>
+                                        @foreach (var department in Model.Departments)
+                                        {
+                                            <option value="@department.id">@department.department</option>
+                                        }
+                                    </select>
+                                    <span class="text-danger" asp-validation-for="@Model.department_id"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Upload CSV</label>
+                                    <input asp-for="CSV_File" type="file" name="CSV_File" class="form-control " />
+                                    <span asp-validation-for="CSV_File" class="text-danger"></span>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <input type="submit" value="Import" class="btn btn-outline-primary" />
+                                    <a asp-action="insert_user" class="btn btn-outline-success">Add new User</a>
+                                    <a asp-action="Index" asp-controller="Uploadcsv" class="btn btn-outline-primary">Back</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts{
+        @{
+            <partial name="_ValidationScriptsPartial" />
+        }
+    }
+
+

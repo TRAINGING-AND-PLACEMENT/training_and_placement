@@ -1,10 +1,10 @@
-﻿@model Insert_User
+﻿
 @{
-    ViewData["Title"] = "Create User";
+    ViewData["Title"] = "EditUser";
+    Layout = "~/Views/Shared/_CoOrdLayout.cshtml";
 }
-@{
-    Layout = "_CoOrdLayout";
-}
+
+@model Insert_User
 <div class="main-content" style="margin-left:5%;width:112%;">
     <div class="page-content">
         <div class="container-fluid">
@@ -22,14 +22,19 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form asp-controller="Uploadcsv" asp-action="insert_user" method="post">
+                            <form asp-controller="Uploadcsv" asp-action="UpdateUser" method="post">
                                 <div class="row">
+                                    <input type="hidden" asp-for="id" />
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">Batch</label>
                                         <select class="form-select" asp-for="session_id" id="session_id">
                                             <option value="">Select Batch</option>
                                             @foreach (var session in Model.Sessions)
                                             {
+                                                if (session.id == Model.session_id)
+                                                {
+                                                    <option value="@session.id" selected>@session.label</option>
+                                                }
                                                 <option value="@session.id">@session.label</option>
                                             }
                                         </select>
@@ -41,10 +46,14 @@
                                             <option value="">Select Department</option>
                                             @foreach (var department in Model.Departments)
                                             {
+                                                if (department.id == Model.department_id)
+                                                {
+                                                    <option value="@department.id" selected>@department.department</option>
+                                                }
                                                 <option value="@department.id">@department.department</option>
                                             }
                                         </select>
-                                        <span asp-validation-for="department_id"  class="text-danger"></span>
+                                        <span asp-validation-for="department_id" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class=" col-form-label">User Name</label>
@@ -61,10 +70,10 @@
                                         <input asp-for="password" class="form-control" type="text" name="password" id="password">
                                         <span asp-validation-for="password" class="text-danger"></span>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="form-group mt-3">
-                                    <input type="submit" value="Save" class="btn btn-primary" id="btnSubmit"/>
+                                    <input type="submit" value="Save" class="btn btn-primary" id="btnSubmit" />
                                     <a asp-action="Index" asp-controller="Uploadcsv" class="btn btn-outline-primary">Back</a>
                                 </div>
                             </form>
@@ -80,3 +89,4 @@
         <partial name="_ValidationScriptsPartial" />
     }
 }
+

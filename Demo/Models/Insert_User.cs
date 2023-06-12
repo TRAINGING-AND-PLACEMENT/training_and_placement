@@ -18,7 +18,7 @@ namespace Demo.Models
         [JsonProperty("department_id")]
         public int department_id { get; set; }
 
-        [DisplayName("Session Name")]
+        [DisplayName("Batch")]
         [Required(ErrorMessage = "{0} is Required.")]
         [JsonProperty("session_id")]
         public int session_id { get; set; }

@@ -23,5 +23,14 @@ namespace Demo.Models
         [Required(ErrorMessage = "{0} is Required.")]
         [JsonProperty("department_id")]
         public int department_id { get; set; }
+
+        [AllowNull]
+        [ValidateNever]
+        public IEnumerable<Sessions> Sessions{ get; set; }
+
+        [DisplayName("Batch")]
+        [Required(ErrorMessage = "{0} is Required.")]
+        [JsonProperty("session_id")]
+        public int session_id { get; set; }
     }
 }

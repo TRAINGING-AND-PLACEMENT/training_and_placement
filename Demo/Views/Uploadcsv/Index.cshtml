@@ -9,7 +9,9 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <a asp-controller="Uploadcsv" asp-action="Create" style="float:right" class="btn btn-outline-primary  mb-2">Add Company</a>
+                            <a asp-controller="Export" asp-action="ExportDataToFile" asp-route-Export="Csv1" style="float:right; margin-left:10px;" class="btn btn-outline-primary  mb-2">Export</a>
+                            <a asp-controller="Uploadcsv" asp-action="ImportUser" style="float:right; margin-left:10px;" class="btn btn-outline-primary  mb-2">Upload User csv</a>
+                            <a asp-controller="Uploadcsv" asp-action="insert_user" style="float:right" class="btn btn-outline-primary  mb-2">Add User</a>
 
                             <h4 class="card-title">Student's User List</h4>
                             <p class="card-title-desc">
@@ -38,8 +40,8 @@
                                                 <td>@item.email</td>
                                                 <td>@item.password</td>
                                                 <td>
-                                                    <a class="btn btn-outline-primary" asp-action="#" asp-route-id="@item.id">Edit</a>
-                                                    <a class="btn btn-outline-danger" asp-action="#" onclick="if(!confirm('Are you sure that you want to permanently delete the selected element?'))return false" asp-route-id="@item.id">Delete</a>
+                                                    <a class="btn btn-outline-primary" asp-controller="Uploadcsv" asp-action="EditUser" asp-route-id="@item.id">Edit</a>
+                                                    <a class="btn btn-outline-danger" asp-action="DeleteUser" onclick="if(!confirm('Are you sure that you want to permanently delete the selected element?'))return false" asp-route-id="@item.id">Delete</a>
                                                 </td>
                                             </tr>
                                         }

@@ -46,6 +46,7 @@ namespace Demo.Controllers
                 var departmentmodel = new List<Department>();
                 var sectormodel = new List<Sector>();
                 var sessionmodel = new List<Sessions>();
+                
 
 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getcompanydetails").Result;
@@ -103,7 +104,7 @@ namespace Demo.Controllers
                         sessionmodel.Add(session);
                     }
                 }
-                ViewCompnaySession viewCompanaySession = new ViewCompnaySession();
+                ViewCompanySession viewCompanaySession = new ViewCompanySession();
                 viewCompanaySession.Companies = companymodel;
                 viewCompanaySession.Departments = departmentmodel;
                 viewCompanaySession.Sectors = sectormodel;
@@ -120,7 +121,7 @@ namespace Demo.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateHiring(ViewCompnaySession model)
+        public IActionResult CreateHiring(ViewCompanySession model)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
@@ -153,7 +154,7 @@ namespace Demo.Controllers
 
         public IActionResult HiringCompanies()
         {
-            if (@context.HttpContext.Session.GetInt32("role") == 1 || @context.HttpContext.Session.GetInt32("role") == 2)
+            if (@context.HttpContext.Session.GetInt32("role") == 1)
             {
                 var hiringmodel = new List<Hiring>();
                 var companymodel = new List<Company>();
@@ -289,7 +290,7 @@ namespace Demo.Controllers
 
         public IActionResult CordHiringCompanies()
         {
-            if (@context.HttpContext.Session.GetInt32("role") == 1 || @context.HttpContext.Session.GetInt32("role") == 2)
+            if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
                 var hiringmodel = new List<Hiring>();
                 var companymodel = new List<Company>();
@@ -366,6 +367,7 @@ namespace Demo.Controllers
                 var sectormodel = new List<Sector>();
                 var hiringdepartmentmodel = new List<Hiring_Departments>();
                 var hiringsectormodel = new List<Hiring_sectors>();
+                var sessionmodel = new List<Sessions>();
 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "gethiringdetails&id=" + id).Result;
                 if (response.IsSuccessStatusCode)
@@ -390,6 +392,16 @@ namespace Demo.Controllers
                             name = company.name
                         };
                         companymodel.Add(Company);
+                    }
+                }
+                HttpResponseMessage sessionresponse = client.GetAsync(client.BaseAddress + "getsessiondetails").Result;
+                if (sessionresponse.IsSuccessStatusCode)
+                {
+                    String data = sessionresponse.Content.ReadAsStringAsync().Result;
+                    var sessions = JsonDecode.FromJson(data);
+                    foreach (var session in sessions.session)
+                    {
+                        sessionmodel.Add(session);
                     }
                 }
                 HttpResponseMessage response2 = client.GetAsync(client.BaseAddress + "get_department").Result;
@@ -445,13 +457,14 @@ namespace Demo.Controllers
                     }
                     Debug.WriteLine(hiringsectormodel);
                 }
-                ViewCompnaySession ViewCompnaySession = new ViewCompnaySession();
+                ViewCompanySession ViewCompnaySession = new ViewCompanySession();
                 ViewCompnaySession.Companies = companymodel;
                 ViewCompnaySession.Hiring = model;
                 ViewCompnaySession.Departments = departmentmodel;
                 ViewCompnaySession.Sectors = sectormodel;
                 ViewCompnaySession.Hiring_Departments = hiringdepartmentmodel;
                 ViewCompnaySession.Hiring_sectors = hiringsectormodel;
+                ViewCompnaySession.Sessions = sessionmodel;
                 return View(ViewCompnaySession);
             }
             else
@@ -462,7 +475,7 @@ namespace Demo.Controllers
             }
         }
         [HttpPost]
-        public IActionResult EditingHiring(ViewCompnaySession model)
+        public IActionResult EditingHiring(ViewCompanySession model)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
