@@ -46,7 +46,7 @@ namespace Demo.Controllers
                 var departmentmodel = new List<Department>();
                 List<StudentUser> usermodel = new List<StudentUser>();
 
-                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_student_user").Result;
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getuserdetails").Result;
                 if (response.IsSuccessStatusCode)
                 {
                     String data = response.Content.ReadAsStringAsync().Result;
@@ -248,8 +248,15 @@ namespace Demo.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         String result = response.Content.ReadAsStringAsync().Result;
-                        Debug.Write(result);
-                        TempData["success"] = "User inserted";
+                        var msg = JsonDecode.FromJson(result);
+                        if (msg.Success)
+                        {
+                            TempData["success"] = msg.message;
+                        }
+                        else
+                        {
+                            TempData["error"] = msg.message;
+                        }
                         return RedirectToAction("Index");
                     }
                 }
@@ -337,7 +344,15 @@ namespace Demo.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         String result = response.Content.ReadAsStringAsync().Result;
-                        TempData["success"] = "User Updated.";
+                        var msg = JsonDecode.FromJson(result);
+                        if (msg.Success)
+                        {
+                            TempData["success"] = msg.message;
+                        }
+                        else
+                        {
+                            TempData["error"] = msg.message;
+                        }
                         return RedirectToAction("Index");
                     }
                     return View();

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Differencing;
 using System.Data;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Demo.Controllers
@@ -127,7 +128,7 @@ namespace Demo.Controllers
         {
             List<StudentUser> model = new List<StudentUser>();
 
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_student_user").Result;
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getuserdetails").Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
@@ -162,10 +163,10 @@ namespace Demo.Controllers
 
             return userdtstudent;
         }
-        private DataTable GetStudentApplicationReport(int sid, int did, int cid, int stid)
+        private DataTable GetStudentApplicationReport(int sid, int did, int cid, int stid,string include)
         {
             List<StudentReport> students = new List<StudentReport>();
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "filterstudent&sid=" + sid + "&did=" + did + "&cid=" + cid + "&stid=" + stid).Result;
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "filterstudent&sid=" + sid + "&did=" + did + "&cid=" + cid + "&stid=" + stid + "&include").Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
@@ -236,7 +237,7 @@ namespace Demo.Controllers
             Response.Body.Flush();
         }
 
-        public IActionResult ExportDataToFile(String Export, int sid, int did, int cid, int stid)
+        public IActionResult ExportDataToFile(String Export, int sid, int did, int cid, int stid, string include)
         {
             //var dictioneryexportType = Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
             //var exportType = dictioneryexportType["Export"];
@@ -253,7 +254,7 @@ namespace Demo.Controllers
                     ExportToCsv(getanydata);
                     break;
                 case "StdAppReport":
-                    getanydata = GetStudentApplicationReport(sid, did, cid, stid);
+                    getanydata = GetStudentApplicationReport(sid, did, cid, stid, include);
                     ExportToCsv(getanydata);
                     break;
             }
@@ -309,18 +310,32 @@ namespace Demo.Controllers
                     });
                 }
             }
+            List<StudentReport> students = new List<StudentReport>();
+            HttpResponseMessage studentresponse = client.GetAsync(client.BaseAddress + "filterstudent").Result;
+            if (studentresponse.IsSuccessStatusCode)
+            {
+                String data = studentresponse.Content.ReadAsStringAsync().Result;
+                var student = JsonDecode.FromJson(data);
+                if (student.Success)
+                {
+                    foreach (var std in student.studentReport)
+                    {
+                        students.Add(std);
+                    }
+                }
+            }
 
             ViewBag.sessiondd = sessions;
             ViewBag.deptdd = departments;
             ViewBag.compdd = companies;
-            return View();
+            return View(students);
         }
 
         [HttpPost]
         public IActionResult FilterStudent(int sid, int did, int cid, int stid)
         {
             List<StudentReport> students = new List<StudentReport>();
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "filterstudent&sid="+sid+"&did="+did+"&cid="+cid+"&stid="+stid).Result;
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "filterstudent&sid="+sid+"&did="+did+"&cid="+cid+"&stid="+stid+"&include").Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;

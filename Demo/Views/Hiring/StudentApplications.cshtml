@@ -28,6 +28,7 @@
                                             <td>Alternate Contact</td>
                                             <td>Email</td>
                                             <td>Alternate Email</td>
+                                            <td>Total Applications</td>
                                             <td width="130px">Action</td>
                                         </tr>
                                     </thead>
@@ -41,6 +42,7 @@
                                                 <td>@item.alt_contact</td>
                                                 <td>@item.email</td>
                                                 <td>@item.alt_email</td>
+                                                <td>@item.counts</td>
                                                 <td>
                                                     <a asp-controller="Hiring" asp-action="StdAppList" class="btn btn-outline-info " asp-route-id="@item.id">
                                                         Details

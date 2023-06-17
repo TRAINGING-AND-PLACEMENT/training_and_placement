@@ -34,7 +34,6 @@ namespace Demo.Controllers.Json
         [AllowNull]
         public Dictionary<string, string>[] User { get; set; }
 
-
         [JsonProperty("Users")]
         public List<User> user { get; set; }
 

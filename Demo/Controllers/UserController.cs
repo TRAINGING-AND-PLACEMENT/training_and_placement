@@ -32,7 +32,7 @@ namespace Demo.Controllers
             if (id == 1)
             {
                 return RedirectToAction("Login", new { id = 1 });
-            }
+            }   
             else if (id == 2)
             {
                 return RedirectToAction("Login", new { id = 2 });

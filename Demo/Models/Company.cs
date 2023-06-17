@@ -12,7 +12,12 @@ namespace Demo.Models
         [JsonProperty("id")]
         [JsonConverter(typeof(ParseStringConvertor))]
         public long id { get; set; }
-        
+
+        [JsonProperty("counts")]
+        [ValidateNever]
+        [AllowNull]
+        public int counts { get; set; }
+
         [DisplayName("Company Identification Number")]
         [Required(ErrorMessage = "You must provide a identification number!")]
         [JsonProperty("cif")]

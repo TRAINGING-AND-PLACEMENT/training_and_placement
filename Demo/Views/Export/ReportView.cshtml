@@ -1,10 +1,11 @@
-﻿
+﻿@model List<StudentReport>
+
 @{
     ViewData["Title"] = "report";
 }
-<div class="main-content" style="width:105%;margin-left:10%;">
+<div class="main-content" style="width:130%;margin:auto">
 
-    <div class="page-content">
+    <div class="page-content" >
         <div class="container-fluid">
 
             <!-- start page title -->
@@ -67,7 +68,9 @@
                                 </button>
                                 <div id="fexport"></div>
                             </div>
-                            <div id="studentTableContainer"></div>
+                            <div id="studentTableContainer">
+                                <partial name="_StudentReport" for="@Model" />
+                            </div>
                         </div>
                     </div>
                 </div> <!-- end col -->
@@ -79,6 +82,15 @@
     @*<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>*@
     <script>
         $(document).ready(function () {
+            var table = $("#sreport").DataTable({
+                    "scrollX": true,
+                    responsive: true,
+                    pageLength: 10,
+                    lengthMenu: [5, 10, 20],
+                    language: {
+                        emptyTable: "Requested data not found!"
+                    }
+                });
             $('#reportExport').hide();
             var selectedSessionId = $("#sessionDropdown").val();
             var selectedDeptId = $("#deptDropdown").val();
@@ -137,7 +149,7 @@
                 var selectedDeptId = $("#deptDropdown").val();
                 var selectedCompId = $("#compDropdown").val();
                 var selectedStatusId = $("#statusDropdown").val();
-                var form = '<a href="/Export/ExportDataToFile?Export=StdAppReport&sid='+selectedSessionId+'&did='+selectedDeptId+'&cid='+selectedCompId+'&stid='+selectedStatusId+'" > <button type="button" id = "frExport" class="read_more_btn" > '
+                var form = '<a href="/Export/ExportDataToFile?Export=StdAppReport&sid='+selectedSessionId+'&did='+selectedDeptId+'&cid='+selectedCompId+'&stid='+selectedStatusId+'&include'+'" > <button type="button" id = "frExport" class="read_more_btn" > '
                         +'Export</button></a>';
                 $('#fexport').html(form);
                 $('#frExport').click();
@@ -153,6 +165,15 @@
                 data: { sid: sessionId, did: deptId, cid: compId, stid: statusId},
                 success: function (data) {
                     $('#studentTableContainer').html(data);
+                    var table = $("#sreport").DataTable({
+                        "scrollX": true,
+                        responsive: true,
+                        pageLength: 10,
+                        lengthMenu: [5, 10, 20],
+                        language: {
+                            emptyTable: "Requested data not found!"
+                        }
+                    });
                 }
             });
         }
