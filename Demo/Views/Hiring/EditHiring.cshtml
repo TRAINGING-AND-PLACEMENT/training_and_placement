@@ -142,7 +142,11 @@
                                         <span asp-validation-for="@Model.Hiring.interview_location" class="text-danger"></span>
                                     </div>
                                    
-                                    
+                                    <div class="col-md-6 col-md-2">
+                                        <label for="example-number-input" class="col col-form-label">Job location</label>
+                                        <input asp-for="@Model.Hiring.joblocation" class="form-control" type="text" id="joblocation">
+                                        <span asp-validation-for="@Model.Hiring.joblocation" class="text-danger"></span>
+                                    </div>
                                     <div class="col-md-12">
                                         <label for="example-number-input" class="col col-form-label">Other Requirement</label>
                                         <textarea asp-for="@Model.Hiring.other_requirement" class="form-control" type="text" id="other_requirement" rows="7" cols="40"></textarea>
@@ -187,8 +191,15 @@
     <script>
         $(document).ready(function () {
             // alert('ready');
-            // var rVal = $("#bond:checked").val();
+             var rVal = $("#bond:checked").val();
             //alert(rVal);
+            if(rVal == "Yes"){
+                $('#bond_condition_div').show();
+            }
+            else
+            {
+                $('#bond_condition_div').hide();
+            }
 
             $('.bond').change(function () {
                 if ($(this).val() === "Yes") {

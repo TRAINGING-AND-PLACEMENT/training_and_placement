@@ -193,7 +193,7 @@ namespace Demo.Controllers
                         companymodel.Add(Company);
                     }
                 }
-                HttpResponseMessage response3 = client.GetAsync(client.BaseAddress + "getsession").Result;
+                HttpResponseMessage response3 = client.GetAsync(client.BaseAddress + "getsessiondetails").Result;
                 if (response3.IsSuccessStatusCode)
                 {
                     String data = response3.Content.ReadAsStringAsync().Result;
