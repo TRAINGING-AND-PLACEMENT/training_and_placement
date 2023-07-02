@@ -1,17 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Newtonsoft.Json;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Demo.Models
 {
-    public class Company
+    public class Appliedcompany
     {
         [Key]
         [JsonProperty("id")]
         [JsonConverter(typeof(ParseStringConvertor))]
         public long id { get; set; }
+
+        [JsonProperty("counts")]
+        [ValidateNever]
+        [AllowNull]
+        public int counts { get; set; }
 
         [DisplayName("Company Identification Number")]
         [Required(ErrorMessage = "You must provide a identification number!")]
@@ -66,6 +71,6 @@ namespace Demo.Models
 
         [ValidateNever]
         [JsonProperty("updated_at")]
-        public string updated_at { get; set;} = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
+        public string updated_at { get; set; } = DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss");
     }
 }

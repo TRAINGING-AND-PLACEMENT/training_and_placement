@@ -187,8 +187,15 @@
     <script>
         $(document).ready(function () {
             // alert('ready');
-            // var rVal = $("#bond:checked").val();
-            //alert(rVal);
+            var rVal = $("#bond:checked").val();
+            if (rVal === "Yes") {
+                $('#bond_condition_div').show();
+
+            } else if (rVal === "No") {
+
+                $('#bond_condition_div').hide();
+
+            }
 
             $('.bond').change(function () {
                 if ($(this).val() === "Yes") {

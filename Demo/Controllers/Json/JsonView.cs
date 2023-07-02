@@ -86,6 +86,10 @@ namespace Demo.Controllers.Json
         [AllowNull]
         public List<Company> Companies { get; set; }
 
+        [JsonProperty("appliedcompanies")]
+        [AllowNull]
+        public List<Appliedcompany> appliedcompanies { get; set; }
+
         [JsonProperty("company")]
         public Company[] Company { get; set; }
 

@@ -193,7 +193,7 @@ namespace Demo.Controllers
                         companymodel.Add(Company);
                     }
                 }
-                HttpResponseMessage response3 = client.GetAsync(client.BaseAddress + "getsession").Result;
+                HttpResponseMessage response3 = client.GetAsync(client.BaseAddress + "getsessiondetails").Result;
                 if (response3.IsSuccessStatusCode)
                 {
                     String data = response3.Content.ReadAsStringAsync().Result;
@@ -523,7 +523,7 @@ namespace Demo.Controllers
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
-                List<Company> model = new List<Company>();
+                List<Appliedcompany> model = new List<Appliedcompany>();
 
                 HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getappliedcompanies").Result;
                 if (response.IsSuccessStatusCode)
@@ -532,9 +532,9 @@ namespace Demo.Controllers
                     Debug.WriteLine(data);
                     var companies = JsonDecode.FromJson(data);
 
-                    if (companies.Companies != null)
+                    if (companies.appliedcompanies != null)
                     {
-                        foreach (var company in companies.Companies)
+                        foreach (var company in companies.appliedcompanies)
                         {
                             model.Add(company);
                         }
