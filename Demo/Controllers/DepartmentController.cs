@@ -112,8 +112,7 @@ namespace Demo.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         String result = response.Content.ReadAsStringAsync().Result;
-                        Debug.Write(result);
-                        TempData["success"] = "Department inserted.";
+                            TempData["success"] ="Department Inserted";
                         return RedirectToAction("View_Department");
                     }
                 }
