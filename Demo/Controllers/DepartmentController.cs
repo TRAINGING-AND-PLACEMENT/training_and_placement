@@ -108,11 +108,19 @@ namespace Demo.Controllers
                     String data = JsonConvert.SerializeObject(model);
                     Debug.WriteLine(data);
                     StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "set_department", content).Result;
+                    HttpResponseMessage response = client.PostAsync(client.BaseAddress + "set_single_department", content).Result;
                     if (response.IsSuccessStatusCode)
                     {
                         String result = response.Content.ReadAsStringAsync().Result;
-                            TempData["success"] ="Department Inserted";
+                        var msg = JsonDecode.FromJson(result);
+                        if (msg.Success)
+                        {
+                            TempData["success"] = msg.message;
+                        }
+                        else
+                        {
+                            TempData["error"] = msg.message;
+                        }
                         return RedirectToAction("View_Department");
                     }
                 }
