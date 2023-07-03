@@ -6,7 +6,7 @@ namespace Demo.api
     {
         HttpClient client;
         HttpResponseMessage response;
-        Uri baseAddress = new Uri("http://127.0.0.1/api/api_modify.php?what=");
+        Uri baseAddress = new Uri("http://169.254.223.131//api/api_modify.php?what=");
 
         public System.Uri api()
         {   
