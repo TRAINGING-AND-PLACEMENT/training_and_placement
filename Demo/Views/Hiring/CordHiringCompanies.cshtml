@@ -31,7 +31,7 @@
                                             <th>Job Location</th>
                                             <th>Interview Mode</th>
                                             <th>Interview Location</th>
-                                            <th>Action</th>
+                                            <th width="150px">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -90,7 +90,8 @@
             var table = $("#company-table").DataTable({
                 "scrollX": true,
                 pageLength: 5,
-                lengthMenu: [5, 10, 20]
+                lengthMenu: [5, 10, 20],
+                order: []
             })
         });
     </script>

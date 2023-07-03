@@ -29,7 +29,7 @@
                                             <td>Email</td>
                                             <td>Alternate Email</td>
                                             <td>Total Applications</td>
-                                            <td width="130px">Action</td>
+                                            <td width="150px">Action</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -72,7 +72,8 @@
             var table = $("#company-table").DataTable({
                 "scrollX": true,
                 pageLength: 5,
-                lengthMenu: [5, 10, 20]
+                lengthMenu: [5, 10, 20],
+                order: []
             })
         });
     </script>
