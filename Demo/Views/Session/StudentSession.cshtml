@@ -77,15 +77,16 @@
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Student Salary Details</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Update Student Batch</h5>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <form id="selectform" method="post" asp-controller="Session" asp-action="StudentDeafultSession" asp-route-id=@item.id>
                                                                     <div class="modal-body">
                                                                         <div class="input-group-prepend">
-                                                                            <label class="input-group-text" for="sessionDropdown">session</label>
+                                                                            <label class="input-group-text" for="sessionDropdown">Session</label>
                                                                         </div>
-                                                                        <select name="session" class="custom-select" id="sessionDropdown">
+                                                                        <br>
+                                                                            <select name="session" class="form-select" id="sessionDropdown">
                                                                             @foreach (var ss in ViewBag.sessions)
                                                                             {
                                                                                 if (ss.default_year == 1)

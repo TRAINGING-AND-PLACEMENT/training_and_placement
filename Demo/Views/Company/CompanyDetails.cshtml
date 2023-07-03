@@ -1,5 +1,12 @@
 ﻿@model ViewHiring
 @inject IHttpContextAccessor context;
+<style>
+    .highlight {
+        background-color: #e2f0ff;
+        color: red;
+        font-weight:400;
+    }
+</style>
 <div class="main-content" style="margin-left:10%;width:100%;">
     <div class="page-content">
         <div class="container-fluid">
@@ -33,7 +40,7 @@
                                                                         <li><i class="fas fa-map-marker-alt me-1 align-middle"></i> Job Location :- @hiring.joblocation</li>
                                                                         <li><i class="fas fa-calendar me-1 align-middle"></i> Joining Date :- @hiring.joindate</li>
                                                                         <li><i class="fas fa-calendar-check me-1 align-middle"></i> Date of starting :- @hiring.startdate</li>
-                                                                        <li><i class="fas fa-calendar-times me-1 align-middle"></i> Date of ending :- @hiring.enddate</li>
+                                                                            <li><i class="fas fa-calendar-times me-1 align-middle"></i> Date of ending :- <span id="enddate">@hiring.enddate</span></li>
                                                                     </ul>
 
                                                                 </div>
@@ -74,12 +81,17 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                    <!--JS code to check with sys date-->
+                                                        <script>
+                                                            window.onload = function () {
+                                                                checkEndDate("@hiring.enddate");
+                                                            }
+                                                        </script>
                                                         @foreach (var stud in Model.students)
                                                         {
                                                             if (stud.surname == null || stud.ten_school == null || stud.twelve_school == null || stud.ug_degree == null || stud.pg_degree == null)
                                                             {
-                                                                <button class="btn btn-danger" style="float:right" disabled>Please Fill The Education Details And Your Profile For Apply the Company</button>
+                                                                <button class="btn btn-danger" style="float:right" disabled>You must complete your profile as well as fill in academic details to apply</button>
                                                             }
                                                             else
                                                             {
@@ -100,12 +112,12 @@
                                                                     }
                                                                     else
                                                                     {
-                                                                        <button class="btn btn-primary w-xs waves-effect waves-light" style="float:right">Apply Now</button>
+                                                                        <button class="btn btn-primary w-xs waves-effect waves-light" id="applyButton" style="float:right">Apply Now</button>
                                                                     }
                                                                 </a>
                                                             }
                                                         }
-                                                        
+                                                       
                                                         
 
                                                     <div class="mt-4">
@@ -161,11 +173,8 @@
                                                     </div>
                                                 }
                                             }
-                                    }     
-                                                                   
-                        
-                     
-                                }
+                                    }                      
+                                 }
                                </div>
                             </div>
                         </div>
@@ -175,5 +184,22 @@
             </div>
         </div>
     </div>
+    <script>
+        function checkEndDate(endDate) {
+            var systemDate = new Date();
+
+            var year = parseInt(endDate.substring(0, 4));
+            var month = parseInt(endDate.substring(5, 7)) - 1;
+            var day = parseInt(endDate.substring(8, 10));
+            var hiringEndDate = new Date(year, month, day);
+
+            if (systemDate > hiringEndDate) {
+                document.getElementById("applyButton").disabled = true;
+                document.getElementById("applyButton").innerText = "Deadline expired.";
+                document.getElementById("enddate").classList.add("highlight");
+            }
+        }
+    </script>
 </div>
+
 
