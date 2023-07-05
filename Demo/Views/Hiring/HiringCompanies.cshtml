@@ -130,15 +130,29 @@
                                                                         {
                                                                             if (item.id == student.hiring_id)
                                                                             {
+                                                                                if (student.status == 0)
+                                                                                {
+                                                                                    <div class="d-flex flex-wrap gap-3 justify-content-center">
+                                                                                        <i style=" color:rgb(91, 115, 232)" class="fas fa-stopwatch fa-lg" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="Response Pending! Please wait a bit further."></i>
+                                                                                    </div>
+                                                                                }
                                                                                 if (student.status == 1)
                                                                                 {
-                                                                                    <div class="d-flex flex-wrap gap-3">
+                                                                                    <div class="d-flex flex-wrap gap-3 justify-content-center">
                                                                                         <!-- Center Modal -->
                                                                                         <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"> More Info</button>
                                                                                     </div>
                                                                                 }
 
+                                                                                if (student.status == 2)
+                                                                                {
+                                                                                    <div class="d-flex flex-wrap gap-3 justify-content-center">
+                                                                                        <i style="color:red;" class="far fa-window-close fa-lg" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="Application Rejected"></i>
+                                                                                    </div>
+                                                                                }
+
                                                                             }
+
                                                                         }
                                                                     }
                                                                 </td>
