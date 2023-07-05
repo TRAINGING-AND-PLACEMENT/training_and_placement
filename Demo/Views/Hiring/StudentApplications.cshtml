@@ -22,7 +22,11 @@
                                 {
                                     <thead>
                                         <tr class="table-primary">
-                                            <td>Company Identfication Number</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                CIF<i class="fas fa-info-circle" style="margin-left:4px" data-bs-container="#tooltip-container" data-bs-toggle="tooltip" data-bs-placement="top" title="Company Identification Number"></i>
+                                               </div>
+                                            </td>
                                             <td>Name</td>
                                             <td>Contact</td>
                                             <td>Alternate Contact</td>
@@ -44,12 +48,14 @@
                                                 <td>@item.alt_email</td>
                                                 <td>@item.counts</td>
                                                 <td>
-                                                    <a asp-controller="Hiring" asp-action="StdAppList" class="btn btn-outline-info " asp-route-id="@item.id">
+                                                    <div class="btn-group" role="group">
+                                                    <a asp-controller="Hiring" asp-action="StdAppList" class="btn btn-outline-info me-2" asp-route-id="@item.id">
                                                         Details
                                                     </a>
                                                     <a asp-controller="Export" asp-action="ExportDataToFile" class="btn btn-outline-success" asp-route-Export="appliedcompanystudent" asp-route-cid="@item.id">
                                                         Export
                                                     </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         }
