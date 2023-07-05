@@ -10,8 +10,10 @@
                 <th>Email</th>
                 <th>Contact</th>
                 <th>Company</th>
-                <th>Stipend</th>
-                <th>Salary</th>
+                <th>MaxStipend</th>
+                <th>MinStipend</th>
+                <th>MaxSalary</th>
+                <th>MinSalary</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -33,8 +35,10 @@
                     <td>@item.student_email</td>
                     <td>@item.student_contact</td>
                     <td>@item.company_name</td>
-                    <td>@item.stipend</td>
-                    <td>@item.salary</td>
+                    <td>@item.max_stipend</td>
+                    <td>@item.min_stipend</td>
+                    <td>@item.max_salary</td>
+                    <td>@item.min_salary</td>
                     @if(item.status == 0)
                     {
                         <td>Pending</td>

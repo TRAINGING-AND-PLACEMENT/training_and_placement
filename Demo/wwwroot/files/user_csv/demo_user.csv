@@ -1,6 +1,7 @@
 id,name,email,password,role
 0,demo13,s@gmail.com,1234,0
 1,uday,uday@gmail.com,1234,0
+0,sanu,sanu@gmail.com,1234,0
 2,suryakant,surya@gmail.com,1234,0
 3,Anupama,anu@gmail.com,1234,0
 4,fenil,fenil@gmail.com,1234,0

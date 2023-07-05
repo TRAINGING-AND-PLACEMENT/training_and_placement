@@ -188,8 +188,10 @@ namespace Demo.Controllers
                                                             new DataColumn("Email"),
                                                             new DataColumn("Contact"),
                                                             new DataColumn("Company"),
-                                                            new DataColumn("Stipend"),
-                                                            new DataColumn("Salary"),
+                                                            new DataColumn("MaxStipend"),
+                                                            new DataColumn("MinStipend"),
+                                                            new DataColumn("MaxSalary"),
+                                                            new DataColumn("MinSalary"),
                                                             new DataColumn("Status")
                                                         });
 
@@ -209,13 +211,13 @@ namespace Demo.Controllers
                     status = "Rejected";
                 }
                 dtstdreport.Rows.Add(r.label, r.department_name, r.enrollment, r.student_surname + " " + r.student_firstname + " " + r.student_lastname, r.student_email, r.student_contact,
-                                        r.company_name, r.stipend, r.salary, status);
+                                        r.company_name, r.max_stipend, r.min_stipend, r.min_salary, r.max_salary, status);
 
             }
 
             return dtstdreport;
         }
-        private void ExportToCsv(DataTable getanydata)
+        private void ExportToCsv(DataTable getanydata, String name)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -231,7 +233,7 @@ namespace Demo.Controllers
             }
             byte[] byteArray = ASCIIEncoding.ASCII.GetBytes(sb.ToString());
             Response.Clear();
-            Response.Headers.Add("content-disposition", "attachment;filename=ExportFile.csv");
+            Response.Headers.Add("content-disposition", "attachment;filename="+name);
             Response.ContentType = "application/text";
             Response.Body.WriteAsync(byteArray);
             Response.Body.Flush();
@@ -247,15 +249,15 @@ namespace Demo.Controllers
             {
                 case "appliedcompanystudent":
                     getanydata = GetStudentDetails(cid);
-                    ExportToCsv(getanydata);
+                    ExportToCsv(getanydata, "AppliedStudent.csv");
                     break;
                 case "studentuser":
                     getanydata = GetStudentUser();
-                    ExportToCsv(getanydata);
+                    ExportToCsv(getanydata,"UserLoginDetails.csv");
                     break;
                 case "StdAppReport":
                     getanydata = GetStudentApplicationReport(sid, did, cid, stid, include);
-                    ExportToCsv(getanydata);
+                    ExportToCsv(getanydata, "ApplicationReport.csv");
                     break;
             }
             return null;
