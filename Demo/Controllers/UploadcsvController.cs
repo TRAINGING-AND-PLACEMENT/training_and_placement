@@ -36,8 +36,29 @@ namespace Demo.Controllers
             context.HttpContext.Session.Remove("sessionid");
             context.HttpContext.Session.Remove("studentid");
         }
-        
-        
+
+        [HttpGet]
+        public IActionResult validUser(String email, String session)
+        {
+            bool isValid = true;
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "valid_user&email=" + email + "&session="+session ).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                String data = response.Content.ReadAsStringAsync().Result;
+                var msg = JsonDecode.FromJson(data);
+                if (msg.Success)
+                {
+                    isValid = msg.Success;
+                }
+                else
+                {
+                    isValid = msg.Success;
+                }
+            }
+
+            return Json(new { isValid });
+        }
+
         //user details
         public IActionResult Index()
         {
@@ -173,7 +194,15 @@ namespace Demo.Controllers
                 {
                     String data2 = response.Content.ReadAsStringAsync().Result;
                     Debug.Write(data2);
-                    TempData["success"] = "User inserted.";
+                    var msg = JsonDecode.FromJson(data2);
+                    if (msg.Success)
+                    {
+                        TempData["success"] = msg.message + " and " + msg.datacount + " repeated data skipped.";
+                    }
+                    else
+                    {
+                        TempData["error"] = msg.message;
+                    }
                     return RedirectToAction("Index");
                 }
             }
@@ -257,7 +286,7 @@ namespace Demo.Controllers
                         {
                             TempData["error"] = msg.message;
                         }
-                        return RedirectToAction("Index");
+                        return RedirectToAction("insert_user");
                     }
                 }
                 return View(model);

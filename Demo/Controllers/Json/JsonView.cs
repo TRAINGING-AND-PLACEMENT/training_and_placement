@@ -26,6 +26,10 @@ namespace Demo.Controllers.Json
         [AllowNull]
         public String Jid { get; set; }
 
+        [JsonProperty("datacount")]
+        [AllowNull]
+        public String datacount { get; set; }
+
         [JsonProperty("status")]
         [AllowNull]
         public String status { get; set; }

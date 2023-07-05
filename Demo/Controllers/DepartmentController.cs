@@ -6,6 +6,7 @@ using Demo.api;
 using Demo.Controllers.Json;
 using Demo.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 //using Microsoft.CodeAnalysis.Elfie.Serialization;
@@ -14,6 +15,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.Intrinsics.Arm;
 using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 namespace Demo.Controllers
@@ -36,6 +38,28 @@ namespace Demo.Controllers
             context.HttpContext.Session.Remove("userid");
             context.HttpContext.Session.Remove("sessionid");
             context.HttpContext.Session.Remove("studentid");
+        }
+
+        [HttpGet]
+        public IActionResult validDepartment(String dep)
+        {
+            bool isValid = true;
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "valid_department&department=" + dep).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                String data = response.Content.ReadAsStringAsync().Result;
+                var msg = JsonDecode.FromJson(data);
+                if (msg.Success)
+                {
+                    isValid = msg.Success;
+                }
+                else
+                {
+                    isValid = msg.Success;
+                }
+            }
+
+            return Json(new { isValid });
         }
         public IActionResult UploadDepartment()
         {
@@ -80,7 +104,15 @@ namespace Demo.Controllers
                 {
                     String data2 = response.Content.ReadAsStringAsync().Result;
                     Debug.Write(data2);
-                    TempData["success"] = "Department inserted.";
+                    var msg = JsonDecode.FromJson(data2);
+                    if (msg.Success)
+                    {
+                        TempData["success"] = msg.message+" and "+msg.datacount+" repeated data skipped.";
+                    }
+                    else
+                    {
+                        TempData["error"] = msg.message;
+                    }
                     return RedirectToAction("View_Department");
                 }
             }
@@ -121,7 +153,7 @@ namespace Demo.Controllers
                         {
                             TempData["error"] = msg.message;
                         }
-                        return RedirectToAction("View_Department");
+                        return View();
                     }
                 }
                 return View(model);
