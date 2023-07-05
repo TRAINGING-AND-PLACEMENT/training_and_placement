@@ -50,15 +50,24 @@ namespace Demo.Models
 
         [Required(ErrorMessage = "You must provide a Stipend !")]
         [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
-        [JsonProperty("stipend")]
-        public double stipend { get; set; }
+        [JsonProperty("min_stipend")]
+        public double min_stipend { get; set; }
+
+        [Required(ErrorMessage = "You must provide a Stipend !")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
+        [JsonProperty("max_stipend")] 
+        public double max_stipend { get; set; }
 
         [Required(ErrorMessage = "You must provide a minimum package!")]
         [JsonProperty("minimum_package")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
+        [DisplayName("Minimum Salary")]
         public string minimum_package { get; set; }
 
         [Required(ErrorMessage = "You must provide a maximum package !")]
         [JsonProperty("maximum_package")]
+        [RegularExpression(@"^\d+$", ErrorMessage = "Not a valid number")]
+        [DisplayName("Maximum Salary")]
         public string maximum_package { get; set; }
 
         [Required(ErrorMessage = "You must provide a bonus")]

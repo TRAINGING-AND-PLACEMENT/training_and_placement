@@ -585,12 +585,18 @@ namespace Demo.Controllers
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
-                var stipend = collection["sti"];
-                var salary = collection["sal"];
+                var min_stipend = collection["minsti"];
+                var max_stipend = collection["maxsti"];
+                var min_salary = collection["minsal"];
+                var max_salary = collection["maxsal"];
+                var doj = collection["joining"];
                 var pairs = new Dictionary<string, string>
                             {
-                                { "stipend", stipend },
-                                { "salary", salary },
+                                { "min_stipend", min_stipend },
+                                { "max_stipend", max_stipend },
+                                { "min_salary", min_salary },
+                                { "max_salary", max_salary },
+                                { "doj", doj}
                             };
                 String data = JsonConvert.SerializeObject(pairs);
                 StringContent content = new StringContent(data, Encoding.UTF8, "application/json");

@@ -75,9 +75,15 @@
                                     </div>
 
                                     <div class="col-md-6 col-md-2">
-                                        <label for="example-number-input" class="col col-form-label">Stipend</label>
-                                        <input asp-for="@Model.Hiring.stipend" class="form-control" type="text" id="stipend">
-                                        <span asp-validation-for="@Model.Hiring.stipend" class="text-danger"></span>
+                                        <label for="example-number-input" class="col col-form-label">Minimum Stipend</label>
+                                        <input asp-for="@Model.Hiring.min_stipend" class="form-control" type="text" id="stipend">
+                                        <span asp-validation-for="@Model.Hiring.min_stipend" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6 col-md-2">
+                                        <label for="example-number-input" class="col col-form-label">Maximum Stipend</label>
+                                        <input asp-for="@Model.Hiring.max_stipend" class="form-control" type="text" id="stipend">
+                                        <span asp-validation-for="@Model.Hiring.max_stipend" class="text-danger"></span>
                                     </div>
 
                                     <div class="col-md-6 col-md-2">

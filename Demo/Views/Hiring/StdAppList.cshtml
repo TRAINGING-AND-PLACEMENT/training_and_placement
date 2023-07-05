@@ -64,12 +64,24 @@
                                                                     <form id="selectform" method="post" asp-controller="Hiring" asp-action="pendingshortlisted" asp-route-id=101 asp-route-sid=@item.id asp-route-hid=@item.hiring_id>
                                                                         <div class="modal-body">
                                                                             <div class="mb-3">
-                                                                                <label for="exampleInputEmail1" class="form-label">Stipend</label>
-                                                                                <input type="text" name="sti" class="form-control">
+                                                                                <label for="exampleInputEmail1" class="form-label">Minimum Stipend</label>
+                                                                                <input type="text" name="minsti" class="form-control">
                                                                             </div>
                                                                             <div class="mb-3">
-                                                                                <label for="exampleInputPassword1" class="form-label">Salary</label>
-                                                                                <input type="text" name="sal" class="form-control">
+                                                                                <label for="exampleInputEmail1" class="form-label">Maximum Stipend</label>
+                                                                                <input type="text" name="maxsti" class="form-control">
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <label for="exampleInputPassword1" class="form-label">Minimum Salary</label>
+                                                                                <input type="text" name="minsal" class="form-control">
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <label for="exampleInputPassword1" class="form-label">Maximum Salary</label>
+                                                                                <input type="text" name="maxsal" class="form-control">
+                                                                            </div>
+                                                                            <div class="mb-3">
+                                                                                <label for="exampleInputPassword1" class="form-label">Joining Date</label>
+                                                                                <input type="date" name="joining" class="form-control" required>
                                                                             </div>
                                                                         </div>
                                                                         <div class="modal-footer">
