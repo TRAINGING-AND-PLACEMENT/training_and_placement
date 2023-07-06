@@ -1,7 +1,7 @@
 ﻿@model List<Appliedcompany>
 
 <!--Total Companies page-->
-<div class="main-content" style="margin-left:7%;width:110%;">
+<div class="main-content" style="margin-left:-9%;width:140%;">
     <div class="page-content">
         <div class="container-fluid">
             <div class="row">
@@ -32,6 +32,8 @@
                                             <td>Alternate Contact</td>
                                             <td>Email</td>
                                             <td>Alternate Email</td>
+                                            <td>Designation</td>
+                                            <td>Job Location</td>
                                             <td>Total Applications</td>
                                             <td width="150px">Action</td>
                                         </tr>
@@ -46,13 +48,15 @@
                                                 <td>@item.alt_contact</td>
                                                 <td>@item.email</td>
                                                 <td>@item.alt_email</td>
+                                                <td>@item.designation</td>
+                                                <td>@item.joblocation</td>
                                                 <td>@item.counts</td>
                                                 <td>
                                                     <div class="btn-group" role="group">
-                                                    <a asp-controller="Hiring" asp-action="StdAppList" class="btn btn-outline-info me-2" asp-route-id="@item.id">
+                                                    <a asp-controller="Hiring" asp-action="StdAppList" class="btn btn-outline-info me-2" asp-route-hid="@item.hid">
                                                         Details
                                                     </a>
-                                                    <a asp-controller="Export" asp-action="ExportDataToFile" class="btn btn-outline-success" asp-route-Export="appliedcompanystudent" asp-route-cid="@item.id">
+                                                    <a asp-controller="Export" asp-action="ExportDataToFile" class="btn btn-outline-success" asp-route-Export="appliedcompanystudent" asp-route-hid="@item.hid" asp-route-name="@item.name - @item.designation">
                                                         Export
                                                     </a>
                                                     </div>

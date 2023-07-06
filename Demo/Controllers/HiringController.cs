@@ -550,13 +550,13 @@ namespace Demo.Controllers
             }
         }
 
-        public IActionResult StdAppList(int id)
+        public IActionResult StdAppList(int hid)
         {
             if (@context.HttpContext.Session.GetInt32("role") == 2)
             {
                 List<pendingshortlist> model = new List<pendingshortlist>();
 
-                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getappliedstudents&id=" + id).Result;
+                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getappliedstudents&hid=" + hid).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     String data = response.Content.ReadAsStringAsync().Result;

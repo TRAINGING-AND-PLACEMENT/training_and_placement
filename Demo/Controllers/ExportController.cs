@@ -33,11 +33,11 @@ namespace Demo.Controllers
         {
             return View();
         }
-        private DataTable GetStudentDetails(int cid)
+        private DataTable GetStudentDetails(int hid)
         {
             List<Student> model = new List<Student>();
 
-            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstudentdetail&cid="+cid).Result;
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstudentdetail&hid="+hid).Result;
             if (response.IsSuccessStatusCode)
             {
                 String data = response.Content.ReadAsStringAsync().Result;
@@ -239,7 +239,7 @@ namespace Demo.Controllers
             Response.Body.Flush();
         }
 
-        public IActionResult ExportDataToFile(String Export, int sid, int did, int cid, int stid, string include)
+        public IActionResult ExportDataToFile(String Export, int sid, int did, int cid, int stid, int hid, string include, string name)
         {
             //var dictioneryexportType = Request.Form.ToDictionary(x => x.Key, x => x.Value.ToString());
             //var exportType = dictioneryexportType["Export"];
@@ -248,8 +248,8 @@ namespace Demo.Controllers
             switch (exportType)
             {
                 case "appliedcompanystudent":
-                    getanydata = GetStudentDetails(cid);
-                    ExportToCsv(getanydata, "AppliedStudent.csv");
+                    getanydata = GetStudentDetails(hid);
+                    ExportToCsv(getanydata, name+".csv");
                     break;
                 case "studentuser":
                     getanydata = GetStudentUser();

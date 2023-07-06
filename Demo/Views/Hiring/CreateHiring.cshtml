@@ -49,13 +49,8 @@
                                         <span asp-validation-for="@Model.Hiring.company_id" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
-                                        <label for="example-number-input" class=" col-form-label">Designation</label>
-                                        <input asp-for="@Model.Hiring.designation" class="form-control" type="text" id="designation">
-                                        <span asp-validation-for="@Model.Hiring.designation" class="text-danger"></span>
-                                    </div>
-                                    <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label" col-form-label">Department</label>
-                                        <select asp-for="@Model.Hiring.department_id" class="form-select js-example-basic-multiple"  multiple="multiple">
+                                        <select asp-for="@Model.Hiring.department_id" class="form-select js-example-basic-multiple" multiple="multiple">
                                             @foreach (var department in Model.Departments)
                                             {
                                                 <option value="@department.id">@department.department</option>
@@ -65,7 +60,7 @@
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label" col-form-label">Sector</label>
-                                        <select asp-for="@Model.Hiring.sector_id" class="form-select js-example-basic-multiple"  multiple="multiple">
+                                        <select asp-for="@Model.Hiring.sector_id" class="form-select js-example-basic-multiple" multiple="multiple">
                                             @foreach (var sector in Model.Sectors)
                                             {
                                                 <option value="@sector.id">@sector.sector</option>
@@ -73,23 +68,20 @@
                                         </select>
                                         <span asp-validation-for="@Model.Hiring.sector_id" class="text-danger"></span>
                                     </div>
-
+                                    <div class="col-md-12 col-md-2">
+                                        <label for="example-number-input" class=" col-form-label">Designation</label>
+                                        <input asp-for="@Model.Hiring.designation" class="form-control" type="text" id="designation">
+                                        <span asp-validation-for="@Model.Hiring.designation" class="text-danger"></span>
+                                    </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Minimum Stipend</label>
                                         <input asp-for="@Model.Hiring.min_stipend" class="form-control" type="text" id="stipend">
                                         <span asp-validation-for="@Model.Hiring.min_stipend" class="text-danger"></span>
                                     </div>
-
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Maximum Stipend</label>
                                         <input asp-for="@Model.Hiring.max_stipend" class="form-control" type="text" id="stipend">
                                         <span asp-validation-for="@Model.Hiring.max_stipend" class="text-danger"></span>
-                                    </div>
-
-                                    <div class="col-md-6 col-md-2">
-                                        <label for="example-number-input" class="col col-form-label">Performance Incentives</label>
-                                        <input asp-for="@Model.Hiring.performance_inc" class="form-control" type="text" id="performance_inc">
-                                        <span asp-validation-for="@Model.Hiring.performance_inc" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Minimum Package</label>
@@ -106,10 +98,10 @@
                                         <input asp-for="@Model.Hiring.bonus" class="form-control" type="text" id="bonus">
                                         <span asp-validation-for="@Model.Hiring.bonus" class="text-danger"></span>
                                     </div>
-                                    <div class="col-md-6 col-md-2 ">
-                                        <label for="example-number-input" class="col col-form-label">Joining Date</label>
-                                        <input asp-for="@Model.Hiring.joindate" class="form-control" type="date" id="joindate">
-                                        <span asp-validation-for="@Model.Hiring.joindate" class="text-danger"></span>
+                                    <div class="col-md-6 col-md-2">
+                                        <label for="example-number-input" class="col col-form-label">Performance Incentives</label>
+                                        <input asp-for="@Model.Hiring.performance_inc" class="form-control" type="text" id="performance_inc">
+                                        <span asp-validation-for="@Model.Hiring.performance_inc" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6 col-md-2 ">
                                         <label for="example-number-input" class="col col-form-label">Start Date</label>
@@ -121,6 +113,16 @@
                                         <input asp-for="@Model.Hiring.enddate" class="form-control" type="date" id="enddate">
                                         <span asp-validation-for="@Model.Hiring.enddate" class="text-danger"></span>
                                     </div>
+                                    <div class="col-md-6 col-md-2 ">
+                                        <label for="example-number-input" class="col col-form-label">Joining Date</label>
+                                        <input asp-for="@Model.Hiring.joindate" class="form-control" type="date" id="joindate">
+                                        <span asp-validation-for="@Model.Hiring.joindate" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6 col-md-2">
+                                        <label for="example-number-input" class="col col-form-label">Job Location</label>
+                                        <input asp-for="@Model.Hiring.joblocation" class="form-control" type="text" id="joblocation">
+                                        <span asp-validation-for="@Model.Hiring.joblocation" class="text-danger"></span>
+                                    </div>
                                     <div class="col-md-6 col-md-2">
                                         <label for="example-number-input" class="col col-form-label">Interview Mode</label>
                                         <input asp-for="@Model.Hiring.interview_mode" class="form-control" type="text" id="interview_mode">
@@ -130,11 +132,6 @@
                                         <label for="example-number-input" class="col col-form-label">Interview location</label>
                                         <input asp-for="@Model.Hiring.interview_location" class="form-control" type="text" id="interview_location">
                                         <span asp-validation-for="@Model.Hiring.interview_location" class="text-danger"></span>
-                                    </div>
-                                    <div class="col-md-6 col-md-2">
-                                        <label for="example-number-input" class="col col-form-label">Job Location</label>
-                                        <input asp-for="@Model.Hiring.joblocation" class="form-control" type="text" id="joblocation">
-                                        <span asp-validation-for="@Model.Hiring.joblocation" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-12">
                                         <label for="example-number-input" class="col col-form-label">Other Requirement</label>

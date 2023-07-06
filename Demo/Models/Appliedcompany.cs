@@ -13,10 +13,23 @@ namespace Demo.Models
         [JsonConverter(typeof(ParseStringConvertor))]
         public long id { get; set; }
 
+        [JsonProperty("hid")]
+        public long hid { get; set; }
+
         [JsonProperty("counts")]
         [ValidateNever]
         [AllowNull]
         public int counts { get; set; }
+
+        [JsonProperty("designation")]
+        [ValidateNever]
+        [AllowNull]
+        public string designation { get; set; }
+
+        [JsonProperty("joblocation")]
+        [ValidateNever]
+        [AllowNull]
+        public string joblocation { get; set; }
 
         [DisplayName("Company Identification Number")]
         [Required(ErrorMessage = "You must provide a identification number!")]
