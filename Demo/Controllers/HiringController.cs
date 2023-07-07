@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using NuGet.DependencyResolver;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Text;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -623,6 +624,25 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
             return View();
+        }
+        [HttpGet]
+        public IActionResult StudentJoiningData(int hid, int sid)
+        {
+            List<StudentApplication> students = new List<StudentApplication>();
+            HttpResponseMessage response = client.GetAsync(client.BaseAddress + "get_student_application&sid=" + sid + "&hid=" + hid).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                String data = response.Content.ReadAsStringAsync().Result;
+                var student = JsonDecode.FromJson(data);
+                if (student.Success)
+                {
+                    foreach (var std in student.applications)
+                    {
+                        students.Add(std);
+                    }
+                }
+            }
+            return PartialView("_StudentJoiningData", students);
         }
     }
 }

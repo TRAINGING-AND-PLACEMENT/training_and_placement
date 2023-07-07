@@ -1,0 +1,22 @@
+﻿@model List<StudentApplication>
+
+@foreach (var item in Model)
+{
+    <p id="dispText">
+        Minimum Stipend: @item.min_stipend
+    </p>
+    <p id="dispText">
+        Maximum Stipend: @item.max_stipend
+    </p>
+    <p id="dispText">
+        Minimum Salary: @item.min_salary
+    </p>
+    <p id="dispText">
+        Maximum Salary: @item.max_salary
+    </p>
+    <p id="dispText">
+        <b>Actual date of joining: @item.date_of_joining</b>
+    </p>
+}
+
+

@@ -46,11 +46,11 @@
                                             <th>Interview Mode</th>
                                             <th>Interview Location</th>
                                             <th>Hiring Details</th>
-                                             @if(@context.HttpContext.Session.GetInt32("role") == 1){
-                                            <th>Status</th>
-                                            <th> Application Date</th>
-                                            <th>Employment Details</th>
-                                             }
+                                            @if(@context.HttpContext.Session.GetInt32("role") == 1){
+                                                <th>Status</th>
+                                                <th> Application Date</th>
+                                                <th>Employment Details</th>
+                                            }
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -152,10 +152,13 @@
                                                                                 }
                                                                                 if (student.status == 1)
                                                                                 {
-                                                                                    <div class="d-flex flex-wrap gap-3 justify-content-center">
+                                                                                    <div class="d-flex flex-wrap gap-3 justify-content-center info">
+                                                                                        <input type="text" class="sid" value="@context.HttpContext.Session.GetInt32("studentid")" hidden>
+                                                                                        <input type="text" class="hid" value="@student.hiring_id" hidden>
                                                                                         <!-- Center Modal -->
-                                                                                       
-                                                                                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"> More Info</button>
+                                                                                        <button type="button" class="btn btn-outline-primary moreinfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                                                            More Info
+                                                                                        </button>
                                                                                     </div>
                                                                                 }
 
@@ -188,89 +191,19 @@
                                                     }
                                                 }
                                             }
-                                        
-                                       
-                                        
                                     </tbody>
                                 }
                             </table>
                            
-
-                            <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Employment Details</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                                            </button>
+                                            <h5 class="modal-title" id="exampleModalLabel">Employment Details</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        @{
-                                            bool found = false;
-                                            string minStipend = "";
-                                            string maxStipend = "";
-                                            string minSalary = "";
-                                            string maxSalary = "";
-                                            string dateOfJoining = "";
-                                        }
-
-                                        @foreach (var stud in Model.students)
-                                        {
-                                            foreach (var hd in Model.hiring_Departments)
-                                            {
-                                                foreach (var item in Model.Hirings)
-                                                {
-                                                    if (stud.department_id == hd.department_id && hd.hiring_id == item.id )
-                                                    {
-                                                        foreach (var student in Model.applications)
-                                                        {
-                                                            if (context.HttpContext.Session.GetInt32("studentid") == student.student_id)
-                                                            {
-                                                                if (item.id == student.hiring_id){{}}
-                                                                if (!string.IsNullOrEmpty(student.date_of_joining))
-                                                                {
-                                                                    minStipend = student.min_stipend;
-                                                                    maxStipend = student.max_stipend;
-                                                                    minSalary = student.min_salary;
-                                                                    maxSalary = student.max_salary;
-
-                                                                    string dateString = student.date_of_joining;
-                                                                    DateTime date;
-                                                                    if (DateTime.TryParse(dateString, out date))
-                                                                    {
-                                                                        dateOfJoining = date.ToString("dd MMMM, yyyy");
-                                                                    }
-                                                                }
-                                                                found = true;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-
-                                        @if (found)
-                                        {
-                                            <div class="modal-body">
-                                                <p id="dispText">
-                                                    Minimum Stipend: @minStipend
-                                                </p>
-                                                <p id="dispText">
-                                                    Maximum Stipend: @maxStipend
-                                                </p>
-                                                <p id="dispText">
-                                                    Minimum Salary: @minSalary
-                                                </p>
-                                                <p id="dispText">
-                                                    Maximum Salary: @maxSalary
-                                                </p>
-                                                <p id="dispText">
-                                                    <b>Actual date of joining:</b> @dateOfJoining
-                                                </p>
-                                            </div>
-                                        }
-
-
-
+                                        <div class="modal-body" id="modalbody">
+                                        </div>
                                     </div><!-- /.modal-content -->
                                 </div><!-- /.modal-dialog -->
                             </div><!-- /.modal -->
@@ -293,6 +226,19 @@
                 lengthMenu: [10, 15, 25],
                 order: []
             })
+            $('.moreinfo').on('click',function () {
+                var sid = $(this).closest("div.info").find(".sid").val();
+                var hid = $(this).closest("div.info").find(".hid").val();
+
+                $.ajax({
+                    url: '@Url.Action("StudentJoiningData", "Hiring")',
+                    type: 'GET',
+                    data: { sid: sid, hid: hid },
+                    success: function (response) {
+                        $('#modalbody').html(response);
+                    }
+                });
+            });
         });
     </script>
 }
