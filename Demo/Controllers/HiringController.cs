@@ -617,32 +617,5 @@ namespace Demo.Controllers
             }
             return View();
         }
-
-        public IActionResult test()
-        {
-            if (@context.HttpContext.Session.GetInt32("role") == 2)
-            {
-                List<StudentApplication> model = new List<StudentApplication>();
-
-                HttpResponseMessage response = client.GetAsync(client.BaseAddress + "getstduentapplication").Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    String data = response.Content.ReadAsStringAsync().Result;
-                    var applications = JsonDecode.FromJson(data);
-                    Debug.WriteLine(applications);
-                    foreach (var application in applications.applications)
-                    {
-                        model.Add(application);
-                    }
-                }
-                return View(model);
-            }
-            else
-            {
-                TempData["serror"] = "You have to login with co-ordinator id and password to access the page.";
-                DestorySession();
-                return RedirectToAction("Login", "User");
-            }
-        }
     }
 }

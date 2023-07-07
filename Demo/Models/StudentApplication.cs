@@ -11,11 +11,17 @@ namespace Demo.Models
         [JsonProperty("student_id")]
         public long student_id { get; set; }
 
-        [JsonProperty("stipend")]
-        public string stipend { get; set; }
+        [JsonProperty("max_stipend")]
+        public string max_stipend { get; set; }
 
-        [JsonProperty("salary")]
-        public string salary { get; set; }
+        [JsonProperty("min_stipend")]
+        public string min_stipend { get; set; }
+
+        [JsonProperty("max_salary")]
+        public string max_salary { get; set; }
+
+        [JsonProperty("min_salary")]
+        public string min_salary { get; set; }
 
         [ValidateNever]
         public int status { get; set; }
