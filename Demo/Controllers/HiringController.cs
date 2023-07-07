@@ -151,7 +151,6 @@ namespace Demo.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
-
         public IActionResult HiringCompanies()
         {
             if (@context.HttpContext.Session.GetInt32("role") == 1)
@@ -221,10 +220,18 @@ namespace Demo.Controllers
                         {
                             var Student = new StudentApplication
                             {
+                                id = student.id,
                                 student_id = student.student_id,
                                 hiring_id = student.hiring_id,
+                                min_stipend = student.min_stipend,
+                                max_stipend = student.max_stipend,
+                                min_salary = student.min_salary,
+                                max_salary = student.max_salary,
+                                date_of_joining = student.date_of_joining,
                                 status = student.status,
-                                created_at = student.created_at
+                                created_at = student.created_at,
+                                updated_at = student.updated_at
+
                             };
                             studentApplicationModel.Add(Student);
                         }

@@ -1,6 +1,23 @@
 ﻿@model ViewHiring
 @inject IHttpContextAccessor context;
 <!--Total Companies page-->
+<style>
+    .modal-content {
+        background: linear-gradient(to bottom right, rgb(91, 115, 232), #ffffff);
+    }
+    #dispText{
+        color: #333333;
+        font-size:20px;
+        margin-bottom:5px;
+    }
+
+    .modal-title {
+        font-size: 25px;
+        color: #ffffff;
+        text-shadow: 2px 2px 2px #333333;
+        text-shadow: 2px 2px 2px rgb(91, 115, 232);
+    }
+</style>
 <div class="main-content" style="margin-left:4%;width:115%;">
     <div class="page-content">
         <div class="container-fluid">
@@ -8,10 +25,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            @if(@context.HttpContext.Session.GetInt32("role") == 2)
-                            {
-                                <a asp-controller="Hiring" asp-action="CreateHiring" style="float:right" class="btn btn-primary waves-effect waves-light mb-2">Add Hring</a>
-                            }
+                           
                             <h4 class="card-title">Hirings List</h4>
                             <p class="card-title-desc">
 
@@ -140,6 +154,7 @@
                                                                                 {
                                                                                     <div class="d-flex flex-wrap gap-3 justify-content-center">
                                                                                         <!-- Center Modal -->
+                                                                                       
                                                                                         <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target=".bs-example-modal-center"> More Info</button>
                                                                                     </div>
                                                                                 }
@@ -189,23 +204,73 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                             </button>
                                         </div>
-                                        <div class="modal-body">
-                                            <p>
-                                               Minimum Stipend :- 
-                                            </p>
-                                            <p>
-                                                Maximum Stipend :-
-                                            </p>
-                                            <p>
-                                                Minimum Salary :-
-                                            </p>
-                                            <p>
-                                                Maximum Salary :-
-                                            </p>
-                                            <p>
-                                                <b>Actual date of joining</b> :-
-                                            </p>
-                                        </div>
+                                        @{
+                                            bool found = false;
+                                            string minStipend = "";
+                                            string maxStipend = "";
+                                            string minSalary = "";
+                                            string maxSalary = "";
+                                            string dateOfJoining = "";
+                                        }
+
+                                        @foreach (var stud in Model.students)
+                                        {
+                                            foreach (var hd in Model.hiring_Departments)
+                                            {
+                                                foreach (var item in Model.Hirings)
+                                                {
+                                                    if (stud.department_id == hd.department_id && hd.hiring_id == item.id )
+                                                    {
+                                                        foreach (var student in Model.applications)
+                                                        {
+                                                            if (context.HttpContext.Session.GetInt32("studentid") == student.student_id)
+                                                            {
+                                                                if (item.id == student.hiring_id){{}}
+                                                                if (!string.IsNullOrEmpty(student.date_of_joining))
+                                                                {
+                                                                    minStipend = student.min_stipend;
+                                                                    maxStipend = student.max_stipend;
+                                                                    minSalary = student.min_salary;
+                                                                    maxSalary = student.max_salary;
+
+                                                                    string dateString = student.date_of_joining;
+                                                                    DateTime date;
+                                                                    if (DateTime.TryParse(dateString, out date))
+                                                                    {
+                                                                        dateOfJoining = date.ToString("dd MMMM, yyyy");
+                                                                    }
+                                                                }
+                                                                found = true;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        @if (found)
+                                        {
+                                            <div class="modal-body">
+                                                <p id="dispText">
+                                                    Minimum Stipend: @minStipend
+                                                </p>
+                                                <p id="dispText">
+                                                    Maximum Stipend: @maxStipend
+                                                </p>
+                                                <p id="dispText">
+                                                    Minimum Salary: @minSalary
+                                                </p>
+                                                <p id="dispText">
+                                                    Maximum Salary: @maxSalary
+                                                </p>
+                                                <p id="dispText">
+                                                    <b>Actual date of joining:</b> @dateOfJoining
+                                                </p>
+                                            </div>
+                                        }
+
+
+
                                     </div><!-- /.modal-content -->
                                 </div><!-- /.modal-dialog -->
                             </div><!-- /.modal -->
@@ -224,8 +289,8 @@
         $(document).ready(function () {
             var table = $("#company-table").DataTable({
                 "scrollX": true,
-                pageLength: 5,
-                lengthMenu: [5, 10, 20],
+                pageLength: 10,
+                lengthMenu: [10, 15, 25],
                 order: []
             })
         });
