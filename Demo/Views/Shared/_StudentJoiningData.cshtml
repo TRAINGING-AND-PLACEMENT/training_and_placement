@@ -15,7 +15,15 @@
         Maximum Salary: @item.max_salary
     </p>
     <p id="dispText">
-        <b>Actual date of joining: @item.date_of_joining</b>
+        <b>Actual date of joining: </b>
+            @{string dateString = item.date_of_joining;
+            DateTime date = DateTime.Parse(dateString);
+
+            string convertedDate = date.ToString("dd MMMM, yyyy");
+            Console.WriteLine(convertedDate);
+            }
+            @convertedDate
+       
     </p>
 }
 

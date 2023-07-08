@@ -52,24 +52,12 @@
                 <li class="menu-title">Hiring</li>
 
                 <li>
-                    <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="fas fa-building"></i>
-                        <span>Companies</span>
+                  
+                    <a asp-controller="Hiring" asp-action="HiringCompanies">
+                        <i class="fas fa-industry"></i>
+                        <span>View Hiring Details</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li>
-                            <a asp-controller="Hiring" asp-action="HiringCompanies">
-                                <i class="fas fa-industry"></i>
-                                <span>View Hiring Details</span>
-                            </a>
-                        </li>
-                       @* <li>
-                            <a asp-controller="Company" asp-action="AppliedCompanies">
-                                <i class="fas fa-user-plus"></i>
-                                <span>Applied Companies</span>
-                            </a>
-                        </li>*@
-                    </ul>
+                        
                 </li>
 
                 <li class="menu-title">Profile</li>

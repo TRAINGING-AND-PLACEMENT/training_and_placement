@@ -1,6 +1,25 @@
 ﻿@model List<pendingshortlist>
 @inject IHttpContextAccessor context;
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<style>
+    .modal-content {
+        background: linear-gradient(to bottom right, rgb(91, 115, 232), #ffffff);
+    }
+
+    #dispText {
+        color: #333333;
+        font-size: 16px;
+        margin-bottom: 5px;
+        font-weight: 200;
+    }
+
+    .modal-title {
+        font-size: 20px;
+        color: #ffffff;
+        text-shadow: 2px 2px 2px #333333;
+        text-shadow: 2px 2px 2px rgb(91, 115, 232);
+    }
+</style>
 <!--Total Companies page-->
 <div class="main-content" style="margin-left:4%;width:115%;">
     <div class="page-content">
@@ -42,7 +61,16 @@
                                                 <td>@item.enrollment</td>
                                                 <td>@item.gender</td>
                                                 <td>@item.contact</td>
-                                                <td>@item.dob</td>
+                                                <td>
+                                                    @{
+                                                    string dateString = item.dob;
+                                                    DateTime date = DateTime.Parse(dateString);
+
+                                                    string convertedDate = date.ToString("dd MMMM, yyyy");
+                                                    Console.WriteLine(convertedDate);
+                                                    }
+                                                    <p>@convertedDate</p>
+                                                </td>
                                                 <td>@item.adhaar</td>
                                                 <td>@item.pan</td>
                                                 @if (@context.HttpContext.Session.GetInt32("role") == 2)
@@ -58,35 +86,37 @@
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="exampleModalLabel">Student Salary Details</h5>
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Student Remuneration  Details</h5>
                                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                     </div>
                                                                     <form id="selectform" method="post" asp-controller="Hiring" asp-action="pendingshortlisted" asp-route-id=101 asp-route-sid=@item.id asp-route-hid=@item.hiring_id>
                                                                         <div class="modal-body">
                                                                             <div class="mb-3">
-                                                                                <label for="exampleInputEmail1" class="form-label">Minimum Stipend</label>
+                                                                                <label for="exampleInputEmail1" class="form-label" id="dispText">Minimum Stipend</label>
                                                                                 <input type="text" name="minsti" class="form-control">
+                                                                                <p id="error-message1"></p>
                                                                             </div>
                                                                             <div class="mb-3">
-                                                                                <label for="exampleInputEmail1" class="form-label">Maximum Stipend</label>
+                                                                                <label for="exampleInputEmail1" class="form-label" id="dispText">Maximum Stipend</label>
                                                                                 <input type="text" name="maxsti" class="form-control">
                                                                             </div>
                                                                             <div class="mb-3">
-                                                                                <label for="exampleInputPassword1" class="form-label">Minimum Salary</label>
+                                                                                <label for="exampleInputPassword1" class="form-label" id="dispText">Minimum Salary</label>
                                                                                 <input type="text" name="minsal" class="form-control">
+                                                                                <p id="error-message2"></p>
                                                                             </div>
                                                                             <div class="mb-3">
-                                                                                <label for="exampleInputPassword1" class="form-label">Maximum Salary</label>
+                                                                                <label for="exampleInputPassword1" class="form-label" id="dispText">Maximum Salary</label>
                                                                                 <input type="text" name="maxsal" class="form-control">
                                                                             </div>
                                                                             <div class="mb-3">
-                                                                                <label for="exampleInputPassword1" class="form-label">Joining Date</label>
+                                                                                <label for="exampleInputPassword1" class="form-label" id="dispText">Joining Date<p style="color:red;display:inline-block">&#42;</p></label>
                                                                                 <input type="date" name="joining" class="form-control" required>
                                                                             </div>
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
-                                                                            <button type="submit" id="submit" class="btn btn-outline-primary">Submit</button>
+                                                                            <button type="submit" id="submit" class="btn btn-outline-primary" onclick="check()">Submit</button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -138,6 +168,32 @@
                 }
             })
         });
+        var check = function () {
+                var minStipend = parseInt(document.querySelector('input[name="minsti"]').value);
+                var maxStipend = parseInt(document.querySelector('input[name="maxsti"]').value);
+                var minSalary = parseInt(document.querySelector('input[name="minsal"]').value);
+                var maxSalary = parseInt(document.querySelector('input[name="maxsal"]').value);
+
+                var errorMessage1 = document.getElementById('error-message1');
+                var errorMessage2 = document.getElementById('error-message2');
+                errorMessage1.innerHTML = '';
+                errorMessage2.innerHTML = '';
+
+                if (minStipend >= maxStipend) {
+                    errorMessage1.innerHTML = 'Minimum stipend cannot be greater than maximum stipend.<br>';
+                    errorMessage1.style.color ="red"
+                    event.preventDefault();
+                }
+
+                if (minSalary >= maxSalary) {
+                    errorMessage2.innerHTML = 'Minimum salary cannot be greater than maximum salary.<br>';
+                    errorMessage2.style.color = "red"
+                    event.preventDefault();
+                }
+           
+            }
+   
+
     </script>
 }
 
